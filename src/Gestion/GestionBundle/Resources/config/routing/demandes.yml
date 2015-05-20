@@ -1,0 +1,33 @@
+demandes:
+    path:     /
+    defaults: { _controller: "GestionBundle:Demandes:index" }
+
+demandes_show:
+    path:     /{id}/show
+    defaults: { _controller: "GestionBundle:Demandes:show" }
+demandes_show_comments:
+    path:     /{id}/showcom
+    defaults: { _controller: "GestionBundle:Demandes:showAvecComments" }    
+
+demandes_new:
+    path:     /new
+    defaults: { _controller: "GestionBundle:Demandes:new" }
+
+demandes_create:
+    path:     /create
+    defaults: { _controller: "GestionBundle:Demandes:create" }
+    methods:  POST
+
+demandes_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "GestionBundle:Demandes:edit" }
+
+demandes_update:
+    path:     /{id}/update
+    defaults: { _controller: "GestionBundle:Demandes:update" }
+    methods:  [POST, PUT]
+
+demandes_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "GestionBundle:Demandes:delete" }
+    methods:  [POST, DELETE]

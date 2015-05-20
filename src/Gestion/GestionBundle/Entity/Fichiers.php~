@@ -1,0 +1,122 @@
+<?php
+
+namespace Gestion\GestionBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Fichiers
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Gestion\GestionBundle\Repository\FichiersRepository")
+ */
+class Fichiers
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="lien", type="string", length=255)
+     */
+    private $lien;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Demandes",inversedBy="fichiers") 
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $publication;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Commentaire",inversedBy="fichier") 
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $commentaire;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set lien
+     *
+     * @param string $lien
+     * @return Fichiers
+     */
+    public function setLien($lien)
+    {
+        $this->lien = $lien;
+    
+        return $this;
+    }
+
+    /**
+     * Get lien
+     *
+     * @return string 
+     */
+    public function getLien()
+    {
+        return $this->lien;
+    }
+
+    /**
+     * Set publication
+     *
+     * @param string $publication
+     * @return Fichiers
+     */
+    public function setPublication($publication)
+    {
+        $this->publication = $publication;
+    
+        return $this;
+    }
+
+    /**
+     * Get publication
+     *
+     * @return string 
+     */
+    public function getPublication()
+    {
+        return $this->publication;
+    }
+
+    /**
+     * Set commentaire
+     *
+     * @param string $commentaire
+     * @return Fichiers
+     */
+    public function setCommentaire($commentaire)
+    {
+        $this->commentaire = $commentaire;
+    
+        return $this;
+    }
+
+    /**
+     * Get commentaire
+     *
+     * @return string 
+     */
+    public function getCommentaire()
+    {
+        return $this->commentaire;
+    }
+}

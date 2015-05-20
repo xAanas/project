@@ -1,0 +1,30 @@
+gestion_demandes:
+    resource: "@GestionBundle/Resources/config/routing/demandes.yml"
+    prefix:   /demandes
+
+gestion_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: GestionBundle:Default:index }
+    
+mission_routes:
+    resource: "@GestionBundle/Resources/config/routing/missions.yml"
+    prefix:   /missions
+    
+fichier_ajout:
+    path:     /fichier
+    defaults: { _controller: GestionBundle:Default:fichier }
+
+demande_ajout:
+    path:     /demande
+    defaults: { _controller: GestionBundle:Default:demande }
+    
+notifications:
+    path :    /notifier
+    defaults: { _controller: GestionBundle:Default:notifier }
+modifetat:
+    path :    accueil/modifetat/{id}/{etat}
+    defaults: { _controller: GestionBundle:Default:modifetat }
+commentersansfichier:
+    path :    accueil/commenter/{id}/{contenu}
+    defaults: { _controller: GestionBundle:Default:commentersansfichier }
+

@@ -1,0 +1,21 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title> Demandes </title>
+     </head>
+    <body>
+
+        <br/>
+        Bonjour {{ destinataire}}, <br/><br/>
+
+        {{ utilisateur }} a envoyé une nouvelle demande pour {{ demande.client }} avant le {{ demande.dateLimite|date("d/m/Y") }}. <br/>
+        A faire : <br/>
+        {{demande.missionOne}} : {{demande.detailsMissionOne}} .<br/>
+        {{demande.missionTwo}} : {{demande.detailsMissionTwo}} .<br/>
+        {{demande.missionThree}} : {{demande.detailsMissionThree}} .<br/>
+
+        Cordialement.
+    </body>
+</html>
+
+

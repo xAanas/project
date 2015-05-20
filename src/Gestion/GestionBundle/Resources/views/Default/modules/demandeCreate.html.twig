@@ -1,0 +1,284 @@
+{% extends '::base.html.twig' %}
+
+
+{% block body -%}
+    <div class="container">
+        <h1>Nouvelle demande</h1>
+
+         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.auNomDe, "Au nom de ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }} 
+                </td>
+                <td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.auNomDe) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr>
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.client, "Client ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }} 
+                </td>
+                <td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.client) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.client, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr>
+
+
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.site, "Site ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.site) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.site, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr>
+
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.adresse, "Adresse ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.adresse) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr>
+
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.missionOne, "Mission 1 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.missionOne) }}
+
+                    <div class="col-lg-6 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.missionOne, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr>
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.missionTwo, "Mission 2 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.missionTwo) }}
+
+                    <div class="col-lg-6 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.missionTwo, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr>
+            <tr>
+                <td>                        {# Génération du label. #}
+                    {{ form_label(form.missionThree, "Mission 3 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.missionThree) }}
+
+                    <div class="col-lg-6 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.missionThree, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>  
+                    {# Génération du label. #}
+                    {{ form_label(form.autres, "Autres ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.autres) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.autres, {'attr': {'class': 'form-control'}}) }}
+                    </div> </td>
+            </tr>
+            <tr>
+                <td width="50%">  
+                    {# Génération du label. #}
+                    {{ form_label(form.detailsMissionOne, "Detais mission 1 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.detailsMissionOne) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.detailsMissionOne, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </td>
+            </tr>          
+            <tr>
+                <td>           
+                    {# Génération du label. #}
+                    {{ form_label(form.detailsMissionTwo, "Detais mission 2", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.detailsMissionTwo) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.detailsMissionTwo, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr> 
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.detailsMissionThree, "Detais mission 3", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.detailsMissionThree) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.detailsMissionThree, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr> 
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.dateLimite, "Délais du rendu", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.dateLimite) }}
+
+                    <div class="col-lg-6 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.dateLimite, {'attr': {'class': 'date'}}) }}
+                    </div></td>
+            </tr> 
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.lien, "Dossier à disposition", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.lien) }}
+
+                    <div class="col-lg-5 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.lien, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr> 
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.type, "Type", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.type) }}
+
+                    <div class="col-lg-6 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr> 
+            <tr>
+                <td>
+                    {# Génération du label. #}
+                    {{ form_label(form.avancement, "Avancement", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
+                </td><td>
+                    {# Affichage des erreurs pour ce champ précis. #}
+                    {{ form_errors(form.avancement) }}
+
+                    <div class="col-lg-6 col-sm-4">
+                        {# Génération de l'input. #}
+                        {{ form_widget(form.avancement, {'attr': {'class': 'form-control'}}) }}
+                    </div></td>
+            </tr> 
+
+            <tr>
+                <td></td>
+                <td> 
+                    <div class="col-lg-5 col-sm-3">
+                        <input type="submit" class="btn btn-primary" value="Enregistrer" formnovalidate>
+                        <input type="reset" class="btn btn-default" value="Annuler">
+                    </div>
+
+
+                    
+
+                </td>
+            </tr>
+
+
+
+
+            <!-- ****************************************************************************************************************************************** -->
+            <ul id="fichiers-fields-list" class="fichiers list-group" data-prototype="{{ form_widget(form.fichiers.vars.prototype)|e }}">
+                {# itère sur chaque tag existant et affiche son unique champ : name #}
+                {% for fichier in form.fichiers %}
+                    <li class="list-group-item"> {{ form_row(fichier.file) }}</li>
+                    {% endfor %}
+            </ul>
+            {{ form_rest(form) }}
+
+
+            {{ form_end(form) }}
+        </table>
+        <a href="{{ path('demandes') }}">
+            Back to the list
+        </a>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        var collectionHolder = $('ul.fichiers');
+
+        // ajoute un lien « add a tag »
+        var $addFichierLink = $('<a href="#" class="add_tag_link">Ajouter un fichier</a>');
+        var $newLinkLi = $('<li class="list-group-item"></li>').append($addFichierLink);
+
+        jQuery(document).ready(function () {
+            // ajoute l'ancre « ajouter un tag » et li à la balise ul
+            collectionHolder.append($newLinkLi);
+
+            $addFichierLink.on('click', function (e) {
+                // empêche le lien de créer un « # » dans l'URL
+                e.preventDefault();
+
+                // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
+                addFichierForm(collectionHolder, $newLinkLi);
+            });
+        });
+
+        function addFichierForm(collectionHolder, $newLinkLi) {
+            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
+            var prototype = collectionHolder.attr('data-prototype');
+
+            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+            // la longueur de la collection courante
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
+            var $newFormLi = $('<li class="list-group-item"></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+    </script>
+{% endblock %}

@@ -1,0 +1,31 @@
+<?php
+
+namespace Utilisateurs\UtilisateursBundle\Entity;
+
+use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="fos_user")
+ */
+class Utilisateurs extends BaseUser
+{
+    /**
+     * @ORM\Id
+     * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+    /**
+     * @ORM\OneToMany(targetEntity="Gestion\GestionBundle\Entity\Demandes",mappedBy="utilisateur")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $Demandes;
+    
+    public function __construct()
+    {
+        parent::__construct();
+        $this->Demandes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+}

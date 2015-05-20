@@ -1,0 +1,370 @@
+{% extends '::base.html.twig' %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+{% endblock %}
+{% block body %}
+
+
+    <br/><br/><br/><br/><br/>
+    <!--start-->  
+
+    <!--a carousel-->
+    <div class= "container">
+        <div id ="myCarousel" class= "carousel slide relative" data-ride= "carousel" >
+            <!--Indicators
+            <ol class = "carousel-indicators">
+                <li data-target= "#myCarousel" data-slide-to= "0" class = "active"></li>
+                <li data-target= "#myCarousel" data-slide-to= "1"></li>
+                <li data-target= "#myCarousel" data-slide-to= "2"></li>
+            </ol>-->
+            <!-- Wrapper for slides -->
+            <div class= "carousel-inner" >
+                <div class = "item active">
+                    <img src="img/carousel/birthday.png" class = "img-responsive">
+                </div>
+                <div class = "item">
+                    <img src="img/carousel/sky1200x280.jpg" class = "img-responsive">
+                </div>
+                <div class = "item">
+                    <img src="img/carousel/stones.jpg" class = "img-responsive">
+                    <div class = "carousel-caption">
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="icon-prev"></span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="icon-next"></span>
+            </a>
+        </div>
+        <div class ="col-sm-12" id = "gift-cards" >
+            <div class="row">
+                <div class=" col-xs-6 col-sm-3 flip3D">
+
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description">
+                                <a href="#description" data-toggle = "modal">   
+                                    Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="front">
+                        <a href ="#"><center><img class="imageTourne" src="{{ asset('img/orange.jpg') }}" width="230" height="232"></center></a>
+
+                    </div>
+                </div>
+                <div class=" col-xs-6 col-sm-3 flip3D">
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description">
+                                <a href = "#"> 
+                                    Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="front">
+                        <a href="#"><center><img src="img/gift-card/virgin.png"></center></a>
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-sm-3 flip3D">
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description"> 
+                                <a href = "#">
+                                    Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="front">
+                        <a href="#"><center><img src="img/gift-card/toyrus.png"></center></a>
+
+                    </div>
+                </div> 
+
+                <div class=" col-xs-6 col-sm-3 flip3D">
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description"> 
+                                <a href = "#">
+                                    Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="front">
+                        <a href="#"><center><img src="img/gift-card/vox.png"></center></a>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class = "row">
+                <div class=" col-xs-6 col-md-3 flip3D">
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description">
+                                <a href = "#"> Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="front">
+                        <a href="#"><center><img src="img/gift-card/tns.png"></center></a>
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-3 flip3D">
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description">
+                                <a href = "#"> 
+                                    Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="front">
+                        <a href="#"><center><img src="img/gift-card/sensasia.png"></center></a>
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-3 flip3D">
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description">
+                                <a href = "#">
+                                    Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="front">
+                        <a href="#"><center><img src="img/gift-card/plugin.png"></center></a>
+
+                    </div>
+                </div>
+                <div class="col-xs-6 col-md-3 flip3D">
+                    <div class="back">
+                        <div id="carousel-example-generic" class="carousel slide auto" data-interval="500" data-ride="carousel">
+
+
+                            <!-- Wrapper for slides -->
+
+                        </div>
+                        <!--description en dessous des slides-->
+                        <div>
+                            <p class= "back-description">
+                                <a href = "#">
+                                    Selectionner cette carte <span class= "fa fa-shopping-cart fa-fw"></span>
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="front">
+                        <a href="#"><center><img src="img/gift-card/babyshop.png"></center></a>
+
+                    </div>
+                </div>
+            </div> 
+            <!-- pagination -->
+            <center>
+                <ul class="pagination">
+                    <li class="disabled" ><a href="#">&laquo;</a></li>
+                    <li class = "active"><a href="#">1</a></li>
+                    <li class =""><a href="#">2</a></li>
+                    <li><a href="#">3</a></li>
+                    <li><a href="#">4</a></li>
+                    <li><a href="#">5</a></li>
+                    <li><a href="#">&raquo;</a></li>
+                </ul>
+            </center>
+        </div>
+
+    </div>
+</div>
+</div><!--end container-->
+<div id="push"></div>
+<br>
+<br>
+<footer style= "width: 100%">
+    <div class="navbar-wrapper">
+        <div class="navbar navbar-inverse">
+
+            <div id="social" class="cbp-af-header">
+                <div class="container">
+                    <ul class="pull-left">
+                        <h6>
+                            <a href="#" target="_blank" class="text-center">Famissima © 2014 |&nbsp;</a>
+                            <a href="#" target="_blank" class="text-center" >Conditions d'utilisation |&nbsp;</a>
+                            <a href="#" target="_blank" class="text-center">A propos de nous |&nbsp;</a>
+                            <a href="#" target="_blank" class="text-center"> Confidentialité</a>
+                        </h6>
+                    </ul>
+                    <ul class="pull-right">
+                        <li><a href="https://twitter.com" target="_blank" class="text-center"><span class="fa fa-facebook"></span></a></li>
+                        <li><a href="https://www.facebook.com/Famissima" target="_blank" class="text-center"><i class="fa fa-facebook"></i></a></li>
+                        <li><a href="#" class="text-center"><i class="fa fa-envelope"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div class = "modal modal-wide fade" id = "description" role= "dialog" >
+    <div class = "modal-dialog">
+        <div class = "modal-content">
+            <div class = "modal-header KlavikaMedium">
+                <h4>Description Carte Cadeau</h4>
+            </div>
+            <div class = "modal-body">
+                <div class = "container">
+                    <div class = "row  KlavikaRegular">
+                        <div class = "column col-sm-5 description-menu">
+
+                            <img class = "image-card" src="img/gift-card/gosportDescription.png">
+
+                            <ul class="nav nav-pills nav-stacked KlavikaRegular">
+                                <li class="active"><a href="#">Description cadeau</a></li>
+                                <li><a href="#">Validitée de la carte</a></li>
+                                <li><a href="#">Point de vente</a></li>
+                            </ul>
+                            <a href="buyCard.html" target="_blank"><button class = "btn btn-danger selection">Selectionner cette carte</button></a>
+                        </div>
+
+                        <div class = "column col-sm-7"> 
+                            <h4 class = "title KlavikaMedium">Go sport</h4>
+                            <p class = "quote KlavikaRegular"> Le magasin de sport pour toutes vos envies</p>
+                            <p class = "body KlavikaRegular">Où pouvez-vous répondre à tous vos besoins sportifs? Essayez Go Sport avec des cartes cadeaux variées! Donner à un ami la possibilité de choisir parmi les derniers équipements de sports et équipements de marques de renommée internationale, de nouvelles variétés indépendants et funky sont désormais disponibles dans tous nos points de vente.</p>
+
+                            <!--start-description-carousel-->
+                            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                                <!-- Indicators -->
+                                <ol class="carousel-indicators">
+                                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                                    <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                                </ol>
+
+                                <!-- Wrapper for slides -->
+                                <div class="carousel-inner">
+
+                                    <div class="item active">
+                                        <img src="img/gift-card-description-carousel/1.png">
+                                        <div class="carousel-caption">
+                                            ...
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="img/gift-card-description-carousel/2.png">
+                                        <div class="carousel-caption">
+                                            ...
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="img/gift-card-description-carousel/3.png">
+                                        <div class="carousel-caption">
+                                            ...
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="img/gift-card-description-carousel/4.png">
+                                        <div class="carousel-caption">
+                                            ...
+                                        </div>
+                                    </div>
+                                    <div class="item">
+                                        <img src="img/gift-card-description-carousel/5.png">
+                                        <div class="carousel-caption">
+                                            ...
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <!-- Controls -->
+                                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                                    <span class="glyphicon glyphicon-chevron-left"></span>
+                                </a>
+                                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                                    <span class="glyphicon glyphicon-chevron-right"></span>
+                                </a>
+                            </div>
+                            <!--end-description-carousel-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+body {color:#6a6a6a;} ul {list-style:none;}
+
+.rose {color:#e4617a !important} .jaune {color:#f8b333 !important} .bleu {color:#85a4c7 !important} .mauve {color:#a97db1 !important}
+.vert {color:#c9d031 !important} .rouge {color:#e74841 !important} .turquoise {color:#5dbeba !important} .vin {color:#c4536a !important}
+.caramel {color:#f4a57e !important} .vert-clair {color:#a0d1b9 !important}
+
+.has-rose {background::#e4617a !important} .has-jaune {background:#f8b333 !important} .has-bleu {background:#85a4c7 !important} .has-mauve {background:#a97db1 !important}
+.has-vert {background:#c9d031 !important} .has-rouge {background:#e74841 !important} .has-turquoise {background:#5dbeba !important} .has-vin {background:#c4536a !important}
+.has-caramel {background:#f4a57e !important} .has-vert-clair {background:#a0d1b9 !important}
+
+
+.has-feedback .form-control-feedback {top:0;}
+.top-header .nav-pills > li > a {padding:0; margin:0 0 0 10px;}
+.top-header .nav-pills > li {position:relative;}
+.top-header .nav-pills > li .badge {position:absolute; top:0; left:29px; font-size:9px; background:red;
+	-webkit-border-radius:50px;
+	-moz-border-radius:50px;
+	border-radius:50px;
+	}
+.top-header {background:#f6f6f6; padding:10px 0; position:relative; z-index:9999;
+	-webkit-box-shadow:0px 6px 8px #cccccc;
+	-moz-box-shadow:0px 6px 8px #cccccc;
+	box-shadow:0px 6px 8px #cccccc;
+	}
+.navbar .nav {
+	background:#fdfeff;
+	-webkit-box-shadow:0px 6px 12px #cccccc;
+	-moz-box-shadow:0px 6px 12px #cccccc;
+	box-shadow:0px 6px 12px #cccccc;
+	-webkit-border-radius:0px 0px 12px 12px;
+	-moz-border-radius:0px 0px 12px 12px;
+	border-radius:0px 0px 12px 12px;
+	}
+
+.filters .nav-pills > li > a {padding:0; margin:0; color:#bdbdbd;}
+.filters {margin:10px 0;}
+
+.main-nav .nav > li > a > img {padding-top:5px; margin:0 auto; display:block;}
+.main-nav .navbar-nav > li > a {padding-top:5px;}
+.share-box {width:100%;}
+.share-box .share {clear:both; background:white; border:2px solid #dddddd; margin-bottom:10px; position:relative;}
+.share-box ul {list-style:none;margin-bottom:9px;}
+.message {border-radius:0; border:none;}
+
+.page-header {margin:20px 0; padding:0;} .page-header img {margin:0 10px 0 0;}
+.page-header h2 {margin:18px 0 0 0; line-height:30px;}
+
+.widget ul li {display:block; clear:both; font-size:14px; overflow:hidden;}
+.widget ul li a {color:#6a6a6a; display:block;} .widget ul li a:hover {}
+.widget ul {margin:0; padding:0;}
+.widget h4 {-webkit-border-radius:4px; -moz-border-radius:4px; border-radius:4px; text-align:center; color:#ffffff; padding:5px 0;}
+.widget h5 a {color:#c9c9c9; text-decoration:underline;}
+.famille h4, .listes h4, .agenda h4, .budget h4, .grossesse h4, .events h4 {background:#e4617a;}
+.famille ul li, .mothers ul li {margin:0 0 10px 0; line-height:35px;} .famille img, .mothers img {margin:0 5px 0 0;}
+.famille img {width:35px; height:35px;} .mothers img {width:45px; height:45px;}
+.listes ul li {background:url('../img/widgets/list.png') 0 0 no-repeat; padding:0 0 0 40px; line-height:35px; margin:0 0 10px 0;}
+.agenda ul li, .events ul li {background:url('../img/widgets/agenda.png') 0 0 no-repeat; padding:0 0 0 40px; min-height:35px; margin:0 0 10px 0;}
+.budget ul li {background:url('../img/widgets/budget.png') 0 0 no-repeat; padding:0 0 0 40px; line-height:35px; margin:0 0 10px 0;}
+.grossesse ul li {background:url('../img/widgets/grossesse.png') 0 0 no-repeat; padding:0 0 0 40px; min-height:35px; margin:0 0 10px 0;}
+.boutique ul li {float:left !important; margin:0 10px 10px 0; display:inline-block !important; clear:none !important;}
+.boutique h4 {background:#f4a57e;}
+.mothers h4 {background:#c9d031;}
+.promo h4 {background:#f8b333;}
+.promo {margin:0 0 20px 0;}
+
+.panel {border-radius:0; border:none; margin-bottom:0;} 
+.post {padding:10px 0; margin:10px 0; border-top:solid 1px #b6b6b6;}
+.post .user-avatar {margin:0 10px 0 0; width:45px;} .post .user-avatar img {width:45px; height:45px; overflow:hidden;}
+.post .user-post {width:500px;}
+.post .user-statut {font-weight:bold;}
+.post .user-has-posted {padding:10px; border:solid 1px #e4e4e4;}
+.post .user-comment {width:100%; padding:5px 0;}
+.post .user-comment .badge {margin-top:3px; background:none; color:#c0c0c0; font-size:12px; font-weight:normal;}
+.post .user-comment .nav > li > a {background:none; padding:0 10px 0 0; color:#c0c0c0; font-size:12px;}
+.post .user-comment .nav > li > a:hover {text-decoration:underline;}
+
+
+.store {margin:0 0 30px 0;}
+

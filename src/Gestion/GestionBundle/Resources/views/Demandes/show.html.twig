@@ -1,0 +1,116 @@
+{% extends '::base.html.twig' %}
+{% block title %}Demandes{% endblock %}
+{% block body -%}
+    <div class="container">
+        <h1>Demandes</h1>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Expéditeur</th>
+                    <td>{{ entity.utilisateur }}</td>
+                </tr>
+                {% if entity.auNomDe %}
+                    <tr>
+                        <th>Au nom de</th>
+                        <td>{{ entity.auNomDe }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Client</th>
+                    <td>{{ entity.client }}</td>
+                </tr>
+                <tr>
+                    <th>Site</th>
+                    <td>{{ entity.site }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ entity.adresse }}</td>
+                </tr>
+                <tr>
+                    <th>Mission 1</th>
+                    <td>{{ entity.missionOne }}</td>
+                </tr>
+                <tr>
+                    <th>Mission 2</th>
+                    <td>{{ entity.missionTwo }}</td>
+                </tr>
+                <tr>
+                    <th>Mission 3</th>
+                    <td>{{ entity.missionThree }}</td>
+                </tr>
+                <tr>
+                    <th>Autres</th>
+                    <td>{{ entity.autres }}</td>
+                </tr>
+                <tr>
+                    <th>Details mission 1</th>
+                    <td>{{ entity.detailsMissionOne }}</td>
+                </tr>
+                <tr>
+                    <th>Details mission 2</th>
+                    <td>{{ entity.detailsMissionTwo }}</td>
+                </tr>
+                <tr>
+                    <th>Details mission 3</th>
+                    <td>{{ entity.detailsMissionThree }}</td>
+                </tr>
+                <tr>
+                    <th>Date limite</th>
+                    <td>{{ entity.dateLimite|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Lien</th>
+                    <td>{{ entity.lien }}</td>
+                </tr>
+                <tr>
+                    <th>J'aime</th>
+                    <td>{{ entity.jaime }}</td>
+                </tr>
+                <tr>
+                    <th>Je n'aime pas</th>
+                    <td>{{ entity.jeNaimePas }}</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ entity.type }}</td>
+                </tr>
+                <tr>
+                    <th>Avancement</th>
+                    <td>{{ entity.avancement }}</td>
+                </tr>
+                <tr>
+                    <th>Date poste demande</th>
+                    <td>{{ entity.datePosteDemande|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Date de la dernière mis à jour</th>
+                    <td>{{ entity.dateDerniereMiseAJour|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Accueil</th>
+                    <td>{{ entity.accueil }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('demandes') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
+{% endblock %}

@@ -1,0 +1,9 @@
+accueil_homepage:
+    path:     /Accueil
+    defaults: { _controller: AccueilBundle:Default:Demande }
+aimer:
+    path:     /accueil/aimer/{id}
+    defaults: { _controller: AccueilBundle:Default:aimer }
+ne_pas_aimer:
+    path:     /accueil/nepasaimer/{id}
+    defaults: { _controller: AccueilBundle:Default:nepasaimer }

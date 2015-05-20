@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/bootstrap-theme.css')}}" />
+
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <style>
+       
+        .btn-file {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+        .imageTourne{
+            padding-top: 3px; 
+        }
+        body{
+            padding-top: 60px; 
+        }
+        [data-notifications] {
+            position: relative;
+        }
+
+        [data-notifications]:after {
+            content: attr(data-notifications);
+            position: absolute;
+            background: red;
+            border-radius: 100%;
+            display: inline-block;
+            padding: 0.2em;
+            color: #f2f2f2;
+            right: 2px;
+            top: 0px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>                        
+                </button>
+
+                <a class="navbar-brand" href="{{ path('accueil_homepage')}}"><div style="font-size:32px ; color : white;">Cantara</div></a>
+
+
+            </div>
+            <div class="navbar-nav">
+
+            </div>
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Recherche...">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default" type="button"><span class="glyphicon glyphicon-search"></span></button>
+                        </span>
+                    </div>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+
+                    <li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li>
+                    <li class="active"><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;">Accueil </div></a></li>
+                    <li><a href="{{ path('fos_user_profile_show')}}"><div style="font-size:12px ; color : white;">Profil</div></a></li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"  id="notification" onclick="effaceNotif();"><div style="font-size:15px ; color : white;"><span class="glyphicon glyphicon-globe"></span></div></a>
+                        <!--  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Notifications <span class="badge">3</span></a>-->
+                        <ul class="dropdown-menu" id="dropdown-menu-notification">
+                            <!-- contenu des notification -->
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><div style="font-size:12px ; color : white;">Menu<span class="caret"></span></div></a>
+                        <ul class="dropdown-menu" >
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('demandes') }}"><span class="glyphicon glyphicon-file"></span> Demandes </a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user"></span> Utilisateurs</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-picture"></span> Equipe</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-calendar"></span> Calendrier</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fichier_ajout')}}"><span class="glyphicon glyphicon-barcode"></span> Stock </a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('missions')}}"><span class="glyphicon glyphicon-cog"></span> Missions</a></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-wrench"></span> Paramètres </a></li>
+                            <li class="divider"></li>
+                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_logout')}}"><i class="icon-off"></i> Déconnexion  </a></li>
+                        </ul>
+                    </li>
+
+                    <li><a href="{{ path('fos_user_security_logout')}}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-log-out"></span> Déconnexion </div></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    {% block body %}
+
+    {% endblock %}
+    <hr/>
+    <footer id="footer" class="vspace20">
+        <div class="container">
+            <!-- <div class="row">
+                 <div class="col-lg-4">
+                     <h4>Informations</h4>
+                     <ul class="nav nav-stacked">
+                         <li><a href="#">A propos</a>
+                         <li><a href="#">Mentions légales</a>
+                     </ul>
+                 </div> 
+ 
+                 <div class="col-lg-4">
+                     <h4>Nos locaux</h4>
+                     <p><i class="icon-map-marker"></i>&nbsp;Centre urbain nord 3074 -  A5.2 Yasmine Tower</p>
+                 </div>
+ 
+                 <div class="col-lg-2">
+                     <h4>Nous contacter</h4>
+                     <p><i class="icon-phone"></i>&nbsp;Tel 1: +216 71 82 24 34</p>
+                     <p><i class="icon-phone"></i>&nbsp;Tel 2: +331 85 09 03 45</p>
+                 </div>
+             </div>-->
+
+            <div class="row">
+                <div class="col-lg-4">
+                    <p>&copy; Copyright 2015 - Ellouze and partners system</p>
+                </div>
+            </div>
+        </div>
+    </footer>	
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="{{ asset('js/bootstrap.js') }}"></script> 
+    <script src="{{ asset('js/main.js') }}"></script>
+    {% block javascripts %}
+        <script type="text/javascript">
+
+                            // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
+
+                            $(".modal-wide").on("show.bs.modal", function () {
+                                var height = $(window).height() - 200;
+                                $(this).find(".modal-body").css("max-height", height);
+                            });
+
+                            setInterval(notifier, 1000);
+
+                            function notifier() {
+
+                                $.ajax({
+                                    type: 'post',
+                                    url: '{{ path('notifications') }}',
+                                    beforeSend: function () {
+                                        
+                                        console.log('debut notif');
+                                    },
+                                    success: function (data) {
+                                        //console.log(data.notifications);
+                                        if (data.nombreNotif > '0') {
+                                            playSound('laser');
+                                            playSound('laser');
+                                            playSound('laser');
+                                            console.log('fama notif : ' + data.nombreNotif);
+                                            $.each(data.notifications, function (indexValue, contenu) {
+                                                $('#dropdown-menu-notification').append('<li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost/project/web/app_dev.php/demandes/' + indexValue + '/showcom"><i class="glyphicon glyphicon-file"></i>' + contenu + '</a></li>');
+                                              
+                                            });
+                                            $("#notification").attr("data-notifications", data.nombreNotif);
+                                        } else {
+                                            console.log('no notif');
+                                        }
+                                        console.log('fin notif');
+                                    }
+                                });
+
+                            }
+                            function effaceNotif() {
+                                $("#notification").removeAttr("data-notifications");
+                            }
+                            var playSound = (function () {
+                                var s,
+                                        sounds = {},
+                                        soundUrls = {
+                                            laser: "{{ asset('sounds/notif1.mp3') }}"
+                                        };
+
+                                for (s in soundUrls) {
+                                    sounds[s] = new Audio(soundUrls[s]);
+                                    sounds[s].preload = 'auto';
+                                    sounds[s].load();
+                                }
+
+                                return function (soundname) {
+                                    if (soundname in sounds) {
+                                        sounds[soundname].play();
+                                    }
+                                };
+                            })();
+        </script>
+
+    {% endblock %}
+</body>
+</html>

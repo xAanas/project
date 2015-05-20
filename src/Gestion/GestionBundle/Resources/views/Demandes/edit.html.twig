@@ -1,0 +1,18 @@
+{% extends '::base.html.twig' %}
+{% block title %}Demandes{% endblock %}
+{% block body -%}
+    <div class="container">
+    <h1>Demandes edit</h1>
+
+    {{ form(edit_form) }}
+
+        <ul class="record_actions">
+    <li>
+        <a href="{{ path('demandes') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+    </div>
+{% endblock %}

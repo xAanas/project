@@ -1,0 +1,30 @@
+missions:
+    path:     /
+    defaults: { _controller: "GestionBundle:Missions:index" }
+
+missions_show:
+    path:     /{id}/show
+    defaults: { _controller: "GestionBundle:Missions:show" }
+
+missions_new:
+    path:     /new
+    defaults: { _controller: "GestionBundle:Missions:new" }
+
+missions_create:
+    path:     /create
+    defaults: { _controller: "GestionBundle:Missions:create" }
+    methods:  POST
+
+missions_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "GestionBundle:Missions:edit" }
+
+missions_update:
+    path:     /{id}/update
+    defaults: { _controller: "GestionBundle:Missions:update" }
+    methods:  [POST, PUT]
+
+missions_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "GestionBundle:Missions:delete" }
+    methods:  [POST, DELETE]

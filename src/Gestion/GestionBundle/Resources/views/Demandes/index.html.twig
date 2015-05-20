@@ -1,0 +1,59 @@
+{% extends '::base.html.twig' %}
+{% block title %}Demandes{% endblock %}
+{% block body -%}
+    <div class="container">
+    <h1>Demandes list</h1>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th width='8%'>Au nom de</th>
+                <th>Client</th>
+                <th>Site</th>
+                <th>Date limite</th>
+                <th>Lien</th>
+                <th>Type</th>
+                <th>Avancement</th>
+                <th>Date du post</th>
+                <th>Accueil</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('demandes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.auNomDe }}</td>
+                <td>{{ entity.client }}</td>
+                <td>{{ entity.site }}</td>
+                <td>{% if entity.dateLimite %}{{ entity.dateLimite|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>5 fichiers</td>
+                <td>{{ entity.type }}</td>
+                <td>{{ entity.avancement }}</td>
+                <td>{% if entity.datePosteDemande %}{{ entity.datePosteDemande|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.accueil }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('demandes_show', { 'id': entity.id }) }}">Détails</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('demandes_edit', { 'id': entity.id }) }}">Modifier</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <ul>
+        <li>
+            <a href="{{ path('demande_ajout') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    </div>
+    {% endblock %}

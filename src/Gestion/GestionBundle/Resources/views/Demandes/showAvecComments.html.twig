@@ -1,0 +1,208 @@
+{% extends '::base.html.twig' %}
+{% block title %}Demandes{% endblock %}
+{% block body -%}
+    <div class="container">
+        <h1>Demandes</h1>
+
+        <table class="table table-striped">
+            <tbody>
+                <tr>
+                    <th>Id</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Expéditeur</th>
+                    <td>{{ entity.utilisateur }}</td>
+                </tr>
+                {% if entity.auNomDe %}
+                    <tr>
+                        <th>Au nom de</th>
+                        <td>{{ entity.auNomDe }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <th>Client</th>
+                    <td>{{ entity.client }}</td>
+                </tr>
+                <tr>
+                    <th>Site</th>
+                    <td>{{ entity.site }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ entity.adresse }}</td>
+                </tr>
+                <tr>
+                    <th>Mission 1</th>
+                    <td>{{ entity.missionOne }}</td>
+                </tr>
+                <tr>
+                    <th>Mission 2</th>
+                    <td>{{ entity.missionTwo }}</td>
+                </tr>
+                <tr>
+                    <th>Mission 3</th>
+                    <td>{{ entity.missionThree }}</td>
+                </tr>
+                <tr>
+                    <th>Autres</th>
+                    <td>{{ entity.autres }}</td>
+                </tr>
+                <tr>
+                    <th>Details mission 1</th>
+                    <td>{{ entity.detailsMissionOne }}</td>
+                </tr>
+                <tr>
+                    <th>Details mission 2</th>
+                    <td>{{ entity.detailsMissionTwo }}</td>
+                </tr>
+                <tr>
+                    <th>Details mission 3</th>
+                    <td>{{ entity.detailsMissionThree }}</td>
+                </tr>
+                <tr>
+                    <th>Date limite</th>
+                    <td>{{ entity.dateLimite|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Lien</th>
+                    <td>{{ entity.lien }}</td>
+                </tr>
+                <tr>
+                    <th>J'aime</th>
+                    <td>{{ entity.jaime }}</td>
+                </tr>
+                <tr>
+                    <th>Je n'aime pas</th>
+                    <td>{{ entity.jeNaimePas }}</td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>{{ entity.type }}</td>
+                </tr>
+                <tr>
+                    <th>Avancement</th>
+                    <td>{{ entity.avancement }}</td>
+                </tr>
+                <tr>
+                    <th>Date poste demande</th>
+                    <td>{{ entity.datePosteDemande|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Date de la dernière mis à jour</th>
+                    <td>{{ entity.dateDerniereMiseAJour|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Accueil</th>
+                    <td>{{ entity.accueil }}</td>
+                </tr>
+            </tbody>
+        </table>
+                <div class="row">
+                                <div class="col-md-12" align="right">
+                                    <a href="javascript:aimerscript('{{entity.id}}',document.getElementById('siaime{{entity.id}}'));">j'aime</a> .
+                                    <a href="javascript:neaimerscript('{{entity.id}}',document.getElementById('pasaime{{entity.id}}'));">je n'aime pas</a>
+                                    <span id="loader{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
+                                </div>
+                                
+                            </div>
+        
+
+                                <ul class="list-group">
+            {% for comment in comments|reverse %}
+
+                <li class="list-group-item">
+                   {{comment.utilisateur}} : {{ comment.contenu}}
+                   <br/>
+                   {% for image in comment.fichier %}
+                       <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">
+                       <a href="{{asset('uploads/'~image.lien)}}">Fichier !</a>
+                   
+                   {% endfor %}
+                   <div align="right">
+                       {{comment.dateCommentaire|date}}
+                   </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+        {{ form_errors(form) }}
+        <table class="table table-striped">
+            <tr>
+                <td>
+                    {{ form_errors(form.contenu) }}
+                    <div class="col-lg-12 col-sm-4">
+                    <div class="input-group">
+                            {{ form_widget(form.contenu, {'attr': {'class': 'form-control','placeholder' : 'Ecrire un commentaire...'}}) }}
+                            <span class="input-group-btn">
+                                <input type="submit" value="commenter" class="btn btn-default">
+                            </span>
+
+                        </div>
+                    </div>
+                </td>
+                
+            <tr>
+            <ul id="fichiers-fields-list" class="fichiers list-group" data-prototype="{{ form_widget(form.fichier.vars.prototype)|e }}">
+                {# itère sur chaque tag existant et affiche son unique champ : name #}
+                {% for fichier in form.fichier %}
+                    <li class="list-group-item"> {{ form_row(fichier.file) }}</li>
+                    {% endfor %}
+            </ul>
+            </tr>
+            </tr>
+        </table>
+        {{ form_end(form) }}
+        <br/><br/><br/><br/><br/>
+        <ul class="record_actions">
+            <li>
+                <a href="{{ path('demandes') }}">
+                    Back to the list
+                </a>
+            </li>
+            <li>
+                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}">
+                    Edit
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+    <script type="text/javascript">
+        var collectionHolder = $('ul.fichiers');
+
+        // ajoute un lien « add a tag »
+        var $addFichierLink = $('<a href="#" class="add_tag_link">Ajouter un fichier</a>');
+        var $newLinkLi = $('<li class="list-group-item"></li>').append($addFichierLink);
+
+        jQuery(document).ready(function () {
+            // ajoute l'ancre « ajouter un tag » et li à la balise ul
+            collectionHolder.append($newLinkLi);
+
+            $addFichierLink.on('click', function (e) {
+                // empêche le lien de créer un « # » dans l'URL
+                e.preventDefault();
+
+                // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
+                addFichierForm(collectionHolder, $newLinkLi);
+            });
+        });
+
+        function addFichierForm(collectionHolder, $newLinkLi) {
+            // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
+            var prototype = collectionHolder.attr('data-prototype');
+
+            // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
+            // la longueur de la collection courante
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+
+            // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
+            var $newFormLi = $('<li class="list-group-item"></li>').append(newForm);
+            $newLinkLi.before($newFormLi);
+        }
+    </script>
+{% endblock %}
