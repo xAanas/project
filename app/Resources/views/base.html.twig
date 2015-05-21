@@ -9,7 +9,6 @@
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <style>
-       
         .btn-file {
             position: relative;
             overflow: hidden;
@@ -165,21 +164,28 @@
                                 $.ajax({
                                     type: 'post',
                                     url: '{{ path('notifications') }}',
+                                    datatype:'json',
                                     beforeSend: function () {
-                                        
+
                                         console.log('debut notif');
                                     },
                                     success: function (data) {
-                                        //console.log(data.notifications);
+                                       //var obj = JSON.parse(data);
+                                       
+                                       
                                         if (data.nombreNotif > '0') {
                                             playSound('laser');
                                             playSound('laser');
                                             playSound('laser');
                                             console.log('fama notif : ' + data.nombreNotif);
-                                            $.each(data.notifications, function (indexValue, contenu) {
-                                                $('#dropdown-menu-notification').append('<li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost/project/web/app_dev.php/demandes/' + indexValue + '/showcom"><i class="glyphicon glyphicon-file"></i>' + contenu + '</a></li>');
-                                              
-                                            });
+                                            
+                                            
+                                            $.each(data.notifications,function(){
+                                            var notif =JSON.parse(this);
+                                            console.log(notif.publication.id);
+                                                $('#dropdown-menu-notification').append('<li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost/project/web/app_dev.php/demandes/' + notif.publication.id + '/showcom"><i class="glyphicon glyphicon-file"></i>' + notif.contenu + '</a></li>');
+
+                                                 });
                                             $("#notification").attr("data-notifications", data.nombreNotif);
                                         } else {
                                             console.log('no notif');
@@ -189,9 +195,11 @@
                                 });
 
                             }
+
                             function effaceNotif() {
                                 $("#notification").removeAttr("data-notifications");
                             }
+
                             var playSound = (function () {
                                 var s,
                                         sounds = {},

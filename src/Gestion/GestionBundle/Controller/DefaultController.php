@@ -97,24 +97,28 @@ class DefaultController extends Controller {
             $notification = new Notifications();
             $notifications = $em->getRepository('GestionBundle:Notifications')->findBy(array('utilisateur' => $this->container->get('security.context')->getToken()->getUser()->getId(), 'enable' => '1'));
             $nombreNotif = 0;
-            //$serializer = new Serializer(array(new XmlEncoder(), new GetSetMethodNormalizer()), array(new JsonEncoder()));
-            //$encodeur = new JsonEncoder();
-            //$notif [] = NULL;
-
+            
+            $serializer = $this->container->get('jms_serializer');
+            
             if ($notifications !== NULL) {
                 foreach ($notifications as $key => $notification) {
-                    $notif[$notification->getPublication()->getId()] = $notification->getContenu();
+                    //$notif[$notification->getPublication()->getId()] = $notification->getContenu();
+                    $serializer->serialize($notification->getPublication(),'json');
+                    $notifications[$key] = $serializer->serialize($notification, 'json');
                     $notification->setEnable('0');
                     $em->persist($notification);
                     $em->flush();
                     $nombreNotif++;
                 }
             }
-
-            //$encodeur->encode($notifications[1], 'json');
+            
+            $serializer->serialize($notifications, 'json');
+            //$serializer = JMS\Serializer\SerializerBuilder::create()->build();
+            //$serializer->serialize($notifications, 'json');
+            
             $response = new JsonResponse();
 
-            return $response->setData(array('notifications' => $notif, 'nombreNotif' => $nombreNotif));
+            return $response->setData(array('notifications' => $notifications, 'nombreNotif' => $nombreNotif));
         } else {
 
             //return $this->redirect($this->generateUrl('accueil_homepage'));

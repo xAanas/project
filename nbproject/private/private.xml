@@ -3,14 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/project/web/js/script.js</file>
             <file>file:/C:/wamp/www/project/web/js/main.js</file>
             <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Entity/Demandes.php</file>
-            <file>file:/C:/wamp/www/project/src/Accueil/AccueilBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Entity/Notifications.php</file>
-            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Resources/config/routing.yml</file>
-            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Form/DemandesType.php</file>
-            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Entity/Commentaires.php</file>
+            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Resources/views/Demandes/showAvecComments.html.twig</file>
+            <file>file:/C:/wamp/www/project/src/Accueil/AccueilBundle/Controller/DefaultController.php</file>
+            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Controller/DemandesController.php</file>
+            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Entity/Fichiers.php</file>
             <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Controller/DefaultController.php</file>
             <file>file:/C:/wamp/www/project/src/Accueil/AccueilBundle/Resources/views/Default/index.html.twig</file>
             <file>file:/C:/wamp/www/project/app/Resources/views/base.html.twig</file>
