@@ -9,13 +9,13 @@
 
             <div class="col-md-9 col-xs-12">
                 {% for demande in demandes|reverse|slice(0, 11) if demande.accueil %}
-                    <div class="panel panel-danger">
+                    <div class="panel panel-primary">
                         <button type="button" class="close"><div style="font-size:15px ;">x</div></button>
                         <!-- Default panel contents -->
                         <div class="panel-heading">
                             <div class="row">
                                 <div class="col-md-3">
-                                    <div style="font-size:20px ;"><a href="{{ path('demandes_show_comments', { 'id': demande.id }) }}" style="color:#a94442">Demande : 00{{demande.id}}</a></div><br/>
+                                    <div style="font-size:20px ;"><a href="{{ path('demandes_show_comments', { 'id': demande.id }) }}" style="color:white">Demande : 00{{demande.id}}</a></div><br/>
                                     {% if demande.type == 'urgente'%}
                                         <div style="font-size:25px ;">{{demande.type}}</div>
                                     {% endif %}
@@ -24,8 +24,8 @@
                                 <div class="col-md-3">
                                     <div style="font-size:20px ;">Client : {{demande.client}}</div>
                                 </div>
-                                <div class="col-md-2">
-                                    <div style="font-size:18px ;"><a href="#" data-toggle="modal" data-target="#avancementModal{{ demande.id }}" style="color:#a94442"><pan id="avancementchamp{{ demande.id }}">Etat : {{demande.avancement}}  </a></div> <br/>    
+                                <div class="col-md-3">
+                                    <div style="font-size:18px ;"><a href="#" data-toggle="modal" data-target="#avancementModal{{ demande.id }}" style="color:white"><pan id="avancementchamp{{ demande.id }}">Etat : {{demande.avancement}}  </a></div> <br/>    
                                     <div class="progress" id="progress{{ demande.id }}">
                                         {% if demande.avancement == 'Emise' %}
                                             <div class="progress-bar progress-bar-warning" style="width: 100%" id="progresscouleur{{demande.id}}">
@@ -33,7 +33,7 @@
                                             </div>
                                         {% elseif demande.avancement == 'En cour'%}
                                             <div class="progress-bar progress-bar-success" style="width: 60%" id="progresscouleur{{demande.id}}">
-                                                <span class="sr-only-focusable"  id="progressmot{{demande.id}}">60% Complete </span>
+                                                <span class="sr-only-focusable"  id="progressmot{{demande.id}}">60%  </span>
                                             </div>
                                         {% elseif demande.avancement == 'Annulée'%}
                                             <div class="progress-bar progress-bar-danger" style="width: 100%" id="progresscouleur{{demande.id}}">
@@ -51,19 +51,19 @@
                                     <div style="font-size:18px ;">{{demande.dateLimite|date("d/m/Y")}}  </div>
                                 </div>
                                 <div class="col-md-1">
-                                    <div style="font-size:15px ;"><div align="right"> 25 <span class="glyphicon glyphicon-comment"></span><br/>
-                                            5 <span class="glyphicon glyphicon-file"></span>  </div></div>
+                                    <div style="font-size:15px ;">
+                                        {% for fichier in demande.fichiers %}    
+                                            {{loop.length}}
+                                        {% endfor %}
+                                        <span class="glyphicon glyphicon-file"></span>  </div>
                                 </div>
-                                <div class="col-md-1">
-                                    <div style="font-size:15px ;"><div align="left"> <span id="siaime{{demande.id}}"> {{demande.jaime}} </span> <span class="glyphicon glyphicon-heart"></span><br/>
-                                            <span id="pasaime{{demande.id}}"> {{demande.jeNaimePas}} </span> <span class="glyphicon glyphicon-heart-empty"></span>  </div></div>
-                                </div>
+
                             </div>
                         </div>
                         <div class="panel-body">
-                            <div class="row">
+                            <div class="row">   
                                 <div class="col-md-2">
-                                    {{demande.utilisateur}}
+                                    <h4>{{demande.utilisateur}}</h4>
                                 </div>
                                 <div class="col-md-10">
                                     <ul class="list-group">
@@ -106,7 +106,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <a href="javascript:aimerscript('{{demande.id}}',document.getElementById('siaime{{demande.id}}'));">j'aime</a> .
-                                    <a href="javascript:neaimerscript('{{demande.id}}',document.getElementById('pasaime{{demande.id}}'));">je n'aime pas</a>
+                                    <a href="javascript:neaimerscript('{{demande.id}}',document.getElementById('pasaime{{demande.id}}'));">je n'aime pas</a> .
+                                    <span id="siaime{{demande.id}}"> {{demande.jaime}} </span> <span class="glyphicon glyphicon-thumbs-up"></span>
+                                    <span id="pasaime{{demande.id}}"> {{demande.jeNaimePas}} </span> <span class="glyphicon glyphicon-thumbs-down"></span> 
+                                    5
+                                    <span class="glyphicon glyphicon-comment"></span>
                                     <span id="loader{{demande.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
                                 </div>
                                 <div class="col-md-6">
@@ -172,11 +176,9 @@
                     </div>
                 {% endfor %}
             </div>
-            Hello {{ app.user.username }} ! i thnik you will be very nicceeee. Some default panel content here. Nulla vitae elit libero, 
-            a pharetra augue. Aenean lacinia bibendum nulla sed consectetur. 
-            Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. 
-            Nullam id dolor id nibh ultricies vehicula ut id elit.
-
+            <div class="col-md-3 col-xs-12">
+                <div id="containerchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            </div>
         </div>
 
     </div>
@@ -434,9 +436,97 @@
 {% endblock %}
 
 {% block javascripts %}
+
+    <script src="{{asset('js/highcharts.js')}}"></script>
+    <script src="{{asset('js/drilldown.js')}}"></script>
     {{ parent() }}
+
     <script type="text/javascript">
-        var collectionHolder = $('ul.fichiers');
+
+        $(function () {
+          /*  $.ajax({
+            url: '{{ path('notifications') }}'
+                    )}.then(function(data){*/
+            $('#containerchart').highcharts({
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Demandes travaillées. Mai, 2015'
+                },
+                subtitle: {
+                    text: 'Cliquer sur une colonne pour voir les détails'
+                },
+                xAxis: {
+                    type: 'category'
+                },
+                yAxis: {
+                    title: {
+                        text: 'Total percent market share'
+                    }
+                },
+                legend: {
+                    enabled: false
+                },
+                plotOptions: {
+                    series: {
+                        borderWidth: 0,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.y:.1f}%'
+                        }
+                    }
+                },
+                tooltip: {
+                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                },
+                series: [{
+                        name: 'Brands',
+                        colorByPoint: true,
+                        data: [{
+                                name: 'Animals',
+                                y: 5,
+                                drilldown: 'animals'
+                            }, {
+                                name: 'Fruits',
+                                y: 2,
+                                drilldown: 'fruits'
+                            }, {
+                                name: 'Cars',
+                                y: 4,
+                                drilldown: 'cars'
+                            }]
+                    }],
+                drilldown: {
+                    series: [{
+                            id: 'animals',
+                            data: [
+                                ['Cats', 4],
+                                ['Dogs', 2],
+                                ['Cows', 1],
+                                ['Sheep', 2],
+                                ['Pigs', 1]
+                            ]
+                        }, {
+                            id: 'fruits',
+                            data: [
+                                ['Apples', 4],
+                                ['Oranges', 2]
+                            ]
+                        }, {
+                            id: 'cars',
+                            data: [
+                                ['Toyota', 4],
+                                ['Opel', 2],
+                                ['Volkswagen', 2]
+                            ]
+                        }]
+                }
+            });
+        });
+      //  });
+                var collectionHolder = $('ul.fichiers');
 
         // ajoute un lien « add a tag »
         var $addFichierLink = $('<a href="#" class="add_tag_link">Ajouter un fichier</a>');

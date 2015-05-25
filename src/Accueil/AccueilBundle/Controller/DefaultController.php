@@ -78,6 +78,7 @@ class DefaultController extends Controller {
         $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
         $nbrcom =0;
         
+        
         return $this->render('AccueilBundle:Default:index.html.twig', array('demandes' => $demandes,'comments' => $comments, 'form' => $form->createView()));
     }
 
