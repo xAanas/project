@@ -27,4 +27,7 @@ modifetat:
 commentersansfichier:
     path :    accueil/commenter/{id}/{contenu}
     defaults: { _controller: GestionBundle:Default:commentersansfichier }
+demandes_reporting:
+    path :    accueil/chiffres
+    defaults: { _controller: GestionBundle:Default:demandeschiffres }
 

@@ -168,5 +168,86 @@ class DefaultController extends Controller {
         $response = new JsonResponse();
         return $response->setData(array('contenu' => $commentaire->getContenu()));
     }
-
+    public function demandeschiffresAction() {
+        $em = $this->getDoctrine()->getManager();
+        $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
+        
+        $reportOne = array(
+                    'annulée' => 0,
+                    'livrée' => 0,
+                    'encour' => 0,
+                    'émise' => 0,
+                );
+        
+        $reportTwo = array(
+                    'annulée' => 0,
+                    'livrée' => 0,
+                    'encour' => 0,
+                    'émise' => 0,
+                );
+        $reportThree = array(
+                    'annulée' => 0,
+                    'livrée' => 0,
+                    'encour' => 0,
+                    'émise' => 0,
+                );
+        
+        
+        
+        $date = new \DateTime();
+        $moicourant = $date->format('m');
+        $anneecourante = $date->format('y');
+        foreach ($demandes as $demande){
+            if($demande->getDatePosteDemande()->format('m') == $moicourant && $demande->getDatePosteDemande()->format('y') == $anneecourante ){
+                if($demande->getAvancement() == 'Annulée'){
+                $reportOne['annulée']++;
+                }
+                else if($demande->getAvancement() == 'En cour'){
+                $reportOne['encour']++;
+                }
+                else if($demande->getAvancement() == 'Livrée'){
+                $reportOne['livrée']++;
+                }
+                else /*if($demande->getAvancement() == 'Emise')*/ {
+                $reportOne['émise']++;
+                }
+            }
+            else if($demande->getDatePosteDemande()->format('m') == $moicourant-1 && $demande->getDatePosteDemande()->format('y') == $anneecourante ){
+                if($demande->getAvancement() == 'Annulée'){
+                $reportTwo['annulée']++;
+                }
+                else if($demande->getAvancement() == 'En cour'){
+                $reportTwo['encour']++;
+                }
+                else if($demande->getAvancement() == 'Livrée'){
+                $reportTwo['livrée']++;
+                }
+                else /*if($demande->getAvancement() == 'Emise')*/ {
+                $reportTwo['émise']++;
+                }
+            }
+            else if($demande->getDatePosteDemande()->format('m') == $moicourant-2 && $demande->getDatePosteDemande()->format('y') == $anneecourante ){
+                if($demande->getAvancement() == 'Annulée'){
+                $reportThree['annulée']++;
+                }
+                else if($demande->getAvancement() == 'En cour'){
+                $reportThree['encour']++;
+                }
+                else if($demande->getAvancement() == 'Livrée'){
+                $reportThree['livrée']++;
+                }
+                else /*if($demande->getAvancement() == 'Emise')*/ {
+                $reportThree['émise']++;
+                }
+            }
+        }
+        
+                $reportdemande = array(
+                    '0' => $reportOne,
+                    '1' => $reportTwo,
+                    '2' => $reportThree,
+                );
+                $response = new JsonResponse();
+                return $response->setData(array('reportdemande' => $reportdemande));
+            }
 }

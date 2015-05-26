@@ -8,6 +8,7 @@
         <div class="row">
 
             <div class="col-md-9 col-xs-12">
+
                 {% for demande in demandes|reverse|slice(0, 11) if demande.accueil %}
                     <div class="panel panel-primary">
                         <button type="button" class="close"><div style="font-size:15px ;">x</div></button>
@@ -109,8 +110,12 @@
                                     <a href="javascript:neaimerscript('{{demande.id}}',document.getElementById('pasaime{{demande.id}}'));">je n'aime pas</a> .
                                     <span id="siaime{{demande.id}}"> {{demande.jaime}} </span> <span class="glyphicon glyphicon-thumbs-up"></span>
                                     <span id="pasaime{{demande.id}}"> {{demande.jeNaimePas}} </span> <span class="glyphicon glyphicon-thumbs-down"></span> 
-                                    5
-                                    <span class="glyphicon glyphicon-comment"></span>
+                                    {% for key,comm in nombrecomment %}
+                                        {% if key == demande.id %}
+                                            {{ comm }} <span class="glyphicon glyphicon-comment"></span>
+                                        {% endif %}
+                                    {% endfor %}
+                                    
                                     <span id="loader{{demande.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
                                 </div>
                                 <div class="col-md-6">
@@ -177,7 +182,7 @@
                 {% endfor %}
             </div>
             <div class="col-md-3 col-xs-12">
-                <div id="containerchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                <div id="containerchart" style="min-width: 310px; height: 400px; margin: 0 auto; position: fixed"></div>
             </div>
         </div>
 
@@ -444,115 +449,138 @@
     <script type="text/javascript">
 
         $(function () {
-          /*  $.ajax({
-            url: '{{ path('notifications') }}'
-                    )}.then(function(data){*/
-            $('#containerchart').highcharts({
-                chart: {
-                    type: 'column'
+            $.ajax({
+                type: 'post',
+                url: '{{ path('demandes_reporting') }}',
+                beforeSend: function () {
+
+                    console.log('debut reporting');
                 },
-                title: {
-                    text: 'Demandes travaillées. Mai, 2015'
-                },
-                subtitle: {
-                    text: 'Cliquer sur une colonne pour voir les détails'
-                },
-                xAxis: {
-                    type: 'category'
-                },
-                yAxis: {
-                    title: {
-                        text: 'Total percent market share'
-                    }
-                },
-                legend: {
-                    enabled: false
-                },
-                plotOptions: {
-                    series: {
-                        borderWidth: 0,
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.y:.1f}%'
+                success: function (data) {
+
+                    console.log(new Date());
+
+                    var d = new Date();
+                    var month = new Array();
+                    month[0] = "Janvier";
+                    month[1] = "Février";
+                    month[2] = "Mars";
+                    month[3] = "Avril";
+                    month[4] = "Mai";
+                    month[5] = "Juin";
+                    month[6] = "Juillet";
+                    month[7] = "Août";
+                    month[8] = "Septembre";
+                    month[9] = "Octobre";
+                    month[10] = "Novembre";
+                    month[11] = "Décembre";
+
+                    $('#containerchart').highcharts({
+                        chart: {
+                            type: 'column'
+                        },
+                        title: {
+                            text: 'Demandes travaillées. ' + (new Date().getYear() + 1900)
+                        },
+                        credits: {
+                            enabled: false
+                        },
+                        subtitle: {
+                            text: 'Cliquer sur une colonne pour voir les détails'
+                        },
+                        xAxis: {
+                            type: 'category'
+                        },
+                        yAxis: {
+                            title: {
+                                text: 'Nombre de demandes par moi'
+                            }
+                        },
+                        legend: {
+                            enabled: false
+                        },
+                        plotOptions: {
+                            series: {
+                                borderWidth: 0,
+                                dataLabels: {
+                                    enabled: true,
+                                    format: '{point.y:.1f}'
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                            pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}</b> of total<br/>'
+                        },
+                        series: [{
+                                name: 'Brands',
+                                colorByPoint: true,
+                                data: [{
+                                        name: month[d.getMonth() - 2],
+                                        y: data.reportdemande[2].émise + data.reportdemande[2].encour + data.reportdemande[2].livrée + data.reportdemande[2].annulée,
+                                        drilldown: 'animals'
+                                    }, {
+                                        name: month[d.getMonth() - 1],
+                                        y: data.reportdemande[1].émise + data.reportdemande[1].encour + data.reportdemande[1].livrée + data.reportdemande[1].annulée,
+                                        drilldown: 'fruits'
+                                    }, {
+                                        name: month[d.getMonth()],
+                                        y: data.reportdemande[0].émise + data.reportdemande[0].encour + data.reportdemande[0].livrée + data.reportdemande[0].annulée,
+                                        drilldown: 'cars'
+                                    }]
+                            }],
+                        drilldown: {
+                            series: [{
+                                    id: 'animals',
+                                    data: [
+                                        ['Emise', data.reportdemande[2].émise],
+                                        ['En cour', data.reportdemande[2].encour],
+                                        ['Livrée', data.reportdemande[2].livrée],
+                                        ['Annulée', data.reportdemande[2].annulée]
+                                    ]
+                                }, {
+                                    id: 'fruits',
+                                    data: [
+                                        ['Emise', data.reportdemande[1].émise],
+                                        ['En cour', data.reportdemande[1].encour],
+                                        ['Livrée', data.reportdemande[1].livrée],
+                                        ['Annulée', data.reportdemande[1].annulée]
+                                    ]
+                                }, {
+                                    id: 'cars',
+                                    data: [
+                                        ['Emise', data.reportdemande[0].émise],
+                                        ['En cour', data.reportdemande[0].encour],
+                                        ['Livrée', data.reportdemande[0].livrée],
+                                        ['Annulée', data.reportdemande[0].annulée]
+                                    ]
+                                }]
                         }
-                    }
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
-                    pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
-                },
-                series: [{
-                        name: 'Brands',
-                        colorByPoint: true,
-                        data: [{
-                                name: 'Animals',
-                                y: 5,
-                                drilldown: 'animals'
-                            }, {
-                                name: 'Fruits',
-                                y: 2,
-                                drilldown: 'fruits'
-                            }, {
-                                name: 'Cars',
-                                y: 4,
-                                drilldown: 'cars'
-                            }]
-                    }],
-                drilldown: {
-                    series: [{
-                            id: 'animals',
-                            data: [
-                                ['Cats', 4],
-                                ['Dogs', 2],
-                                ['Cows', 1],
-                                ['Sheep', 2],
-                                ['Pigs', 1]
-                            ]
-                        }, {
-                            id: 'fruits',
-                            data: [
-                                ['Apples', 4],
-                                ['Oranges', 2]
-                            ]
-                        }, {
-                            id: 'cars',
-                            data: [
-                                ['Toyota', 4],
-                                ['Opel', 2],
-                                ['Volkswagen', 2]
-                            ]
-                        }]
+                    });
+                    console.log('fin reporting')
                 }
             });
         });
-      //  });
-                var collectionHolder = $('ul.fichiers');
-
+        var collectionHolder = $('ul.fichiers');
         // ajoute un lien « add a tag »
         var $addFichierLink = $('<a href="#" class="add_tag_link">Ajouter un fichier</a>');
         var $newLinkLi = $('<li class="list-group-item"></li>').append($addFichierLink);
-
         jQuery(document).ready(function () {
             // ajoute l'ancre « ajouter un tag » et li à la balise ul
             collectionHolder.append($newLinkLi);
-
             $addFichierLink.on('click', function (e) {
                 // empêche le lien de créer un « # » dans l'URL
                 e.preventDefault();
-
                 // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
                 addFichierForm(collectionHolder, $newLinkLi);
             });
         });
-
         function addFichierForm(collectionHolder, $newLinkLi) {
             // Récupère l'élément ayant l'attribut data-prototype comme expliqué plus tôt
             var prototype = collectionHolder.attr('data-prototype');
-
             // Remplace '__name__' dans le HTML du prototype par un nombre basé sur
             // la longueur de la collection courante
             var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
-
             // Affiche le formulaire dans la page dans un li, avant le lien "ajouter un tag"
             var $newFormLi = $('<li class="list-group-item"></li>').append(newForm);
             $newLinkLi.before($newFormLi);

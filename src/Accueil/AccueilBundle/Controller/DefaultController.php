@@ -76,10 +76,19 @@ class DefaultController extends Controller {
             }
         }
         $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
-        $nbrcom =0;
-        
-        
-        return $this->render('AccueilBundle:Default:index.html.twig', array('demandes' => $demandes,'comments' => $comments, 'form' => $form->createView()));
+
+        foreach ($demandes as $demande) {
+            $nombrecomment[$demande->getId()] = 0 ;
+        }
+        foreach ($demandes as $demande) {
+            foreach ($comments as $comment) {
+                if ($comment->getDemande()->getId() == $demande->getId()){
+                $nombrecomment[$demande->getId()] ++  ;
+                
+                }
+            }
+        }
+        return $this->render('AccueilBundle:Default:index.html.twig', array('demandes' => $demandes, 'nombrecomment' => $nombrecomment, 'comments' => $comments, 'form' => $form->createView()));
     }
 
     public function aimerAction(Request $request, $id) {
@@ -105,7 +114,7 @@ class DefaultController extends Controller {
         }
     }
 
-    public function nepasaimerAction(Request $request,$id) {
+    public function nepasaimerAction(Request $request, $id) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
             $demande = new Demandes();
