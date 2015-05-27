@@ -3,8 +3,9 @@
 
 {% block body -%}
     <div class="container">
+   
         <h1>Nouvelle demande</h1>
-
+        <div class="well">
          {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
         {{ form_errors(form) }}
 
@@ -216,8 +217,8 @@
                 <td></td>
                 <td> 
                     <div class="col-lg-5 col-sm-3">
-                        <input type="submit" class="btn btn-primary" value="Enregistrer" formnovalidate>
                         <input type="reset" class="btn btn-default" value="Annuler">
+                        <input type="submit" class="btn btn-primary" value="Enregistrer" formnovalidate>
                     </div>
 
 
@@ -241,6 +242,7 @@
 
             {{ form_end(form) }}
         </table>
+        </div>
         <a href="{{ path('demandes') }}">
             Back to the list
         </a>

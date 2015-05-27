@@ -250,4 +250,27 @@ class DefaultController extends Controller {
                 $response = new JsonResponse();
                 return $response->setData(array('reportdemande' => $reportdemande));
             }
+            
+            public function effacerdemandeaccueilAction(Request $request,$id) {
+                    if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $demande = new Demandes();
+            $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
+
+            
+
+            $demande->setAccueil(0);
+
+
+            $em->persist($demande);
+            $em->flush();
+
+            $response = new JsonResponse();
+
+            return $response->setData(array('etat' => 'demande effacé'));
+        } else {
+            throw new Exception("Erreur");
+        }
+        
+    }
 }

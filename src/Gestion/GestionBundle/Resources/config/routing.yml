@@ -30,4 +30,6 @@ commentersansfichier:
 demandes_reporting:
     path :    accueil/chiffres
     defaults: { _controller: GestionBundle:Default:demandeschiffres }
-
+demandes_effacer_accueil:
+    path :    accueil/effacerdemande/{id}
+    defaults: { _controller: GestionBundle:Default:effacerdemandeaccueil }

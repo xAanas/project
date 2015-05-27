@@ -65,6 +65,15 @@
                     <td>{{ entity.dateLimite|date('Y-m-d H:i:s') }}</td>
                 </tr>
                 <tr>
+                    <th>Fichier joints</th>
+                    <td> {% for image in entity.fichiers %}
+                      <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->
+                       <a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>
+                   
+                   {% endfor %}</td>
+                </tr>
+               
+                <tr>
                     <th>Lien</th>
                     <td>{{ entity.lien }}</td>
                 </tr>
@@ -115,8 +124,8 @@
                    {{comment.utilisateur}} : {{ comment.contenu}}
                    <br/>
                    {% for image in comment.fichier %}
-                       <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">
-                       <a href="{{asset('uploads/'~image.lien)}}">Fichier !</a>
+                      <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->
+                       <a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>
                    
                    {% endfor %}
                    <div align="right">
@@ -158,12 +167,12 @@
         <ul class="record_actions">
             <li>
                 <a href="{{ path('demandes') }}">
-                    Back to the list
+                    Retour à la liste
                 </a>
             </li>
             <li>
                 <a href="{{ path('demandes_edit', { 'id': entity.id }) }}">
-                    Edit
+                    Modifier
                 </a>
             </li>
             <li>{{ form(delete_form) }}</li>

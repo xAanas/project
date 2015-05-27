@@ -9,9 +9,7 @@
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <style>
-        .g .highcharts-button{
-            text : 'back';
-        }
+       
         .btn-file {
             position: relative;
             overflow: hidden;
@@ -83,8 +81,8 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li>
-                    <li class="active"><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;">Accueil </div></a></li>
                     <li><a href="{{ path('fos_user_profile_show')}}"><div style="font-size:12px ; color : white;">Profil</div></a></li>
+                    <li class="active"><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;">Accueil </div></a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"  id="notification" onclick="effaceNotif();"><div style="font-size:15px ; color : white;"><span class="glyphicon glyphicon-globe"></span></div></a>
                         <!--  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Notifications <span class="badge">3</span></a>-->
@@ -96,11 +94,12 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"><div style="font-size:12px ; color : white;">Menu<span class="caret"></span></div></a>
                         <ul class="dropdown-menu" >
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('demandes') }}"><span class="glyphicon glyphicon-file"></span> Demandes </a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user"></span> Utilisateurs</a></li>
+                            
+                             {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user"></span> Utilisateurs</a></li> {% endif %}
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-picture"></span> Equipe</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-calendar"></span> Calendrier</a></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fichier_ajout')}}"><span class="glyphicon glyphicon-barcode"></span> Stock </a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('missions')}}"><span class="glyphicon glyphicon-cog"></span> Missions</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('missions')}}"><span class="glyphicon glyphicon-cog"></span> Missions</a></li>{% endif %}
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-wrench"></span> Paramètres </a></li>
                             <li class="divider"></li>
                             <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_logout')}}"><i class="icon-off"></i> Déconnexion  </a></li>

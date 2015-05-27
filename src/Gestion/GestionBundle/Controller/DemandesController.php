@@ -44,6 +44,9 @@ class DemandesController extends Controller {
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            foreach($entity->getFichiers() as $fichier){
+                $fichier->setPublication($entity);
+            }
             $em->persist($entity);
             $em->flush();
 

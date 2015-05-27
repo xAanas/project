@@ -2,7 +2,9 @@
 {% block title %}Demandes{% endblock %}
 {% block body -%}
     <div class="container">
-    <h1>Demandes list</h1>
+        <h1>Demandes list</h1><div><a href="{{ path('demande_ajout') }}">
+                Créer une nouvelle demande
+            </a></div>
 
     <table class="table table-striped">
         <thead>
@@ -53,7 +55,7 @@
         <ul>
         <li>
             <a href="{{ path('demande_ajout') }}">
-                Create a new entry
+                Créer une nouvelle demande
             </a>
         </li>
     </ul>

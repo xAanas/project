@@ -41,7 +41,9 @@ class DefaultController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            //$em = $this->getDoctrine()->getManager();
+            foreach($demande->getFichiers() as $fichier){
+                $fichier->setPublication($demande);
+            }
             $em->persist($demande);
             $em->flush();
 
