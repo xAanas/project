@@ -106,8 +106,8 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <a href="javascript:aimerscript('{{demande.id}}',document.getElementById('siaime{{demande.id}}'));">j'aime</a> .
-                                <a href="javascript:neaimerscript('{{demande.id}}',document.getElementById('pasaime{{demande.id}}'));">je n'aime pas</a> .
+                                <a href="javascript:aimerscript('{{demande.id}}',document.getElementById('siaime{{demande.id}}'),document.getElementById('pasaime{{demande.id}}'));">j'aime</a> .
+                                <a href="javascript:neaimerscript('{{demande.id}}',document.getElementById('pasaime{{demande.id}}'),document.getElementById('siaime{{demande.id}}'));">je n'aime pas</a> .
                                 <span id="siaime{{demande.id}}"> {{demande.jaime}} </span> <span class="glyphicon glyphicon-thumbs-up"></span>
                                 <span id="pasaime{{demande.id}}"> {{demande.jeNaimePas}} </span> <span class="glyphicon glyphicon-thumbs-down"></span> 
                                 {% for key,comm in nombrecomment %}

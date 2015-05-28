@@ -1,4 +1,4 @@
-function aimerscript(demandeid, siaimer) {
+function aimerscript(demandeid, siaimer, pasaimer) {
     $.ajax({
         type: 'post',
         url: 'http://localhost/project/web/app_dev.php/accueil/aimer/' + demandeid,
@@ -8,14 +8,15 @@ function aimerscript(demandeid, siaimer) {
         },
         success: function (data) {
             siaimer.innerHTML = data.demandeJaime;
+            pasaimer.innerHTML = data.demandeJaimepas;
             document.getElementById("loader" + demandeid).style.display = "none";
-            console.log("okkk aimer");
+            console.log("okkk  aimer : " +data.demandeJaime+" et pas aimer : " + data.demandeJaimepas);
         }
     });
 }
 
 
-function neaimerscript(demandeid, pasaimer) {
+function neaimerscript(demandeid, pasaimer, siaimer) {
     $.ajax({
         type: 'post',
         url: 'http://localhost/project/web/app_dev.php/accueil/nepasaimer/' + demandeid,
@@ -25,8 +26,9 @@ function neaimerscript(demandeid, pasaimer) {
         },
         success: function (data) {
             pasaimer.innerHTML = data.demandeJaimepas;
+            siaimer.innerHTML = data.demandeJaime;
             document.getElementById("loader" + demandeid).style.display = "none";
-            console.log("okkk ne pas aimer");
+            console.log("okkk ne pas aimer : " +data.demandeJaimepas+" et aimer : " + data.demandeJaime);
         }
     });
 }
@@ -64,7 +66,7 @@ function modifetat(demandeid, etat, champ) {
                 $('#progresscouleur' + demandeid).append('<span class="sr-only-focusable" id="progressmot' + demandeid + '">Livée</span>');
             }
             document.getElementById("loaderetat" + demandeid).style.display = "none";
-            console.log('ça chargee changement de etat');
+            console.log('etat changé');
         }
     });
 }

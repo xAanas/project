@@ -132,6 +132,7 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
         $demande->setAvancement($etat);
+        $demande->setDateDerniereMiseAJour(new \DateTime());
         $em->persist($demande);
         $em->flush();
         $response = new JsonResponse();
