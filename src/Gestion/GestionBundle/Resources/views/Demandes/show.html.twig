@@ -2,7 +2,7 @@
 {% block title %}Demandes{% endblock %}
 {% block body -%}
     <div class="container">
-        <h1>Demandes</h1>
+        <h1>Demande</h1>
 
         <table class="table table-striped">
             <tbody>
@@ -65,6 +65,14 @@
                     <td>{{ entity.dateLimite|date('Y-m-d H:i:s') }}</td>
                 </tr>
                 <tr>
+                    <th>Fichier joints</th>
+                    <td> {% for image in entity.fichiers %}
+                      <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->
+                       <a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>
+                   
+                   {% endfor %}</td>
+                </tr>
+                <tr>
                     <th>Lien</th>
                     <td>{{ entity.lien }}</td>
                 </tr>
@@ -99,18 +107,19 @@
             </tbody>
         </table>
 
-        <ul class="record_actions">
-            <li>
-                <a href="{{ path('demandes') }}">
-                    Retour à la liste
-                </a>
-            </li>
-            <li>
-                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}">
+                <div>
+                <a href="{{ path('demandes') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste
+                </a><br/><br/>
+                    
+                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}" class="btn btn-default">
                     Modifier
-                </a>
-            </li>
-            <li>{{ form(delete_form) }}</li>
-        </ul>
+                </a><br/><br/>
+                    {{ form_start(delete_form, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_errors(delete_form) }}
+                        {{ form_widget(delete_form.submit)}}
+                        {{ form_end(delete_form) }}
+           
+                </div>
     </div>
 {% endblock %}

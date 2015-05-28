@@ -10,7 +10,7 @@ function aimerscript(demandeid, siaimer, pasaimer) {
             siaimer.innerHTML = data.demandeJaime;
             pasaimer.innerHTML = data.demandeJaimepas;
             document.getElementById("loader" + demandeid).style.display = "none";
-            console.log("okkk  aimer : " +data.demandeJaime+" et pas aimer : " + data.demandeJaimepas);
+            console.log("okkk ne pas aimer : " + data.demandeJaimepas + " et aimer : " + data.demandeJaime);
         }
     });
 }
@@ -28,7 +28,7 @@ function neaimerscript(demandeid, pasaimer, siaimer) {
             pasaimer.innerHTML = data.demandeJaimepas;
             siaimer.innerHTML = data.demandeJaime;
             document.getElementById("loader" + demandeid).style.display = "none";
-            console.log("okkk ne pas aimer : " +data.demandeJaimepas+" et aimer : " + data.demandeJaime);
+            console.log("okkk ne pas aimer : " + data.demandeJaimepas + " et aimer : " + data.demandeJaime);
         }
     });
 }
@@ -73,12 +73,27 @@ function modifetat(demandeid, etat, champ) {
 
 
 function commenterscript(id, contenu) {
+        var lecommentaire = contenu.value;
+        
+    while (lecommentaire.indexOf('\\') !== -1) {
+          lecommentaire = lecommentaire.replace('\\', ' antislach ');
+    }
+    while (lecommentaire.indexOf('/') !== -1) {
+        lecommentaire = lecommentaire.replace('/', ' slach ');
+    }
+    while (lecommentaire.indexOf('?') !== -1) {
+        lecommentaire = lecommentaire.replace('?', ' istefhem ');
+    }
+        
     $.ajax({
         type: 'post',
-        url: 'http://localhost/project/web/app_dev.php/accueil/commenter/' + id + '/' + contenu.value,
+        url: 'http://localhost/project/web/app_dev.php/accueil/commenter/' + id + '/' + lecommentaire,
         beforeSend: function () {
             document.getElementById("loaderCom" + id).style.display = "inline";
-            console.log('ça chargee commentaire ' + id + '/' + contenu.value);
+            console.log('ça chargee encore commentaire ' + id + '/' + contenu.value); 
+            console.log('ça chargee commentaire ' + id + '/' + lecommentaire);
+
+
         },
         success: function () {
             document.getElementById("loaderCom" + id).style.display = "none";
@@ -89,6 +104,7 @@ function commenterscript(id, contenu) {
         }
     });
 }
+
 function effacerDemande(id) {
     $.ajax({
         type: 'post',
@@ -99,7 +115,7 @@ function effacerDemande(id) {
         },
         success: function (data) {
             document.getElementById("loadereffacdem" + id).style.display = "none";
-            console.log("demande "+data.etat);
+            console.log("demande " + data.etat);
         }
     });
 }

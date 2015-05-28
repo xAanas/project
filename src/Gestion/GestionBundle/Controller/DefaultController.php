@@ -97,13 +97,13 @@ class DefaultController extends Controller {
             $notification = new Notifications();
             $notifications = $em->getRepository('GestionBundle:Notifications')->findBy(array('utilisateur' => $this->container->get('security.context')->getToken()->getUser()->getId(), 'enable' => '1'));
             $nombreNotif = 0;
-            
+
             $serializer = $this->container->get('jms_serializer');
-            
+
             if ($notifications !== NULL) {
                 foreach ($notifications as $key => $notification) {
                     //$notif[$notification->getPublication()->getId()] = $notification->getContenu();
-                    $serializer->serialize($notification->getPublication(),'json');
+                    $serializer->serialize($notification->getPublication(), 'json');
                     $notifications[$key] = $serializer->serialize($notification, 'json');
                     $notification->setEnable('0');
                     $em->persist($notification);
@@ -111,11 +111,11 @@ class DefaultController extends Controller {
                     $nombreNotif++;
                 }
             }
-            
+
             $serializer->serialize($notifications, 'json');
             //$serializer = JMS\Serializer\SerializerBuilder::create()->build();
             //$serializer->serialize($notifications, 'json');
-            
+
             $response = new JsonResponse();
 
             return $response->setData(array('notifications' => $notifications, 'nombreNotif' => $nombreNotif));
@@ -144,7 +144,22 @@ class DefaultController extends Controller {
         $commentaire = new Commentaires();
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
-        $commentaire->setContenu($contenu);
+
+        $lecommentaire = $contenu;
+        
+        while (stripos(' antislach ', $lecommentaire) === true) {
+            $lecommentaire = str_replace(' antislach ', '\\', $lecommentaire);
+        }
+        
+        while (stripos(' slach ', $lecommentaire) === true) {
+            $lecommentaire = str_replace(' slach ', '/', $lecommentaire);
+        }
+        
+        while (stripos(' istefhem ', $lecommentaire) === true) {
+            var_dump($lecommentaire = str_replace(' istefhem ', '?', $lecommentaire));
+        }
+
+        $commentaire->setContenu($lecommentaire.' ok');
         $commentaire->setDemande($demande);
         $user = $em->merge($this->container->get('security.context')->getToken()->getUser());
         $commentaire->setUtilisateur($user);
@@ -169,96 +184,86 @@ class DefaultController extends Controller {
         $response = new JsonResponse();
         return $response->setData(array('contenu' => $commentaire->getContenu()));
     }
+
     public function demandeschiffresAction() {
         $em = $this->getDoctrine()->getManager();
         $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
-        
+
         $reportOne = array(
-                    'annulée' => 0,
-                    'livrée' => 0,
-                    'encour' => 0,
-                    'émise' => 0,
-                );
-        
+            'annulée' => 0,
+            'livrée' => 0,
+            'encour' => 0,
+            'émise' => 0,
+        );
+
         $reportTwo = array(
-                    'annulée' => 0,
-                    'livrée' => 0,
-                    'encour' => 0,
-                    'émise' => 0,
-                );
+            'annulée' => 0,
+            'livrée' => 0,
+            'encour' => 0,
+            'émise' => 0,
+        );
         $reportThree = array(
-                    'annulée' => 0,
-                    'livrée' => 0,
-                    'encour' => 0,
-                    'émise' => 0,
-                );
-        
-        
-        
+            'annulée' => 0,
+            'livrée' => 0,
+            'encour' => 0,
+            'émise' => 0,
+        );
+
+
+
         $date = new \DateTime();
         $moicourant = $date->format('m');
         $anneecourante = $date->format('y');
-        foreach ($demandes as $demande){
-            if($demande->getDatePosteDemande()->format('m') == $moicourant && $demande->getDatePosteDemande()->format('y') == $anneecourante ){
-                if($demande->getAvancement() == 'Annulée'){
-                $reportOne['annulée']++;
+        foreach ($demandes as $demande) {
+            if ($demande->getDatePosteDemande()->format('m') == $moicourant && $demande->getDatePosteDemande()->format('y') == $anneecourante) {
+                if ($demande->getAvancement() == 'Annulée') {
+                    $reportOne['annulée'] ++;
+                } else if ($demande->getAvancement() == 'En cour') {
+                    $reportOne['encour'] ++;
+                } else if ($demande->getAvancement() == 'Livrée') {
+                    $reportOne['livrée'] ++;
+                } else /* if($demande->getAvancement() == 'Emise') */ {
+                    $reportOne['émise'] ++;
                 }
-                else if($demande->getAvancement() == 'En cour'){
-                $reportOne['encour']++;
+            } else if ($demande->getDatePosteDemande()->format('m') == $moicourant - 1 && $demande->getDatePosteDemande()->format('y') == $anneecourante) {
+                if ($demande->getAvancement() == 'Annulée') {
+                    $reportTwo['annulée'] ++;
+                } else if ($demande->getAvancement() == 'En cour') {
+                    $reportTwo['encour'] ++;
+                } else if ($demande->getAvancement() == 'Livrée') {
+                    $reportTwo['livrée'] ++;
+                } else /* if($demande->getAvancement() == 'Emise') */ {
+                    $reportTwo['émise'] ++;
                 }
-                else if($demande->getAvancement() == 'Livrée'){
-                $reportOne['livrée']++;
-                }
-                else /*if($demande->getAvancement() == 'Emise')*/ {
-                $reportOne['émise']++;
-                }
-            }
-            else if($demande->getDatePosteDemande()->format('m') == $moicourant-1 && $demande->getDatePosteDemande()->format('y') == $anneecourante ){
-                if($demande->getAvancement() == 'Annulée'){
-                $reportTwo['annulée']++;
-                }
-                else if($demande->getAvancement() == 'En cour'){
-                $reportTwo['encour']++;
-                }
-                else if($demande->getAvancement() == 'Livrée'){
-                $reportTwo['livrée']++;
-                }
-                else /*if($demande->getAvancement() == 'Emise')*/ {
-                $reportTwo['émise']++;
-                }
-            }
-            else if($demande->getDatePosteDemande()->format('m') == $moicourant-2 && $demande->getDatePosteDemande()->format('y') == $anneecourante ){
-                if($demande->getAvancement() == 'Annulée'){
-                $reportThree['annulée']++;
-                }
-                else if($demande->getAvancement() == 'En cour'){
-                $reportThree['encour']++;
-                }
-                else if($demande->getAvancement() == 'Livrée'){
-                $reportThree['livrée']++;
-                }
-                else /*if($demande->getAvancement() == 'Emise')*/ {
-                $reportThree['émise']++;
+            } else if ($demande->getDatePosteDemande()->format('m') == $moicourant - 2 && $demande->getDatePosteDemande()->format('y') == $anneecourante) {
+                if ($demande->getAvancement() == 'Annulée') {
+                    $reportThree['annulée'] ++;
+                } else if ($demande->getAvancement() == 'En cour') {
+                    $reportThree['encour'] ++;
+                } else if ($demande->getAvancement() == 'Livrée') {
+                    $reportThree['livrée'] ++;
+                } else /* if($demande->getAvancement() == 'Emise') */ {
+                    $reportThree['émise'] ++;
                 }
             }
         }
-        
-                $reportdemande = array(
-                    '0' => $reportOne,
-                    '1' => $reportTwo,
-                    '2' => $reportThree,
-                );
-                $response = new JsonResponse();
-                return $response->setData(array('reportdemande' => $reportdemande));
-            }
-            
-            public function effacerdemandeaccueilAction(Request $request,$id) {
-                    if ($request->isXmlHttpRequest()) {
+
+        $reportdemande = array(
+            '0' => $reportOne,
+            '1' => $reportTwo,
+            '2' => $reportThree,
+        );
+        $response = new JsonResponse();
+        return $response->setData(array('reportdemande' => $reportdemande));
+    }
+
+    public function effacerdemandeaccueilAction(Request $request, $id) {
+        if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
             $demande = new Demandes();
             $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
 
-            
+
 
             $demande->setAccueil(0);
 
@@ -272,6 +277,6 @@ class DefaultController extends Controller {
         } else {
             throw new Exception("Erreur");
         }
-        
     }
+
 }

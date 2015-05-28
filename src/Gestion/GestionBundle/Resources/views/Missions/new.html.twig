@@ -6,12 +6,8 @@
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('missions') }}">
-            Retour à la liste
-        </a>
-    </li>
-</ul>
+        <a href="{{ path('missions') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste
+                </a>
      </div>
 {% endblock %}

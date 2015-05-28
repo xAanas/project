@@ -2,9 +2,10 @@
 {% block title %}Demandes{% endblock %}
 {% block body -%}
     <div class="container">
-        <h1>Demandes list</h1><div><a href="{{ path('demande_ajout') }}">
-                Créer une nouvelle demande
-            </a></div>
+        <h1>Demandes list</h1>
+        <div align="right"><a href="{{ path('demande_ajout') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus-sign"></span>                Créer une nouvelle demande
+            </a></div><br/>
 
     <table class="table table-striped">
         <thead>
@@ -52,12 +53,8 @@
         </tbody>
     </table>
 
-        <ul>
-        <li>
-            <a href="{{ path('demande_ajout') }}">
-                Créer une nouvelle demande
-            </a>
-        </li>
-    </ul>
+        <div align="right"><a href="{{ path('demande_ajout') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus-sign"></span>                Créer une nouvelle demande
+            </a></div>
     </div>
     {% endblock %}
