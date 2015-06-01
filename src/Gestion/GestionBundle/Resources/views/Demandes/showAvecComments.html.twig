@@ -79,11 +79,11 @@
                 </tr>
                 <tr>
                     <th>J'aime</th>
-                    <td>{{ entity.jaime }}</td>
+                    <td><span  id="siaime{{entity.id}}">{{ entity.jaime }}</span></td>
                 </tr>
                 <tr>
                     <th>Je n'aime pas</th>
-                    <td>{{ entity.jeNaimePas }}</td>
+                    <td><span  id="pasaime{{entity.id}}">{{ entity.jeNaimePas }}</span></td>
                 </tr>
                 <tr>
                     <th>Type</th>
@@ -109,13 +109,13 @@
         </table>
                 <div class="row">
                                 <div class="col-md-12" align="right">
-                                    <a href="javascript:aimerscript('{{entity.id}}',document.getElementById('siaime{{entity.id}}'));">j'aime</a> .
-                                    <a href="javascript:neaimerscript('{{entity.id}}',document.getElementById('pasaime{{entity.id}}'));">je n'aime pas</a>
+                                    <a href="javascript:aimerscript('{{entity.id}}',document.getElementById('siaime{{entity.id}}'),document.getElementById('pasaime{{entity.id}}'));">j'aime</a> .
+                                    <a href="javascript:neaimerscript('{{entity.id}}',document.getElementById('pasaime{{entity.id}}'),document.getElementById('siaime{{entity.id}}'));">je n'aime pas</a>
                                     <span id="loader{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
                                 </div>
                                 
                             </div>
-        
+        <br/>
 
                                 <ul class="list-group">
             {% for comment in comments|reverse %}
@@ -124,7 +124,7 @@
                     <div>  <strong> {{comment.utilisateur}}</strong></div> <p> {{ comment.contenu}}<p>
                    
                    {% if comment.fichier|length %}
-                       <br/>
+                       
                        les fichiers associés : 
                    {% for image in comment.fichier %}
                       <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->

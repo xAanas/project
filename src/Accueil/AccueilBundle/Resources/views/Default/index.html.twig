@@ -27,7 +27,11 @@
                                 <div style="font-size:20px ;">Client : {{demande.client}}</div>
                             </div>
                             <div class="col-md-3">
-                                <div style="font-size:18px ;"><a href="#" data-toggle="modal" data-target="#avancementModal{{ demande.id }}" style="color:white"><pan id="avancementchamp{{ demande.id }}">Etat : {{demande.avancement}} </pan> </a>&nbsp; +</div> <br/>    
+                                <div style="font-size:18px ;">
+                                    <a href="#" data-toggle="modal" data-target="#avancementModal{{ demande.id }}" style="color:white"><pan id="avancementchamp{{ demande.id }}">Etat : {{demande.avancement}} </pan> </a>
+                                    &nbsp; {% if demande.avancement == 'En cour' %}+ {% endif%}
+                                </div>
+                                <br/>    
                                 <div class="progress" id="progress{{ demande.id }}">
                                     {% if demande.avancement == 'Emise' %}
                                         <div class="progress-bar progress-bar-warning" style="width: 100%" id="progresscouleur{{demande.id}}">
@@ -66,22 +70,30 @@
                             <div class="col-md-2">
                                 <h4>{{demande.utilisateur}}</h4>
                             </div>
+                            
                             <div class="col-md-10">
                                 <ul class="list-group">
+                                    {% if demande.missionOne %}
                                     <li class="list-group-item">
                                         <span class="badge">1</span>
                                         {{demande.missionOne}}
                                     </li>
-                                    <li class="list-group-item">
-                                        <span class="badge">3</span>
-                                        {{demande.missionTwo}}
-                                    </li>
+                                         {% endif %}
+                                    {% if demande.missionTwo %}
                                     <li class="list-group-item">
                                         <span class="badge">2</span>
+                                        {{demande.missionTwo}}
+                                    </li>
+                                    {% endif %}
+                                    {% if demande.missionThree %}
+                                    <li class="list-group-item">
+                                        <span class="badge">3</span>
                                         {{demande.missionThree}}
                                     </li>
+                                    {% endif %}
                                 </ul>
                             </div>
+                           
                         </div>
 
                         <div class="row">
@@ -131,9 +143,9 @@
                     {% for comment in comments|reverse|slice(0,2) %}
                         {% if comment.demande.id == demande.id %}
                             <li class="list-group-item">
-                                <div> <strong>{{comment.utilisateur}}</strong> </div><p> {{ comment.contenu}}</p><br/>
+                                <div> <strong>{{comment.utilisateur}}</strong> </div><p> {{ comment.contenu}}</p>
                                 {% for image in comment.fichier %}
-                                    <img src="{{asset('uploads/'~image.lien)}}" width="350" height="350">
+                                   <!-- <img src="{{asset('uploads/'~image.lien)}}" width="350" height="350"> -->
                                     <a href="{{asset('uploads/'~image.lien)}}">Fichier !</a>
 
                                 {% endfor %}

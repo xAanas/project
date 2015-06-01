@@ -76,13 +76,13 @@ function commenterscript(id, contenu) {
         var lecommentaire = contenu.value;
         
     while (lecommentaire.indexOf('\\') !== -1) {
-          lecommentaire = lecommentaire.replace('\\', ' antislach ');
+          lecommentaire = lecommentaire.replace('\\', 'antislach');
     }
     while (lecommentaire.indexOf('/') !== -1) {
-        lecommentaire = lecommentaire.replace('/', ' slach ');
+        lecommentaire = lecommentaire.replace('/', 'slach');
     }
     while (lecommentaire.indexOf('?') !== -1) {
-        lecommentaire = lecommentaire.replace('?', ' istefhem ');
+        lecommentaire = lecommentaire.replace('?', 'istefhem');
     }
         
     $.ajax({
@@ -91,7 +91,7 @@ function commenterscript(id, contenu) {
         beforeSend: function () {
             document.getElementById("loaderCom" + id).style.display = "inline";
             console.log('ça chargee encore commentaire ' + id + '/' + contenu.value); 
-            console.log('ça chargee commentaire ' + id + '/' + lecommentaire);
+            console.log('ça chargee commentaire ' + id + '/' + lecommentaire );
 
 
         },

@@ -147,18 +147,18 @@ class DefaultController extends Controller {
 
         $lecommentaire = $contenu;
         
-        while (stripos(' antislach ', $lecommentaire) === true) {
-            $lecommentaire = str_replace(' antislach ', '\\', $lecommentaire);
-        }
+       // while (strpos(' antislach ', $lecommentaire) === true) {
+            $lecommentaire = str_replace('antislach', '\\', $lecommentaire);
+        //}
         
-        while (stripos(' slach ', $lecommentaire) === true) {
-            $lecommentaire = str_replace(' slach ', '/', $lecommentaire);
-        }
+        //while (strpos(' slach ', $lecommentaire) === true) {
+            $lecommentaire = str_replace('slach', '/', $lecommentaire);
+        //}
         
-        while (stripos(' istefhem ', $lecommentaire) === true) {
-            var_dump($lecommentaire = str_replace(' istefhem ', '?', $lecommentaire));
-        }
-
+        //while (strpos(' istefhem ', $lecommentaire) === true) {
+            $lecommentaire = str_replace('istefhem', '?', $lecommentaire);
+        //}
+        
         $commentaire->setContenu($lecommentaire.' ok');
         $commentaire->setDemande($demande);
         $user = $em->merge($this->container->get('security.context')->getToken()->getUser());
