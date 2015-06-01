@@ -34,7 +34,7 @@ class DemandesType extends AbstractType{
                 ->add('detailsMissionOne')
                 ->add('detailsMissionTwo')
                 ->add('detailsMissionThree')
-                ->add('dateLimite','date')
+                ->add('dateLimite','date',array('widget' => 'single_text'))
                 ->add('fichiers','collection',array('type' => new FichiersType(),'allow_add' => true,'by_reference' => false,))
                 ->add('lien')
                 ->add('type','choice',array('choices' => array ('ordinaire' => 'ordinaire',

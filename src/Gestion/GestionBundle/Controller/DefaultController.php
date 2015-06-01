@@ -90,16 +90,20 @@ class DefaultController extends Controller {
     }
 
     public function notifierAction(Request $request) {
-
+        //$adresseip = $this->container->get('request')->getClientIp();
+        //$this->container->get('request')->getSession()->get('utilisateurConnecte');
+        //$this->container->get('request')->getSession()->set('utilisateurConnecte', $utilisateurLogin);
         if ($request->isXmlHttpRequest()) {
 
             $em = $this->getDoctrine()->getManager();
             $notification = new Notifications();
             $notifications = $em->getRepository('GestionBundle:Notifications')->findBy(array('utilisateur' => $this->container->get('security.context')->getToken()->getUser()->getId(), 'enable' => '1'));
+            if($this->container->get('request')->getSession()->get('notificationBsag') === NULL){
+                $this->container->get('request')->getSession()->set('notificationsBag', $notifications);
+            }
             $nombreNotif = 0;
 
             $serializer = $this->container->get('jms_serializer');
-
             if ($notifications !== NULL) {
                 foreach ($notifications as $key => $notification) {
                     //$notif[$notification->getPublication()->getId()] = $notification->getContenu();
@@ -113,8 +117,6 @@ class DefaultController extends Controller {
             }
 
             $serializer->serialize($notifications, 'json');
-            //$serializer = JMS\Serializer\SerializerBuilder::create()->build();
-            //$serializer->serialize($notifications, 'json');
 
             $response = new JsonResponse();
 
@@ -146,20 +148,18 @@ class DefaultController extends Controller {
         $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
 
         $lecommentaire = $contenu;
-        
-       // while (strpos(' antislach ', $lecommentaire) === true) {
-            $lecommentaire = str_replace('antislach', '\\', $lecommentaire);
+
+        // while (strpos(' antislach ', $lecommentaire) === true) {
+        $lecommentaire = str_replace('antislach', '\\', $lecommentaire);
         //}
-        
         //while (strpos(' slach ', $lecommentaire) === true) {
-            $lecommentaire = str_replace('slach', '/', $lecommentaire);
+        $lecommentaire = str_replace('slach', '/', $lecommentaire);
         //}
-        
         //while (strpos(' istefhem ', $lecommentaire) === true) {
-            $lecommentaire = str_replace('istefhem', '?', $lecommentaire);
+        $lecommentaire = str_replace('istefhem', '?', $lecommentaire);
         //}
-        
-        $commentaire->setContenu($lecommentaire.' ok');
+
+        $commentaire->setContenu($lecommentaire . ' ok');
         $commentaire->setDemande($demande);
         $user = $em->merge($this->container->get('security.context')->getToken()->getUser());
         $commentaire->setUtilisateur($user);

@@ -9,7 +9,10 @@
             
             
             <div class="col-md-9 col-xs-12">
-
+                {% for nott in app.session.get('notificationsBag') %}
+                    <p> {{ nott.contenu }} aloo</p>
+                               {% endfor %}
+                               {{app.session.get('notificationsBag')}} 
                 {% for demande in demandes|reverse|slice(0, 11) if demande.accueil %}
                 <div class="panel panel-primary">
                     <button type="button" class="close" data-toggle="modal" data-target="#effacerModal{{ demande.id }}"><div style="font-size:15px ;">x</div></button>
@@ -391,7 +394,7 @@
 
                                     <div class="col-lg-6 col-sm-4">
                                         {# Génération de l'input. #}
-                                        {{ form_widget(form.dateLimite, {'attr': {'class': 'date'}}) }}
+                                        {{ form_widget(form.dateLimite, {'attr': {'class': 'form-control'}}) }}
                                     </div></td>
                             </tr> 
                             <tr>
