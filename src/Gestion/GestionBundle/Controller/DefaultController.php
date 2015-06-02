@@ -93,16 +93,18 @@ class DefaultController extends Controller {
         //$adresseip = $this->container->get('request')->getClientIp();
         //$this->container->get('request')->getSession()->get('utilisateurConnecte');
         //$this->container->get('request')->getSession()->set('utilisateurConnecte', $utilisateurLogin);
-        if ($request->isXmlHttpRequest()) {
+       // if ($request->isXmlHttpRequest()) {
 
             $em = $this->getDoctrine()->getManager();
             $notification = new Notifications();
             $notifications = $em->getRepository('GestionBundle:Notifications')->findBy(array('utilisateur' => $this->container->get('security.context')->getToken()->getUser()->getId(), 'enable' => '1'));
-            if($this->container->get('request')->getSession()->get('notificationBsag') === NULL){
+            if($this->container->get('request')->getSession()->get('notificationsBag') == NULL){
                 $this->container->get('request')->getSession()->set('notificationsBag', $notifications);
             }
             $nombreNotif = 0;
-
+           
+            //$this->container->get('request')->getSession()->set('notificationsBag', $notifications);
+            
             $serializer = $this->container->get('jms_serializer');
             if ($notifications !== NULL) {
                 foreach ($notifications as $key => $notification) {
@@ -121,11 +123,11 @@ class DefaultController extends Controller {
             $response = new JsonResponse();
 
             return $response->setData(array('notifications' => $notifications, 'nombreNotif' => $nombreNotif));
-        } else {
+        /*} else {
 
             //return $this->redirect($this->generateUrl('accueil_homepage'));
             throw new Exception("Erreur");
-        }
+        }*/
     }
 
     //****************************** modifier l'etat d'une demande **************************************
