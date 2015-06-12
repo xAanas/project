@@ -1,0 +1,51 @@
+{% extends '::base.html.twig' %}
+{% block title %}Sites{% endblock %}
+{% block body -%}
+    <div class="container">
+        <h1>Sites</h1>
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th>ID</th>
+                    <td>{{ entity.id }}</td>
+                </tr>
+                <tr>
+                    <th>Nom</th>
+                    <td>{{ entity.nom }}</td>
+                </tr>
+                <tr>
+                    <th>Adresse</th>
+                    <td>{{ entity.adresse }}</td>
+                </tr>
+                <tr>
+                    <th>Description</th>
+                    <td>{% if entity.description %}
+                            {{ entity.description }}
+                        {% else%}
+                           pas de description
+                            {% endif %}
+                            </td>
+                </tr>
+                <tr>
+                    <th>Client</th>
+                    <td>{{ entity.clients }}</td>
+                </tr>
+            </tbody>
+        </table>
+                             <div align="middle">
+                                <a href="{{ path('sites') }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste
+                        </a>
+                 
+                        <a href="{{ path('sites_edit', { 'id': entity.id }) }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-pencil"></span> Edit
+                        </a>
+                                 <a href="{{ path('sites_delete', { 'id': entity.id }) }}" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Effacer
+                        </a>
+                    {#{{ form(delete_form) }}#}
+                     </div>
+       
+    </div>
+{% endblock %}

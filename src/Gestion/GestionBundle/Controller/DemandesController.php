@@ -23,13 +23,27 @@ class DemandesController extends Controller {
      * Lists all Demandes entities.
      *
      */
-    public function indexAction() {
+    public function indexAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('GestionBundle:Demandes')->findAll();
+        $entity = new Demandes();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
 
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            foreach($entity->getFichiers() as $fichier){
+                $fichier->setPublication($entity);
+            }
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('demandes_show', array('id' => $entity->getId())));
+        }
         return $this->render('GestionBundle:Demandes:index.html.twig', array(
                     'entities' => $entities,
+                    'form' => $form->createView(),
         ));
     }
 
@@ -72,7 +86,6 @@ class DemandesController extends Controller {
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }

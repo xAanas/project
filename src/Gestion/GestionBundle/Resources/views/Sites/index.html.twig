@@ -1,0 +1,110 @@
+{% extends '::base.html.twig' %}
+{% block title %}Sites{% endblock %}
+{% block body -%}
+    <div class="container">
+         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Nouveau site :</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="well">
+                           {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_errors(form) }}
+                        <div class="form-group">
+                            {{ form_label(form.nom, "Nom : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.nom) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            {{ form_label(form.adresse, "Adresse : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.adresse) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            {{ form_label(form.description, "Description : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.description) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            {{ form_label(form.clients, "Client : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.clients) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.clients, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group" align="middle">
+                                <input type="reset" value="Annuler" class="btn btn-default">
+                                <input type="submit" value="Créer" class="btn btn-default">
+                        </div>
+                            {{ form_rest(form) }}
+
+                        {# Fermeture de la balise <form> du formulaire HTML #}
+                        {{ form_end(form) }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info" data-dismiss="modal">Quitter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h1>Sites </h1>
+        <div align="right"> 
+            <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Créer un nouveau site</a>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>Description</th>
+                    <th>Client</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entity in entities %}
+                    <tr>
+                        <td><a href="{{ path('sites_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.nom }}</td>
+                        <td>{{ entity.adresse }}</td>
+                        <td>{% if entity.description %}
+                            {{ entity.description }}
+                        {% else%}
+                            no description
+                            {% endif %}
+                            </td>
+                        <td>{{ entity.clients }}</td>
+                        <td>
+                           
+                                    <a href="{{ path('sites_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file"></span></a>
+                                <br/>
+                                    <a href="{{ path('sites_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                               
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        
+    </div>
+{% endblock %}

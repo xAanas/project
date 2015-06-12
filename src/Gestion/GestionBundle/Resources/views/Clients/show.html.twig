@@ -1,8 +1,8 @@
 {% extends '::base.html.twig' %}
-{% block title %}Missions{% endblock %}
+{% block title %}Clients{% endblock %}
 {% block body -%}
     <div class="container">
-        <h1>Mission</h1>
+        <h1>Client</h1>
 
         <table class="table table-bordered">
             <tbody>
@@ -11,8 +11,8 @@
                     <td>{{ entity.id }}</td>
                 </tr>
                 <tr>
-                    <th>Titre</th>
-                    <td>{{ entity.titre }}</td>
+                    <th>Nom</th>
+                    <td>{{ entity.nom }}</td>
                 </tr>
                 <tr>
                     <th>Description</th>
@@ -24,22 +24,22 @@
                             </td>            </tr>
                     </tbody>
                 </table>
-                            <div align="middle">
-                
-                        
-                               
-                                <a href="{{ path('missions') }}" class="btn btn-default">
+                <div align="middle">
+
+
+                   
+                        <a href="{{ path('clients') }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste
                         </a>
-                 
-                        <a href="{{ path('missions_edit', { 'id': entity.id }) }}" class="btn btn-default">
+
+                        <a href="{{ path('clients_edit', { 'id': entity.id }) }}" class="btn btn-default">
                             <span class="glyphicon glyphicon-pencil"></span> Modifier
                         </a>
-                                <a href="{{ path('missions_delete', { 'id': entity.id }) }}" class="btn btn-danger">
+                        <a href="{{ path('clients_delete', { 'id': entity.id }) }}" class="btn btn-danger">
                             <span class="glyphicon glyphicon-trash"></span> Effacer
                         </a>
-                           
                     {#{{ form(delete_form) }}#}
-                     </div>
+                </div>
+
             </div>
             {% endblock %}

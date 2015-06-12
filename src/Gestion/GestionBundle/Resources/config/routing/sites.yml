@@ -1,0 +1,30 @@
+sites:
+    path:     /
+    defaults: { _controller: "GestionBundle:Sites:index" }
+
+sites_show:
+    path:     /{id}/show
+    defaults: { _controller: "GestionBundle:Sites:show" }
+
+sites_new:
+    path:     /new
+    defaults: { _controller: "GestionBundle:Sites:new" }
+
+sites_create:
+    path:     /create
+    defaults: { _controller: "GestionBundle:Sites:create" }
+    methods:  POST
+
+sites_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "GestionBundle:Sites:edit" }
+
+sites_update:
+    path:     /{id}/update
+    defaults: { _controller: "GestionBundle:Sites:update" }
+    methods:  [POST, PUT]
+
+sites_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "GestionBundle:Sites:delete" }
+    methods:  [POST, DELETE]

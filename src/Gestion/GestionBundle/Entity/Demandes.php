@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Gestion\GestionBundle\Repository\DemandesRepository")
  */
-class Demandes
-{
+class Demandes {
+
     /**
      * @var integer
      *
@@ -28,32 +28,16 @@ class Demandes
     private $utilisateur;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="auNomDe", type="string", length=100, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs") 
+     * @ORM\JoinColumn(nullable=true)
      */
     private $auNomDe;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="client", type="string", length=100)
+     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Sites") 
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $client;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="site", type="string", length=100)
-     */
-    private $site;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="adresse", type="string", length=255)
-     */
-    private $adresse;
+    private $sites;
 
     /**
      * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Missions") 
@@ -76,28 +60,28 @@ class Demandes
     /**
      * @var string
      *
-     * @ORM\Column(name="autres", type="string", length=255, nullable=true)
+     * @ORM\Column(name="autres", type="string", length=255)
      */
     private $autres;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionOne", type="string", length=255, nullable=true)
+     * @ORM\Column(name="detailsMissionOne", type="string", length=255)
      */
     private $detailsMissionOne;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionTwo", type="string", length=255, nullable=true)
+     * @ORM\Column(name="detailsMissionTwo", type="string", length=255)
      */
     private $detailsMissionTwo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionThree", type="string", length=255, nullable=true)
+     * @ORM\Column(name="detailsMissionThree", type="string", length=255)
      */
     private $detailsMissionThree;
 
@@ -109,19 +93,12 @@ class Demandes
     private $dateLimite;
 
     /**
-     * @ORM\OneToMany(targetEntity="Gestion\GestionBundle\Entity\Fichiers",mappedBy="publication",cascade={"persist"}) 
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $fichiers;
-    
-  
-    /**
      * @var string
      *
-     * @ORM\Column(name="lien", type="string", length=255, nullable=true)
+     * @ORM\Column(name="lien", type="text", nullable=true)
      */
     private $lien;
-    
+
     /**
      * @var integer
      *
@@ -139,16 +116,44 @@ class Demandes
     /**
      * @var string
      *
-     * @ORM\Column(name="type", type="string", length=100)
+     * @ORM\Column(name="niveauUrgence", type="string", length=100)
      */
-    private $type;
+    private $niveauUrgence;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="avancement", type="string", length=50)
+     * @ORM\Column(name="etat", type="string", length=100)
      */
-    private $avancement;
+    private $etat;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confidentialite", type="string", length=255)
+     */
+    private $confidentialite;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="docGdl", type="string", length=255)
+     */
+    private $docGdl;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="envoiePrevuLe", type="datetime")
+     */
+    private $envoiePrevuLe;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mettreEnCopie", type="string", length=255)
+     */
+    private $mettreEnCopie;
 
     /**
      * @var \DateTime
@@ -160,9 +165,9 @@ class Demandes
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateDerniereMiseAJour", type="datetime")
+     * @ORM\Column(name="dateDernierMiseAJour", type="datetime")
      */
-    private $dateDerniereMiseAJour;
+    private $dateDernierMiseAJour;
 
     /**
      * @var integer
@@ -171,203 +176,13 @@ class Demandes
      */
     private $accueil;
 
-
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
-    }
-    function __construct() {
-        $this->fichiers = new \Doctrine\Common\Collections\ArrayCollection();
-        
-    }
-
-    /**
-     * Set utilisateur
-     *
-     * @param string $utilisateur
-     * @return Demandes
-     */
-    public function setUtilisateur($utilisateur)
-    {
-        $this->utilisateur = $utilisateur;
-    
-        return $this;
-    }
-
-    /**
-     * Get utilisateur
-     *
-     * @return string 
-     */
-    public function getUtilisateur()
-    {
-        return $this->utilisateur;
-    }
-
-    /**
-     * Set auNomDe
-     *
-     * @param string $auNomDe
-     * @return Demandes
-     */
-    public function setAuNomDe($auNomDe)
-    {
-        $this->auNomDe = $auNomDe;
-    
-        return $this;
-    }
-
-    /**
-     * Get auNomDe
-     *
-     * @return string 
-     */
-    public function getAuNomDe()
-    {
-        return $this->auNomDe;
-    }
-
-    /**
-     * Set client
-     *
-     * @param string $client
-     * @return Demandes
-     */
-    public function setClient($client)
-    {
-        $this->client = $client;
-    
-        return $this;
-    }
-
-    /**
-     * Get client
-     *
-     * @return string 
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * Set site
-     *
-     * @param string $site
-     * @return Demandes
-     */
-    public function setSite($site)
-    {
-        $this->site = $site;
-    
-        return $this;
-    }
-
-    /**
-     * Get site
-     *
-     * @return string 
-     */
-    public function getSite()
-    {
-        return $this->site;
-    }
-
-    /**
-     * Set adresse
-     *
-     * @param string $adresse
-     * @return Demandes
-     */
-    public function setAdresse($adresse)
-    {
-        $this->adresse = $adresse;
-    
-        return $this;
-    }
-
-    /**
-     * Get adresse
-     *
-     * @return string 
-     */
-    public function getAdresse()
-    {
-        return $this->adresse;
-    }
-
-    /**
-     * Set missionOne
-     *
-     * @param string $missionOne
-     * @return Demandes
-     */
-    public function setMissionOne($missionOne)
-    {
-        $this->missionOne = $missionOne;
-    
-        return $this;
-    }
-
-    /**
-     * Get missionOne
-     *
-     * @return string 
-     */
-    public function getMissionOne()
-    {
-        return $this->missionOne;
-    }
-
-    /**
-     * Set missionTwo
-     *
-     * @param string $missionTwo
-     * @return Demandes
-     */
-    public function setMissionTwo($missionTwo)
-    {
-        $this->missionTwo = $missionTwo;
-    
-        return $this;
-    }
-
-    /**
-     * Get missionTwo
-     *
-     * @return string 
-     */
-    public function getMissionTwo()
-    {
-        return $this->missionTwo;
-    }
-
-    /**
-     * Set missionThree
-     *
-     * @param string $missionThree
-     * @return Demandes
-     */
-    public function setMissionThree($missionThree)
-    {
-        $this->missionThree = $missionThree;
-    
-        return $this;
-    }
-
-    /**
-     * Get missionThree
-     *
-     * @return string 
-     */
-    public function getMissionThree()
-    {
-        return $this->missionThree;
     }
 
     /**
@@ -376,10 +191,9 @@ class Demandes
      * @param string $autres
      * @return Demandes
      */
-    public function setAutres($autres)
-    {
+    public function setAutres($autres) {
         $this->autres = $autres;
-    
+
         return $this;
     }
 
@@ -388,8 +202,7 @@ class Demandes
      *
      * @return string 
      */
-    public function getAutres()
-    {
+    public function getAutres() {
         return $this->autres;
     }
 
@@ -399,10 +212,9 @@ class Demandes
      * @param string $detailsMissionOne
      * @return Demandes
      */
-    public function setDetailsMissionOne($detailsMissionOne)
-    {
+    public function setDetailsMissionOne($detailsMissionOne) {
         $this->detailsMissionOne = $detailsMissionOne;
-    
+
         return $this;
     }
 
@@ -411,8 +223,7 @@ class Demandes
      *
      * @return string 
      */
-    public function getDetailsMissionOne()
-    {
+    public function getDetailsMissionOne() {
         return $this->detailsMissionOne;
     }
 
@@ -422,10 +233,9 @@ class Demandes
      * @param string $detailsMissionTwo
      * @return Demandes
      */
-    public function setDetailsMissionTwo($detailsMissionTwo)
-    {
+    public function setDetailsMissionTwo($detailsMissionTwo) {
         $this->detailsMissionTwo = $detailsMissionTwo;
-    
+
         return $this;
     }
 
@@ -434,8 +244,7 @@ class Demandes
      *
      * @return string 
      */
-    public function getDetailsMissionTwo()
-    {
+    public function getDetailsMissionTwo() {
         return $this->detailsMissionTwo;
     }
 
@@ -445,10 +254,9 @@ class Demandes
      * @param string $detailsMissionThree
      * @return Demandes
      */
-    public function setDetailsMissionThree($detailsMissionThree)
-    {
+    public function setDetailsMissionThree($detailsMissionThree) {
         $this->detailsMissionThree = $detailsMissionThree;
-    
+
         return $this;
     }
 
@@ -457,8 +265,7 @@ class Demandes
      *
      * @return string 
      */
-    public function getDetailsMissionThree()
-    {
+    public function getDetailsMissionThree() {
         return $this->detailsMissionThree;
     }
 
@@ -468,10 +275,9 @@ class Demandes
      * @param \DateTime $dateLimite
      * @return Demandes
      */
-    public function setDateLimite($dateLimite)
-    {
+    public function setDateLimite($dateLimite) {
         $this->dateLimite = $dateLimite;
-    
+
         return $this;
     }
 
@@ -480,32 +286,29 @@ class Demandes
      *
      * @return \DateTime 
      */
-    public function getDateLimite()
-    {
+    public function getDateLimite() {
         return $this->dateLimite;
     }
 
     /**
-     * Set fichiers
+     * Set lien
      *
-     * @param string $fichiers
+     * @param string $lien
      * @return Demandes
      */
-    public function setFichiers($fichiers)
-    {
-        $this->fichiers = $fichiers;
-    
+    public function setLien($lien) {
+        $this->lien = $lien;
+
         return $this;
     }
 
     /**
-     * Get fichiers
+     * Get lien
      *
      * @return string 
      */
-    public function getFichiers()
-    {
-        return $this->fichiers;
+    public function getLien() {
+        return $this->lien;
     }
 
     /**
@@ -514,10 +317,9 @@ class Demandes
      * @param integer $jaime
      * @return Demandes
      */
-    public function setJaime($jaime)
-    {
+    public function setJaime($jaime) {
         $this->jaime = $jaime;
-    
+
         return $this;
     }
 
@@ -526,8 +328,7 @@ class Demandes
      *
      * @return integer 
      */
-    public function getJaime()
-    {
+    public function getJaime() {
         return $this->jaime;
     }
 
@@ -537,10 +338,9 @@ class Demandes
      * @param integer $jeNaimePas
      * @return Demandes
      */
-    public function setJeNaimePas($jeNaimePas)
-    {
+    public function setJeNaimePas($jeNaimePas) {
         $this->jeNaimePas = $jeNaimePas;
-    
+
         return $this;
     }
 
@@ -549,55 +349,134 @@ class Demandes
      *
      * @return integer 
      */
-    public function getJeNaimePas()
-    {
+    public function getJeNaimePas() {
         return $this->jeNaimePas;
     }
 
     /**
-     * Set type
+     * Set niveauUrgence
      *
-     * @param string $type
+     * @param string $niveauUrgence
      * @return Demandes
      */
-    public function setType($type)
-    {
-        $this->type = $type;
-    
+    public function setNiveauUrgence($niveauUrgence) {
+        $this->niveauUrgence = $niveauUrgence;
+
         return $this;
     }
 
     /**
-     * Get type
+     * Get niveauUrgence
      *
      * @return string 
      */
-    public function getType()
-    {
-        return $this->type;
+    public function getNiveauUrgence() {
+        return $this->niveauUrgence;
     }
 
     /**
-     * Set avancement
+     * Set etat
      *
-     * @param string $avancement
+     * @param string $etat
      * @return Demandes
      */
-    public function setAvancement($avancement)
-    {
-        $this->avancement = $avancement;
-    
+    public function setEtat($etat) {
+        $this->etat = $etat;
+
         return $this;
     }
 
     /**
-     * Get avancement
+     * Get etat
      *
      * @return string 
      */
-    public function getAvancement()
-    {
-        return $this->avancement;
+    public function getEtat() {
+        return $this->etat;
+    }
+
+    /**
+     * Set confidentialite
+     *
+     * @param string $confidentialite
+     * @return Demandes
+     */
+    public function setConfidentialite($confidentialite) {
+        $this->confidentialite = $confidentialite;
+
+        return $this;
+    }
+
+    /**
+     * Get confidentialite
+     *
+     * @return string 
+     */
+    public function getConfidentialite() {
+        return $this->confidentialite;
+    }
+
+    /**
+     * Set docGdl
+     *
+     * @param string $docGdl
+     * @return Demandes
+     */
+    public function setDocGdl($docGdl) {
+        $this->docGdl = $docGdl;
+
+        return $this;
+    }
+
+    /**
+     * Get docGdl
+     *
+     * @return string 
+     */
+    public function getDocGdl() {
+        return $this->docGdl;
+    }
+
+    /**
+     * Set envoiePrevuLe
+     *
+     * @param \DateTime $envoiePrevuLe
+     * @return Demandes
+     */
+    public function setEnvoiePrevuLe($envoiePrevuLe) {
+        $this->envoiePrevuLe = $envoiePrevuLe;
+
+        return $this;
+    }
+
+    /**
+     * Get envoiePrevuLe
+     *
+     * @return \DateTime 
+     */
+    public function getEnvoiePrevuLe() {
+        return $this->envoiePrevuLe;
+    }
+
+    /**
+     * Set mettreEnCopie
+     *
+     * @param string $mettreEnCopie
+     * @return Demandes
+     */
+    public function setMettreEnCopie($mettreEnCopie) {
+        $this->mettreEnCopie = $mettreEnCopie;
+
+        return $this;
+    }
+
+    /**
+     * Get mettreEnCopie
+     *
+     * @return string 
+     */
+    public function getMettreEnCopie() {
+        return $this->mettreEnCopie;
     }
 
     /**
@@ -606,10 +485,9 @@ class Demandes
      * @param \DateTime $datePosteDemande
      * @return Demandes
      */
-    public function setDatePosteDemande($datePosteDemande)
-    {
+    public function setDatePosteDemande($datePosteDemande) {
         $this->datePosteDemande = $datePosteDemande;
-    
+
         return $this;
     }
 
@@ -618,32 +496,29 @@ class Demandes
      *
      * @return \DateTime 
      */
-    public function getDatePosteDemande()
-    {
+    public function getDatePosteDemande() {
         return $this->datePosteDemande;
     }
 
     /**
-     * Set dateDerniereMiseAJour
+     * Set dateDernierMiseAJour
      *
-     * @param \DateTime $dateDerniereMiseAJour
+     * @param \DateTime $dateDernierMiseAJour
      * @return Demandes
      */
-    public function setDateDerniereMiseAJour($dateDerniereMiseAJour)
-    {
-        $this->dateDerniereMiseAJour = $dateDerniereMiseAJour;
-    
+    public function setDateDernierMiseAJour($dateDernierMiseAJour) {
+        $this->dateDernierMiseAJour = $dateDernierMiseAJour;
+
         return $this;
     }
 
     /**
-     * Get dateDerniereMiseAJour
+     * Get dateDernierMiseAJour
      *
      * @return \DateTime 
      */
-    public function getDateDerniereMiseAJour()
-    {
-        return $this->dateDerniereMiseAJour;
+    public function getDateDernierMiseAJour() {
+        return $this->dateDernierMiseAJour;
     }
 
     /**
@@ -652,10 +527,9 @@ class Demandes
      * @param integer $accueil
      * @return Demandes
      */
-    public function setAccueil($accueil)
-    {
+    public function setAccueil($accueil) {
         $this->accueil = $accueil;
-    
+
         return $this;
     }
 
@@ -664,59 +538,150 @@ class Demandes
      *
      * @return integer 
      */
-    public function getAccueil()
-    {
+    public function getAccueil() {
         return $this->accueil;
     }
 
+
     /**
-     * Add fichiers
+     * Set utilisateur
      *
-     * @param \Gestion\GestionBundle\Entity\Fichiers $fichiers
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur
      * @return Demandes
      */
-    public function addFichier(\Gestion\GestionBundle\Entity\Fichiers $fichiers)
+    public function setUtilisateur(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur)
     {
-        $this->fichiers[] = $fichiers;
+        $this->utilisateur = $utilisateur;
     
         return $this;
     }
 
     /**
-     * Remove fichiers
+     * Get utilisateur
      *
-     * @param \Gestion\GestionBundle\Entity\Fichiers $fichiers
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs 
      */
-    public function removeFichier(\Gestion\GestionBundle\Entity\Fichiers $fichiers)
+    public function getUtilisateur()
     {
-        $this->fichiers->removeElement($fichiers);
+        return $this->utilisateur;
     }
 
     /**
-     * Set lien
+     * Set auNomDe
      *
-     * @param string $lien
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $auNomDe
      * @return Demandes
      */
-    public function setLien($lien)
+    public function setAuNomDe(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $auNomDe = null)
     {
-        $this->lien = $lien;
+        $this->auNomDe = $auNomDe;
     
         return $this;
     }
 
     /**
-     * Get lien
+     * Get auNomDe
      *
-     * @return string 
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs 
      */
-    public function getLien()
+    public function getAuNomDe()
     {
-        return $this->lien;
+        return $this->auNomDe;
     }
+
+    /**
+     * Set sites
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Sites $sites
+     * @return Demandes
+     */
+    public function setSites(\Utilisateurs\UtilisateursBundle\Entity\Sites $sites)
+    {
+        $this->sites = $sites;
     
+        return $this;
+    }
+
+    /**
+     * Get sites
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Sites 
+     */
+    public function getSites()
+    {
+        return $this->sites;
+    }
+
+    /**
+     * Set missionOne
+     *
+     * @param \Gestion\GestionBundle\Entity\Missions $missionOne
+     * @return Demandes
+     */
+    public function setMissionOne(\Gestion\GestionBundle\Entity\Missions $missionOne = null)
+    {
+        $this->missionOne = $missionOne;
+    
+        return $this;
+    }
+
+    /**
+     * Get missionOne
+     *
+     * @return \Gestion\GestionBundle\Entity\Missions 
+     */
+    public function getMissionOne()
+    {
+        return $this->missionOne;
+    }
+
+    /**
+     * Set missionTwo
+     *
+     * @param \Gestion\GestionBundle\Entity\Missions $missionTwo
+     * @return Demandes
+     */
+    public function setMissionTwo(\Gestion\GestionBundle\Entity\Missions $missionTwo = null)
+    {
+        $this->missionTwo = $missionTwo;
+    
+        return $this;
+    }
+
+    /**
+     * Get missionTwo
+     *
+     * @return \Gestion\GestionBundle\Entity\Missions 
+     */
+    public function getMissionTwo()
+    {
+        return $this->missionTwo;
+    }
+
+    /**
+     * Set missionThree
+     *
+     * @param \Gestion\GestionBundle\Entity\Missions $missionThree
+     * @return Demandes
+     */
+    public function setMissionThree(\Gestion\GestionBundle\Entity\Missions $missionThree = null)
+    {
+        $this->missionThree = $missionThree;
+    
+        return $this;
+    }
+
+    /**
+     * Get missionThree
+     *
+     * @return \Gestion\GestionBundle\Entity\Missions 
+     */
+    public function getMissionThree()
+    {
+        return $this->missionThree;
+    }
     public function __toString() {
-       return $this->getClient()." : ".$this->getId();
+        return $this->getSites()." : ".$this->getId();
     }
 
 }

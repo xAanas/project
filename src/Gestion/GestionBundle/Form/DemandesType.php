@@ -17,10 +17,12 @@ class DemandesType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $builder
-                ->add('auNomDe')
-                ->add('client')
-                ->add('site')
-                ->add('adresse')
+                ->add('auNomDe','entity',array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
+                                                                'empty_value' => 'Au nom de ',
+                                                                'empty_data'  => null))  
+                ->add('sites','entity',array('class' => 'Gestion\GestionBundle\Entity\Sites',
+                                                                'empty_value' => 'Choisir un site',
+                                                                'empty_data'  => null))              
                 ->add('missionOne','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
                                                                 'empty_value' => 'Choisir une mission',
                                                                 'empty_data'  => null))
@@ -35,18 +37,25 @@ class DemandesType extends AbstractType{
                 ->add('detailsMissionTwo')
                 ->add('detailsMissionThree')
                 ->add('dateLimite','date',array('widget' => 'single_text'))
-                ->add('fichiers','collection',array('type' => new FichiersType(),'allow_add' => true,'by_reference' => false,))
-                ->add('lien')
-                ->add('type','choice',array('choices' => array ('ordinaire' => 'ordinaire',
+                ->add('lien','textarea')
+                ->add('niveauUrgence','choice',array('choices' => array ('ordinaire' => 'ordinaire',
                                                                 'urgente' => 'urgente'),
                                                                 'empty_value' => 'Choisissez un type',
                                                                 'empty_data'  => 'ordinaire'))
-                ->add('avancement','choice',array('choices' => array ('Emise' => 'émise',
+                ->add('etat','choice',array('choices' => array ('Emise' => 'émise',
                                                                 'En cour' => 'en cour',
                                                                 'Annulée' => 'annulée',
                                                                 'Livrée' => 'livrée'),
                                                                 'empty_value' => 'Choisissez un état',
                                                                 'empty_data'  => 'émise'))
+                ->add('confidentialite','choice',array('choices' => array ('Haute' => 'Haute',
+                                                                'Normale' => 'normale',
+                                                                'empty_value' => 'Choisissez la confidentialité',
+                                                                'empty_data'  => 'normale')))
+                ->add('docGdl')
+                ->add('envoiePrevuLe','date',array('widget' => 'single_text'))
+                ->add('mettreEnCopie','textarea')
+                        
         ;
     }
     

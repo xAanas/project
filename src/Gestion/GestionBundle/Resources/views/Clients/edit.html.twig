@@ -1,19 +1,18 @@
 {% extends '::base.html.twig' %}
-{% block title %}Missions{% endblock %}
+{% block title %}Clients{% endblock %}
 {% block body -%}
-    <div class="container">
-        <h1>Modifier la mission {{entity.id}}</h1>
-
-        <div class="well">
+        <div class="container">
+    <h1>Modifier le client {{ entity.id}}</h1>
+    <div class="well">
             {{ form_start(edit_form, {'attr': {'class': 'form-horizontal'}}) }}
             {{ form_errors(edit_form) }}
             <div class="form-group">
-                {{ form_label(edit_form.titre, "Titre : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+                {{ form_label(edit_form.nom, "Nom : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
-                {{ form_errors(edit_form.titre) }}
+                {{ form_errors(edit_form.nom) }}
 
                 <div class="col-sm-4">
-                    {{ form_widget(edit_form.titre, {'attr': {'class': 'form-control'}}) }}
+                    {{ form_widget(edit_form.nom, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
             <div class="form-group">
@@ -35,19 +34,18 @@
             {# Fermeture de la balise <form> du formulaire HTML #}
             {{ form_end(edit_form) }}
         </div>
-        <div align="middle">
+    <div align="middle">
 
 
-           
-                <a href="{{ path('missions') }}" class="btn btn-default">
+                <a href="{{ path('clients') }}" class="btn btn-default">
                     <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
                 </a>
 
-                <a href="{{ path('missions_delete', { 'id': entity.id }) }}" class="btn btn-danger">
+               <a href="{{ path('clients_delete', { 'id': entity.id }) }}" class="btn btn-danger">
                             <span class="glyphicon glyphicon-trash"></span> Effacer
                         </a>
             {#{{ form(delete_form) }}#}
         </div>
-
-    </div>
+        
+        </div>
 {% endblock %}

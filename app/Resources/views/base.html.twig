@@ -9,7 +9,53 @@
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <style>
+        .dropdown-submenu {
+            position: relative;
+        }
 
+        .dropdown-submenu>.dropdown-menu {
+            top: 0;
+            left: 100%;
+            margin-top: -6px;
+            margin-left: -1px;
+            -webkit-border-radius: 0 6px 6px 6px;
+            -moz-border-radius: 0 6px 6px;
+            border-radius: 0 6px 6px 6px;
+        }
+
+        .dropdown-submenu:hover>.dropdown-menu {
+            display: block;
+        }
+
+        .dropdown-submenu>a:after {
+            display: block;
+            content: " ";
+            float: right;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid;
+            border-width: 5px 0 5px 5px;
+            border-left-color: #ccc;
+            margin-top: 5px;
+            margin-right: -10px;
+        }
+
+        .dropdown-submenu:hover>a:after {
+            border-left-color: #fff;
+        }
+
+        .dropdown-submenu.pull-left {
+            float: none;
+        }
+
+        .dropdown-submenu.pull-left>.dropdown-menu {
+            left: -100%;
+            margin-left: 10px;
+            -webkit-border-radius: 6px 0 6px 6px;
+            -moz-border-radius: 6px 0 6px 6px;
+            border-radius: 6px 0 6px 6px;
+        }
         .btn-file {
             position: relative;
             overflow: hidden;
@@ -81,33 +127,42 @@
                 <ul class="nav navbar-nav navbar-right">
 
                     <!--<li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li>-->
-                    <li><a href="{{ path('fos_user_profile_show')}}"><div style="font-size:12px ; color : white;">Profil</div></a></li>
-                    <li class="active"><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;">Accueil </div></a></li>
+                    {% block modalplus %} {% endblock%}
+                    <li class="active"><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-home"></span> </div></a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"  id="notification" onclick="effaceNotif();"><div style="font-size:15px ; color : white;"><span class="glyphicon glyphicon-globe"></span></div></a>
                         <!--  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Notifications <span class="badge">3</span></a>-->
                         <ul class="dropdown-menu" id="dropdown-menu-notification">
-                           
+
                             <!-- contenu des notification -->
                         </ul>
                     </li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#"><div style="font-size:12px ; color : white;">Menu<span class="caret"></span></div></a>
-                        <ul class="dropdown-menu" >
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('demandes') }}"><span class="glyphicon glyphicon-file"></span> Demandes </a></li>
-
-                            {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-user"></span> Utilisateurs</a></li> {% endif %}
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-picture"></span> Equipe</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://192.168.1.3/Project_1_1_1/web/app.php/platform/calendar"><span class="glyphicon glyphicon-calendar"></span> Calendrier</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fichier_ajout')}}"><span class="glyphicon glyphicon-barcode"></span> Stock </a></li>
-                            {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('missions')}}"><span class="glyphicon glyphicon-cog"></span> Missions</a></li>{% endif %}
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-wrench"></span> Paramètres </a></li>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-th-list"></span> </div>
+                        </a>
+                        <ul class="dropdown-menu multi-level">
+                            <li><a href="{{ path('demandes') }}"><span class="glyphicon glyphicon-file"></span> Demandes </a></li>
+                            <li><a href="{{ path('fos_user_profile_show')}}"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
+                            {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-list-alt"></span> Utilisateurs</a></li> {% endif %}
+                            <li><a href="#"><span class="glyphicon glyphicon-picture"></span> Equipe</a></li>
+                            <li><a href="http://192.168.1.3/Project_1_1_1/web/app.php/platform/calendar"><span class="glyphicon glyphicon-calendar"></span> Calendrier</a></li>
+                            <li><a href="{{ path('fichier_ajout')}}"><span class="glyphicon glyphicon-barcode"></span> Stock </a></li>
                             <li class="divider"></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="{{ path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-off"></span> Déconnexion  </a></li>
+                            <li class="dropdown-submenu">
+                                <a tabindex="-1" href="#"><span class="glyphicon glyphicon-cog"></span> Paramètres  </a>
+                                <ul class="dropdown-menu">
+                                    {% if is_granted('ROLE_ADMIN') %}<li><a tabindex="-1" href="{{ path('missions')}}"><span class="glyphicon glyphicon-wrench"></span> Missions</a></li>{% endif %}
+                                    <li><a tabindex="-1" href="{{ path('clients')}}"><span class="glyphicon glyphicon-wrench"></span> Clients</a></li>
+                                    <li><a tabindex="-1" href="{{ path('sites')}}"><span class="glyphicon glyphicon-wrench"></span> Sites</a></li>
+                                </ul>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="{{ path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-off"></span> Déconnexion  </a></li>
                         </ul>
                     </li>
 
-                    <li><a href="{{ path('fos_user_security_logout')}}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-log-out"></span> Déconnexion </div></a></li>
+                    <li><a href="{{ path('fos_user_security_logout')}}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-off"></span>  </div></a></li>
                 </ul>
             </div>
         </div>
@@ -146,13 +201,14 @@
                 </div>
             </div>
         </div>
-    </footer>	
+    </footer>
+    <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     {% block javascripts %}
         <script type="text/javascript">
-
+                            $('.dropdown-submenu > a').submenupicker();
                             // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
 
                             $(".modal-wide").on("show.bs.modal", function () {

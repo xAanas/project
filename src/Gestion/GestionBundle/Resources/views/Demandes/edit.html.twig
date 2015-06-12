@@ -2,17 +2,20 @@
 {% block title %}Demandes{% endblock %}
 {% block body -%}
     <div class="container">
-    <h1>Modifier la demande</h1>
+        <h1>Modifier la demande</h1>
 
-    {{ form(edit_form) }}
+        {{ form(edit_form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('demandes') }}">
-            Retour à la liste
-        </a>
-    </li>
-    <li>{{ form(delete_form) }}</li>
-</ul>
+        <div align="middle">
+
+
+            <form action="{{ path('demandes_delete', { 'id': entity.id }) }}" method="POST">
+                <a href="{{ path('demandes') }}" class="btn btn-default">
+                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
+                </a>
+                <input type="submit" value="effacer" class="btn btn-danger">
+            </form>
+            {#{{ form(delete_form) }}#}
+        </div>
     </div>
 {% endblock %}

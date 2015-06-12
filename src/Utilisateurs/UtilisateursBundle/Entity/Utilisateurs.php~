@@ -17,6 +17,21 @@ class Utilisateurs extends BaseUser
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+    
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+    
     /**
      * @ORM\OneToMany(targetEntity="Gestion\GestionBundle\Entity\Demandes",mappedBy="utilisateur")
      * @ORM\JoinColumn(nullable=true)
@@ -28,4 +43,48 @@ class Utilisateurs extends BaseUser
         parent::__construct();
         $this->Demandes = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add Demandes
+     *
+     * @param \Gestion\GestionBundle\Entity\Demandes $demandes
+     * @return Utilisateurs
+     */
+    public function addDemande(\Gestion\GestionBundle\Entity\Demandes $demandes)
+    {
+        $this->Demandes[] = $demandes;
+    
+        return $this;
+    }
+
+    /**
+     * Remove Demandes
+     *
+     * @param \Gestion\GestionBundle\Entity\Demandes $demandes
+     */
+    public function removeDemande(\Gestion\GestionBundle\Entity\Demandes $demandes)
+    {
+        $this->Demandes->removeElement($demandes);
+    }
+
+    /**
+     * Get Demandes
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDemandes()
+    {
+        return $this->Demandes;
+    }
+
 }

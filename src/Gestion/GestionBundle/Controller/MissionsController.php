@@ -19,14 +19,26 @@ class MissionsController extends Controller
      * Lists all Missions entities.
      *
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $entities = $em->getRepository('GestionBundle:Missions')->findAll();
+        $entity = new Missions();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('missions_show', array('id' => $entity->getId())));
+        }
 
         return $this->render('GestionBundle:Missions:index.html.twig', array(
             'entities' => $entities,
+            'form'   => $form->createView(),
         ));
     }
     /**
@@ -67,7 +79,6 @@ class MissionsController extends Controller
             'method' => 'POST',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Create'));
 
         return $form;
     }
@@ -147,7 +158,6 @@ class MissionsController extends Controller
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Mise à jour','attr' => array('class' => 'btn')));
 
         return $form;
     }
@@ -217,7 +227,7 @@ class MissionsController extends Controller
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('missions_delete', array('id' => $id)))
             ->setMethod('DELETE')
-            ->add('submit', 'submit', array('label' => 'Effacer','attr' => array('class' => 'list-group-item')))
+            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

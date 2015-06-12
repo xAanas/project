@@ -29,22 +29,22 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $comments = $em->getRepository('GestionBundle:Commentaires')->findAll();
         //$fichier1 = $em->getRepository('GestionBundle:Fichiers')->find('1');
-        $fichier = new Fichiers();
-        $demande->getFichiers()->add($fichier);
+        //$fichier = new Fichiers();
+        //$demande->getFichiers()->add($fichier);
         $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
         $demande->setUtilisateur($utilisateur);
         $demande->setJaime('0');
         $demande->setJeNaimePas('0');
         $demande->setDatePosteDemande(new \DateTime());
-        $demande->setDateDerniereMiseAJour(new \DateTime());
+        $demande->setDateDernierMiseAJour(new \DateTime());
         $demande->setAccueil('1');
         $form = $this->createForm(new DemandesType(), $demande);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            foreach ($demande->getFichiers() as $fichier) {
-                $fichier->setPublication($demande);
-            }
+           // foreach ($demande->getFichiers() as $fichier) {
+             //   $fichier->setPublication($demande);
+           // }
             $em->persist($demande);
             $em->flush();
 
@@ -78,15 +78,21 @@ class DefaultController extends Controller {
                 $this->get('mailer')->send($message);
             }
         }
-        $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
 
-        foreach ($demandes as $demande) {
-            $nombrecomment[$demande->getId()] = 0;
-        }
-        foreach ($demandes as $demande) {
-            foreach ($comments as $comment) {
-                if ($comment->getDemande()->getId() == $demande->getId()) {
-                    $nombrecomment[$demande->getId()] ++;
+        $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
+        if ($demandes == NULL) {
+            $nombrecomment[0] = 0;
+        } else {
+            foreach ($demandes as $demande) {
+                $nombrecomment[$demande->getId()] = 0;
+            }
+
+
+            foreach ($demandes as $demande) {
+                foreach ($comments as $comment) {
+                    if ($comment->getDemande()->getId() == $demande->getId()) {
+                        $nombrecomment[$demande->getId()] ++;
+                    }
                 }
             }
         }
@@ -94,19 +100,39 @@ class DefaultController extends Controller {
     }
 
     public function aimerAction(Request $request, $id) {
-       // if ($request->isXmlHttpRequest()) {
-            $em = $this->getDoctrine()->getManager();
-            $demande = new Demandes();
-            $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
-            $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
-            $jaimeEntity = $em->getRepository('GestionBundle:Jaime')->findOneBy(array('demande' => $demande->getId(), 'utilisateur' => $utilisateur->getId()));
-            if ($jaimeEntity == NULL) {
-                $jaimeEntity = new Jaime();
-                $jaimeEntity->setDemande($id);
-                $jaimeEntity->setUtilisateur($utilisateur->getId());
-                $jaimeEntity->setJaime('1');
-                $jaimeEntity->setJaimepas('0');
+        // if ($request->isXmlHttpRequest()) {
+        $em = $this->getDoctrine()->getManager();
+        $demande = new Demandes();
+        $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
+        $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
+        $jaimeEntity = $em->getRepository('GestionBundle:Jaime')->findOneBy(array('demande' => $demande->getId(), 'utilisateur' => $utilisateur->getId()));
+        if ($jaimeEntity == NULL) {
+            $jaimeEntity = new Jaime();
+            $jaimeEntity->setDemande($id);
+            $jaimeEntity->setUtilisateur($utilisateur->getId());
+            $jaimeEntity->setJaime('1');
+            $jaimeEntity->setJaimepas('0');
 
+            $em->persist($jaimeEntity);
+            $em->flush();
+
+            $jaime = $demande->getJaime();
+            $jaime++;
+            $demande->setJaime($jaime);
+
+
+            $em->persist($demande);
+            $em->flush();
+
+            $response = new JsonResponse();
+            return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+        } else if ($jaimeEntity !== NULL) {
+            if ($jaimeEntity->getJaime() == 1) {
+                $response = new JsonResponse();
+                return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+            } elseif ($jaimeEntity->getJaimepas() == 1) {
+                $jaimeEntity->setJaimepas('0');
+                $jaimeEntity->setJaime('1');
                 $em->persist($jaimeEntity);
                 $em->flush();
 
@@ -114,66 +140,66 @@ class DefaultController extends Controller {
                 $jaime++;
                 $demande->setJaime($jaime);
 
+                $jaimepas = $demande->getJeNaimePas();
+                $jaimepas--;
+                $demande->setJeNaimePas($jaimepas);
 
                 $em->persist($demande);
                 $em->flush();
 
                 $response = new JsonResponse();
-                return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-            } else if ($jaimeEntity !== NULL) {
-                if ($jaimeEntity->getJaime() == 1) {
-                    $response = new JsonResponse();
-                    return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-                } elseif ($jaimeEntity->getJaimepas() == 1) {
-                    $jaimeEntity->setJaimepas('0');
-                    $jaimeEntity->setJaime('1');
-                    $em->persist($jaimeEntity);
-                    $em->flush();
-
-                    $jaime = $demande->getJaime();
-                    $jaime++;
-                    $demande->setJaime($jaime);
-
-                    $jaimepas = $demande->getJeNaimePas();
-                    $jaimepas--;
-                    $demande->setJeNaimePas($jaimepas);
-
-                    $em->persist($demande);
-                    $em->flush();
-
-                    $response = new JsonResponse();
-                    return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-                }
-            } else {
-                $response = new JsonResponse();
-                return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
+                return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
             }
-
-
-
-
+        } else {
             $response = new JsonResponse();
-            return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-       /* } else {
-            throw new Exception("Erreur");
-        }*/
+            return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+        }
+
+
+
+
+        $response = new JsonResponse();
+        return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+        /* } else {
+          throw new Exception("Erreur");
+          } */
     }
 
     public function nepasaimerAction(Request $request, $id) {
-       // if ($request->isXmlHttpRequest()) {
+        // if ($request->isXmlHttpRequest()) {
 
-            $em = $this->getDoctrine()->getManager();
-            $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
-            $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
-            $jaimeEntity = $em->getRepository('GestionBundle:Jaime')->findOneBy(array('demande' => $demande->getId(), 'utilisateur' => $utilisateur->getId()));
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
+        $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
+        $jaimeEntity = $em->getRepository('GestionBundle:Jaime')->findOneBy(array('demande' => $demande->getId(), 'utilisateur' => $utilisateur->getId()));
 
-            if ($jaimeEntity == NULL) {
-                $jaimeEntity = new Jaime();
-                $jaimeEntity->setDemande($id);
-                $jaimeEntity->setUtilisateur($utilisateur->getId());
-                $jaimeEntity->setJaime('0');
+        if ($jaimeEntity == NULL) {
+            $jaimeEntity = new Jaime();
+            $jaimeEntity->setDemande($id);
+            $jaimeEntity->setUtilisateur($utilisateur->getId());
+            $jaimeEntity->setJaime('0');
+            $jaimeEntity->setJaimepas('1');
+
+            $em->persist($jaimeEntity);
+            $em->flush();
+
+            $jaimepas = $demande->getJeNaimePas();
+            $jaimepas++;
+            $demande->setJeNaimePas($jaimepas);
+
+
+            $em->persist($demande);
+            $em->flush();
+
+            $response = new JsonResponse();
+            return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+        } else if ($jaimeEntity !== NULL) {
+            if ($jaimeEntity->getJaimepas() == 1) {
+                $response = new JsonResponse();
+                return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+            } elseif ($jaimeEntity->getJaime() == 1) {
                 $jaimeEntity->setJaimepas('1');
-
+                $jaimeEntity->setJaime('0');
                 $em->persist($jaimeEntity);
                 $em->flush();
 
@@ -181,51 +207,31 @@ class DefaultController extends Controller {
                 $jaimepas++;
                 $demande->setJeNaimePas($jaimepas);
 
+                $jaime = $demande->getJaime();
+                $jaime--;
+                $demande->setJaime($jaime);
 
                 $em->persist($demande);
                 $em->flush();
 
                 $response = new JsonResponse();
-                return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-            } else if ($jaimeEntity !== NULL) {
-                if ($jaimeEntity->getJaimepas() == 1) {
-                    $response = new JsonResponse();
-                    return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-                } elseif ($jaimeEntity->getJaime() == 1) {
-                    $jaimeEntity->setJaimepas('1');
-                    $jaimeEntity->setJaime('0');
-                    $em->persist($jaimeEntity);
-                    $em->flush();
-
-                    $jaimepas = $demande->getJeNaimePas();
-                    $jaimepas++;
-                    $demande->setJeNaimePas($jaimepas);
-
-                    $jaime = $demande->getJaime();
-                    $jaime--;
-                    $demande->setJaime($jaime);
-
-                    $em->persist($demande);
-                    $em->flush();
-
-                    $response = new JsonResponse();
-                    return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-                }
-            } else {
-                $response = new JsonResponse();
-                return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
+                return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
             }
-
-
-
-
-
-
+        } else {
             $response = new JsonResponse();
-            return $response->setData(array('demandeJaime' => $demande->getJaime(),'demandeJaimepas' => $demande->getJeNaimePas()));
-      /*  } else {
-            throw new Exception("Erreur");
-        }*/
+            return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+        }
+
+
+
+
+
+
+        $response = new JsonResponse();
+        return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
+        /*  } else {
+          throw new Exception("Erreur");
+          } */
     }
 
 }

@@ -1,10 +1,190 @@
-{% extends '::baseaccueil.html.twig' %}
-{% block title %}Accueil{% endblock %}
+{% extends '::base.html.twig' %}
+{% block title %}Cantara{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
 {% endblock %}
+{% block modalplus %} <li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li> {% endblock %}
 {% block body %}
     <div class="container" style="background-color: white;">
+         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">x</button>
+                    <h4 class="modal-title">Nouvelle demande :</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="well">
+                        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+
+                        {# Les erreurs générales du formulaire. #}
+                        {{ form_errors(form) }}
+
+                        <div class="form-group">
+                            {{ form_label(form.auNomDe, "Demande au nom de : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.auNomDe) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.sites, "Site : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.sites) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.sites, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.missionOne, "Mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.missionOne) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.missionOne, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.missionTwo, "Mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.missionTwo) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.missionTwo, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.missionThree, "Mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.missionThree) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.missionThree, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.autres, "Autres : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.autres) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.autres, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.detailsMissionOne, "Détails mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.detailsMissionOne) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.detailsMissionOne, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.detailsMissionTwo, "Détails mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.detailsMissionTwo) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.detailsMissionTwo, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.detailsMissionThree, "Détails mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.detailsMissionThree) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.detailsMissionThree, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.dateLimite, "Date limite : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.dateLimite) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.dateLimite, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.lien, "Liens : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.lien) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.lien, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.niveauUrgence, "Niveau d\'urgence : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.niveauUrgence) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.niveauUrgence, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.etat, "Etat : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.etat) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.confidentialite, "Confidentialité : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.confidentialite) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.confidentialite, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.docGdl, "DocGDL : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.docGdl) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.docGdl, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.envoiePrevuLe, "Envoie prévu le : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.envoiePrevuLe) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.envoiePrevuLe, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(form.mettreEnCopie, "Mettre en copie : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+
+                            {{ form_errors(form.mettreEnCopie) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.mettreEnCopie, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+
+                        {# Fermeture de la balise <form> du formulaire HTML #}
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" data-dismiss="modal">Quitter</button>
+                </div>
+            </div>
+        </div>
+    </div>
         <div class="row">
 
 
@@ -21,30 +201,29 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div style="font-size:20px ;"><a href="{{ path('demandes_show_comments', { 'id': demande.id }) }}" style="color:white">Demande : 00{{demande.id}}</a></div><br/>
-                                    {% if demande.type == 'urgente'%}
+                                    {% if demande.niveauUrgence == 'urgente'%}
                                         <div style="font-size:25px ;">{#{{demande.type}}#} <img src="{{ asset('img/glyphicons-505-alert.png') }}" alt="loading" /></div>
                                         {% endif %}
 
                                 </div>
                                 <div class="col-md-3">
-                                    <div style="font-size:20px ;">Client : {{demande.client}}</div>
+                                    <div style="font-size:20px ;">Client : {{demande.sites}}</div>
                                 </div>
                                 <div class="col-md-3">
                                     <div style="font-size:18px ;">
-                                        <a href="#" data-toggle="modal" data-target="#avancementModal{{ demande.id }}" style="color:white"><pan id="avancementchamp{{ demande.id }}">Etat : {{demande.avancement}} </pan> </a>
-                                        &nbsp; {% if demande.avancement == 'En cour' %}+ {% endif%}
+                                        <a href="#" data-toggle="modal" data-target="#avancementModal{{ demande.id }}" style="color:white"><pan id="avancementchamp{{ demande.id }}">Etat : {{demande.etat}} </pan> </a>
                                     </div>
                                     <br/>    
                                     <div class="progress" id="progress{{ demande.id }}">
-                                        {% if demande.avancement == 'Emise' %}
+                                        {% if demande.etat == 'Emise' %}
                                             <div class="progress-bar progress-bar-warning" style="width: 100%" id="progresscouleur{{demande.id}}">
                                                 <span class="sr-only-focusable" id="progressmot{{demande.id}}">Emise</span>
                                             </div>
-                                        {% elseif demande.avancement == 'En cour'%}
+                                        {% elseif demande.etat == 'En cour'%}
                                             <div class="progress-bar progress-bar-success" style="width: 60%" id="progresscouleur{{demande.id}}">
                                                 <span class="sr-only-focusable"  id="progressmot{{demande.id}}">60%  </span>
                                             </div>
-                                        {% elseif demande.avancement == 'Annulée'%}
+                                        {% elseif demande.etat == 'Annulée'%}
                                             <div class="progress-bar progress-bar-danger" style="width: 100%" id="progresscouleur{{demande.id}}">
                                                 <span class="sr-only-focusable" id="progressmot{{demande.id}}">Annulée</span>
                                             </div>
@@ -61,9 +240,8 @@
                                 </div>
                                 <div class="col-md-1">
                                     <div style="font-size:15px ;">
-
-                                        {{demande.fichiers|length}}
-                                        <span class="glyphicon glyphicon-file"></span>  </div>
+                                        <span class="glyphicon glyphicon-music"></span>
+                                    </div>
                                 </div>
 
                             </div>
@@ -222,255 +400,8 @@
     </div>
     <!--   *****************************  MOODAL  **********************************  -->
 
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">x</button>
-                    <h4 class="modal-title">Nouvelle demande :</h4>
-                </div>
-                <div class="modal-body">
-                    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
-                    {{ form_errors(form) }}
+   
 
-                    <table class="table table-striped">
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.auNomDe, "Au nom de ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }} 
-                            </td>
-                            <td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.auNomDe) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.client, "Client ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }} 
-                            </td>
-                            <td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.client) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.client, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr>
-
-
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.site, "Site ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.site) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.site, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.adresse, "Adresse ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.adresse) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.adresse, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr>
-
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.missionOne, "Mission 1 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.missionOne) }}
-
-                                <div class="col-lg-6 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.missionOne, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.missionTwo, "Mission 2 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.missionTwo) }}
-
-                                <div class="col-lg-6 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.missionTwo, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr>
-                        <tr>
-                            <td>                        {# Génération du label. #}
-                                {{ form_label(form.missionThree, "Mission 3 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.missionThree) }}
-
-                                <div class="col-lg-6 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.missionThree, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>  
-                                {# Génération du label. #}
-                                {{ form_label(form.autres, "Autres ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.autres) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.autres, {'attr': {'class': 'form-control'}}) }}
-                                </div> </td>
-                        </tr>
-                        <tr>
-                            <td width="50%">  
-                                {# Génération du label. #}
-                                {{ form_label(form.detailsMissionOne, "Detais mission 1 ", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.detailsMissionOne) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.detailsMissionOne, {'attr': {'class': 'form-control'}}) }}
-                                </div>
-                            </td>
-                        </tr>          
-                        <tr>
-                            <td>           
-                                {# Génération du label. #}
-                                {{ form_label(form.detailsMissionTwo, "Detais mission 2", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.detailsMissionTwo) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.detailsMissionTwo, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr> 
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.detailsMissionThree, "Detais mission 3", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.detailsMissionThree) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.detailsMissionThree, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr> 
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.dateLimite, "Délais du rendu", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.dateLimite) }}
-
-                                <div class="col-lg-6 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.dateLimite, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr> 
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.lien, "Dossier à disposition", {'label_attr': {'class': 'col-lg-6 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.lien) }}
-
-                                <div class="col-lg-5 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.lien, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr> 
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.type, "Type", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.type) }}
-
-                                <div class="col-lg-6 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.type, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr> 
-                        <tr>
-                            <td>
-                                {# Génération du label. #}
-                                {{ form_label(form.avancement, "Avancement", {'label_attr': {'class': 'col-lg-5 col-sm-3 control-label'}}) }}
-                            </td><td>
-                                {# Affichage des erreurs pour ce champ précis. #}
-                                {{ form_errors(form.avancement) }}
-
-                                <div class="col-lg-6 col-sm-4">
-                                    {# Génération de l'input. #}
-                                    {{ form_widget(form.avancement, {'attr': {'class': 'form-control'}}) }}
-                                </div></td>
-                        </tr> 
-
-                        <tr>
-                            <td></td>
-                            <td> 
-                                <div class="col-lg-6 col-sm-3">
-                                    <input type="reset" class="btn btn-default" value="Annuler">
-                                    <input type="submit" class="btn btn-primary" value="Enregistrer" formnovalidate>
-                                </div>
-                            </td>
-                        </tr>
-
-
-
-
-                        <!-- ****************************************************************************************************************************************** -->
-                        <ul id="fichiers-fields-list" class="fichiers list-group" data-prototype="{{ form_widget(form.fichiers.vars.prototype)|e }}">
-                            {# itère sur chaque tag existant et affiche son unique champ : name #}
-                            {% for fichier in form.fichiers %}
-                                <li class="list-group-item">{{ form_row(fichier.file) }}</li>
-                                {% endfor %}
-                        </ul>
-                        {{ form_rest(form) }}
-
-
-                        {{ form_end(form) }}
-                    </table>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info" data-dismiss="modal">Quitter</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-</div>
 {% endblock %}
 
 {% block javascripts %}

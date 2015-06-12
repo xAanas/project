@@ -1,15 +1,17 @@
 {% extends '::base.html.twig' %}
 
 {% block body -%}
-    <h1>Missions creation</h1>
+    <div class="container">
+    <h1>Clients creation</h1>
 
     {{ form(form) }}
 
         <ul class="record_actions">
     <li>
-        <a href="{{ path('missions') }}">
+        <a href="{{ path('clients') }}">
             Back to the list
         </a>
     </li>
 </ul>
+    </div>
 {% endblock %}

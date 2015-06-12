@@ -1,3 +1,15 @@
+gestion_missions:
+    resource: "@GestionBundle/Resources/config/routing/missions.yml"
+    prefix:   /missions
+
+gestion_sites:
+    resource: "@GestionBundle/Resources/config/routing/sites.yml"
+    prefix:   /sites
+
+gestion_clients:
+    resource: "@GestionBundle/Resources/config/routing/clients.yml"
+    prefix:   /clients
+
 gestion_demandes:
     resource: "@GestionBundle/Resources/config/routing/demandes.yml"
     prefix:   /demandes
@@ -5,11 +17,7 @@ gestion_demandes:
 gestion_homepage:
     path:     /hello/{name}
     defaults: { _controller: GestionBundle:Default:index }
-    
-mission_routes:
-    resource: "@GestionBundle/Resources/config/routing/missions.yml"
-    prefix:   /missions
-    
+        
 fichier_ajout:
     path:     /fichier
     defaults: { _controller: GestionBundle:Default:fichier }
