@@ -35,6 +35,9 @@
                             <div class="col-sm-4">
                                 {{ form_widget(form.sites, {'attr': {'class': 'form-control'}}) }}
                             </div>
+                            <div class="col-sm-4">
+                                    <a href="#" data-toggle="modal" data-target="#myModalSite"><div style="font-size:15px ; color: black;">autres site...</div></a>
+                                </div>
                         </div>
                         <div class="form-group">
                             {{ form_label(form.missionOne, "Mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
@@ -188,6 +191,69 @@
                 </div>
             </div>
         </div>
+                        <div class="modal fade" id="myModalSite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Nouveau site :</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="well">
+                           {{ form_start(formsite, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_errors(formsite) }}
+                        <div class="form-group">
+                            {{ form_label(formsite.nom, "Nom : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(formsite.nom) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(formsite.nom, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            {{ form_label(formsite.adresse, "Adresse : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(formsite.adresse) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(formsite.adresse, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            {{ form_label(formsite.description, "Description : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(formsite.description) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(formsite.description, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group">
+                            {{ form_label(formsite.clients, "Client : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(formsite.clients) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(formsite.clients, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group" align="middle">
+                                <input type="reset" value="Annuler" class="btn btn-default">
+                                <input type="submit" value="Créer" class="btn btn-default">
+                        </div>
+                            {{ form_rest(formsite) }}
+
+                        {# Fermeture de la balise <form> du formulaire HTML #}
+                        {{ form_end(formsite) }}
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-info" data-dismiss="modal">Quitter</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div align="right">
             <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Créer une nouvelle demande</a>
         </div>
@@ -201,9 +267,9 @@
                     <th>Client</th>
                     <th>Site</th>
                     <th>Date limite</th>
-                    <th>Lien</th>
-                    <th>Type</th>
-                    <th>Avancement</th>
+                    
+                    <th>Niveau d'urgence</th>
+                    <th>Etat</th>
                     <th>Date du post</th>
                     <th>Accueil</th>
                     <th>Actions</th>
@@ -214,25 +280,23 @@
                     <tr>
                         <td><a href="{{ path('demandes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                         <td>{{ entity.auNomDe }}</td>
-                        <td>{{ entity.client }}</td>
-                        <td>{{ entity.site }}</td>
+                        <td>{{ entity.sites.clients }}</td>
+                        <td>{{ entity.sites }}</td>
                         <td>{% if entity.dateLimite %}{{ entity.dateLimite|date('Y-m-d H:i:s') }}{% endif %}</td>
-                        <td>{% for fichier in entity.fichiers %}    
+                        
+                        {#<td>{% for fichier in entity.fichiers %}    
                             {{loop.length}}
-                        {% endfor %} fichiers</td>
-                    <td>{{ entity.type }}</td>
-                    <td>{{ entity.avancement }}</td>
+                        {% endfor %} fichiers</td>#}
+                    <td>{{ entity.niveauUrgence }}</td>
+                    <td>{{ entity.etat }}</td>
                     <td>{% if entity.datePosteDemande %}{{ entity.datePosteDemande|date('Y-m-d H:i:s') }}{% endif %}</td>
                     <td>{{ entity.accueil }}</td>
                     <td>
-                        <ul>
-                            <li>
-                                <a href="{{ path('demandes_show', { 'id': entity.id }) }}">Détails</a>
-                            </li>
-                            <li>
-                                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}">Modifier</a>
-                            </li>
-                        </ul>
+                        
+                                <a href="{{ path('demandes_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file"></span></a>
+                           <br/>
+                                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                          
                     </td>
                 </tr>
                 {% endfor %}

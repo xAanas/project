@@ -10,6 +10,8 @@ use Gestion\GestionBundle\Entity\Commentaires;
 use Gestion\GestionBundle\Form\CommentairesType;
 use Gestion\GestionBundle\Entity\Fichiers;
 use Gestion\GestionBundle\Form\FichiersType;
+use Gestion\GestionBundle\Entity\Sites;
+use Gestion\GestionBundle\Form\SitesType;
 use Gestion\GestionBundle\Entity\Notifications;
 
 
@@ -29,21 +31,37 @@ class DemandesController extends Controller {
         $entities = $em->getRepository('GestionBundle:Demandes')->findAll();
         $entity = new Demandes();
         $form = $this->createCreateForm($entity);
+        $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
+            'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
+            'empty_data' => '1'));
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            foreach($entity->getFichiers() as $fichier){
+           
+            /*foreach($entity->getFichiers() as $fichier){
                 $fichier->setPublication($entity);
-            }
+            }*/
+            
             $em->persist($entity);
             $em->flush();
 
             return $this->redirect($this->generateUrl('demandes_show', array('id' => $entity->getId())));
         }
+        $sites = $em->getRepository('GestionBundle:Sites')->findAll();
+        $site = new Sites();
+        $formSite = $this->createCreateFormSite($site);
+        $formSite->handleRequest($request);
+        if ($formSite->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($site);
+            $em->flush();
+
+        }
         return $this->render('GestionBundle:Demandes:index.html.twig', array(
                     'entities' => $entities,
                     'form' => $form->createView(),
+                    'formsite' => $formSite->createView(),
         ));
     }
 
@@ -90,6 +108,13 @@ class DemandesController extends Controller {
         return $form;
     }
 
+    private function createCreateFormSite(Sites $entity) {
+        $form = $this->createForm(new SitesType(), $entity);
+
+
+        return $form;
+    }
+    
     /**
      * Displays a form to create a new Demandes entity.
      *
@@ -206,7 +231,7 @@ class DemandesController extends Controller {
 
         return $this->render('GestionBundle:Demandes:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+                    'form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
         ));
     }
@@ -224,7 +249,7 @@ class DemandesController extends Controller {
             'method' => 'PUT',
         ));
 
-        $form->add('submit', 'submit', array('label' => 'Update'));
+        //$form->add('submit', 'submit', array('label' => 'Update'));
 
         return $form;
     }

@@ -17,9 +17,6 @@ class DemandesType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $builder
-                ->add('auNomDe','entity',array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
-                                                                'empty_value' => 'Au nom de ',
-                                                                'empty_data'  => null))  
                 ->add('sites','entity',array('class' => 'Gestion\GestionBundle\Entity\Sites',
                                                                 'empty_value' => 'Choisir un site',
                                                                 'empty_data'  => null))              
@@ -32,12 +29,12 @@ class DemandesType extends AbstractType{
                 ->add('missionThree','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
                                                                 'empty_value' => 'Choisir une mission',
                                                                 'empty_data'  => null))
-                 ->add('autres','textarea')
-                ->add('detailsMissionOne')
-                ->add('detailsMissionTwo')
-                ->add('detailsMissionThree')
+                 ->add('autres','textarea',array('required' => false))
+                ->add('detailsMissionOne','text',array('required' => false))
+                ->add('detailsMissionTwo','text',array('required' => false))
+                ->add('detailsMissionThree','text',array('required' => false))
                 ->add('dateLimite','date',array('widget' => 'single_text'))
-                ->add('lien','textarea')
+                ->add('lien','textarea',array('required' => false))
                 ->add('niveauUrgence','choice',array('choices' => array ('ordinaire' => 'ordinaire',
                                                                 'urgente' => 'urgente'),
                                                                 'empty_value' => 'Choisissez un type',
@@ -48,13 +45,11 @@ class DemandesType extends AbstractType{
                                                                 'Livrée' => 'livrée'),
                                                                 'empty_value' => 'Choisissez un état',
                                                                 'empty_data'  => 'émise'))
-                ->add('confidentialite','choice',array('choices' => array ('Haute' => 'Haute',
-                                                                'Normale' => 'normale',
-                                                                'empty_value' => 'Choisissez la confidentialité',
-                                                                'empty_data'  => 'normale')))
-                ->add('docGdl')
-                ->add('envoiePrevuLe','date',array('widget' => 'single_text'))
-                ->add('mettreEnCopie','textarea')
+                ->add('confidentialite','choice',array('choices' => array ('Normale' => 'normale',
+                                                                            'Haute' => 'Haute')))
+                ->add('docGdl','text',array('required' => false))
+                ->add('envoiePrevuLe','date',array('widget' => 'single_text'),array('required' => false))
+                ->add('mettreEnCopie','textarea',array('required' => false))
                         
         ;
     }

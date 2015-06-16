@@ -135,12 +135,12 @@ class DefaultController extends Controller {
     public function modifetatAction($id, $etat) {
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
-        $demande->setAvancement($etat);
-        $demande->setDateDerniereMiseAJour(new \DateTime());
+        $demande->setEtat($etat);
+        $demande->setDateDernierMiseAJour(new \DateTime());
         $em->persist($demande);
         $em->flush();
         $response = new JsonResponse();
-        return $response->setData(array('etat' => $demande->getAvancement()));
+        return $response->setData(array('etat' => $demande->getEtat()));
     }
 
     public function commentersansfichierAction($id, $contenu) {
@@ -174,7 +174,7 @@ class DefaultController extends Controller {
             $notification->setPublication($demande);
             $notification->setEnable('1');
             $notification->setDateNotification(new \DateTime());
-            $contenu = $utilisateur->getUsername() . ' a commenté la demande numero ' . $demande->getId() . ' de ' . $demande->getClient();
+            $contenu = $utilisateur->getUsername() . ' a commenté la demande numero ' . $demande->getId() . ' de ' . $demande->getSites()->getClients();
             $notification->setContenu($contenu);
             $notification->setUtilisateur($utilisateurNotifie->getId());
 
@@ -218,31 +218,31 @@ class DefaultController extends Controller {
         $anneecourante = $date->format('y');
         foreach ($demandes as $demande) {
             if ($demande->getDatePosteDemande()->format('m') == $moicourant && $demande->getDatePosteDemande()->format('y') == $anneecourante) {
-                if ($demande->getAvancement() == 'Annulée') {
+                if ($demande->getEtat() == 'Annulée') {
                     $reportOne['annulée'] ++;
-                } else if ($demande->getAvancement() == 'En cour') {
+                } else if ($demande->getEtat() == 'En cour') {
                     $reportOne['encour'] ++;
-                } else if ($demande->getAvancement() == 'Livrée') {
+                } else if ($demande->getEtat() == 'Livrée') {
                     $reportOne['livrée'] ++;
                 } else /* if($demande->getAvancement() == 'Emise') */ {
                     $reportOne['émise'] ++;
                 }
             } else if ($demande->getDatePosteDemande()->format('m') == $moicourant - 1 && $demande->getDatePosteDemande()->format('y') == $anneecourante) {
-                if ($demande->getAvancement() == 'Annulée') {
+                if ($demande->getEtat() == 'Annulée') {
                     $reportTwo['annulée'] ++;
-                } else if ($demande->getAvancement() == 'En cour') {
+                } else if ($demande->getEtat() == 'En cour') {
                     $reportTwo['encour'] ++;
-                } else if ($demande->getAvancement() == 'Livrée') {
+                } else if ($demande->getEtat() == 'Livrée') {
                     $reportTwo['livrée'] ++;
                 } else /* if($demande->getAvancement() == 'Emise') */ {
                     $reportTwo['émise'] ++;
                 }
             } else if ($demande->getDatePosteDemande()->format('m') == $moicourant - 2 && $demande->getDatePosteDemande()->format('y') == $anneecourante) {
-                if ($demande->getAvancement() == 'Annulée') {
+                if ($demande->getEtat() == 'Annulée') {
                     $reportThree['annulée'] ++;
-                } else if ($demande->getAvancement() == 'En cour') {
+                } else if ($demande->getEtat() == 'En cour') {
                     $reportThree['encour'] ++;
-                } else if ($demande->getAvancement() == 'Livrée') {
+                } else if ($demande->getEtat() == 'Livrée') {
                     $reportThree['livrée'] ++;
                 } else /* if($demande->getAvancement() == 'Emise') */ {
                     $reportThree['émise'] ++;

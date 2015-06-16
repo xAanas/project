@@ -22,15 +22,15 @@
                 {% endif %}
                 <tr>
                     <th>Client</th>
-                    <td>{{ entity.client }}</td>
+                    <td>{{ entity.sites.clients }}</td>
                 </tr>
                 <tr>
                     <th>Site</th>
-                    <td>{{ entity.site }}</td>
+                    <td>{{ entity.sites }}</td>
                 </tr>
                 <tr>
                     <th>Adresse</th>
-                    <td>{{ entity.adresse }}</td>
+                    <td>{{ entity.sites.adresse }}</td>
                 </tr>
                 <tr>
                     <th>Mission 1</th>
@@ -64,14 +64,14 @@
                     <th>Date limite</th>
                     <td>{{ entity.dateLimite|date('Y-m-d H:i:s') }}</td>
                 </tr>
-                <tr>
+                {# <tr>
                     <th>Fichier joints</th>
                     <td> {% for image in entity.fichiers %}
                       <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->
                        <a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>
                    
                    {% endfor %}</td>
-                </tr>
+                </tr> #}
                
                 <tr>
                     <th>Lien</th>
@@ -86,12 +86,28 @@
                     <td><span  id="pasaime{{entity.id}}">{{ entity.jeNaimePas }}</span></td>
                 </tr>
                 <tr>
-                    <th>Type</th>
-                    <td>{{ entity.type }}</td>
+                    <th>Niveau d'urgence</th>
+                    <td>{{ entity.niveauUrgence }}</td>
                 </tr>
                 <tr>
-                    <th>Avancement</th>
-                    <td>{{ entity.avancement }}</td>
+                    <th>Etat</th>
+                    <td>{{ entity.etat }}</td>
+                </tr>
+                <tr>
+                    <th>Confidentialité</th>
+                    <td>{{ entity.confidentialite }}</td>
+                </tr>
+                <tr>
+                    <th>DocGDL</th>
+                    <td>{{ entity.docGdl }}</td>
+                </tr>
+                <tr>
+                    <th>Envoie prévu le</th>
+                    <td>{{ entity.envoiePrevuLe|date('Y-m-d H:i:s') }}</td>
+                </tr>
+                <tr>
+                    <th>Mettre en copie</th>
+                    <td>{{ entity.mettreEnCopie }}</td>
                 </tr>
                 <tr>
                     <th>Date poste demande</th>
@@ -99,7 +115,7 @@
                 </tr>
                 <tr>
                     <th>Date de la dernière mis à jour</th>
-                    <td>{{ entity.dateDerniereMiseAJour|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ entity.dateDernierMiseAJour|date('Y-m-d H:i:s') }}</td>
                 </tr>
                 <tr>
                     <th>Accueil</th>

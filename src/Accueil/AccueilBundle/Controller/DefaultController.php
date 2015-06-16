@@ -8,6 +8,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Gestion\GestionBundle\Entity\Fichiers;
 use Gestion\GestionBundle\Form\FichiersType;
+use Gestion\GestionBundle\Entity\Sites;
+use Gestion\GestionBundle\Form\SitesType;
+use Gestion\GestionBundle\Entity\Clients;
+use Gestion\GestionBundle\Form\ClientsType;
 use Gestion\GestionBundle\Entity\Demandes;
 use Gestion\GestionBundle\Form\DemandesType;
 use Gestion\GestionBundle\Entity\Notifications;
@@ -39,12 +43,17 @@ class DefaultController extends Controller {
         $demande->setDateDernierMiseAJour(new \DateTime());
         $demande->setAccueil('1');
         $form = $this->createForm(new DemandesType(), $demande);
+        $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
+            'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
+            'empty_data' => '1'));
         $form->handleRequest($request);
-
+        
+        
+        
         if ($form->isValid()) {
-           // foreach ($demande->getFichiers() as $fichier) {
-             //   $fichier->setPublication($demande);
-           // }
+            // foreach ($demande->getFichiers() as $fichier) {
+            //   $fichier->setPublication($demande);
+            // }
             $em->persist($demande);
             $em->flush();
 
@@ -78,7 +87,16 @@ class DefaultController extends Controller {
                 $this->get('mailer')->send($message);
             }
         }
+        $sites = $em->getRepository('GestionBundle:Sites')->findAll();
+        $site = new Sites();
+        $formSite = $this->createCreateForm($site);
+        $formSite->handleRequest($request);
+        if ($formSite->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($site);
+            $em->flush();
 
+        }
         $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
         if ($demandes == NULL) {
             $nombrecomment[0] = 0;
@@ -96,9 +114,16 @@ class DefaultController extends Controller {
                 }
             }
         }
-        return $this->render('AccueilBundle:Default:index.html.twig', array('demandes' => $demandes, 'nombrecomment' => $nombrecomment, 'comments' => $comments, 'form' => $form->createView()));
+        return $this->render('AccueilBundle:Default:index.html.twig', array('demandes' => $demandes, 'nombrecomment' => $nombrecomment, 'comments' => $comments,'formsite' => $formSite->createView(), 'form' => $form->createView()));
     }
+    
+    private function createCreateForm(Sites $entity) {
+        $form = $this->createForm(new SitesType(), $entity);
 
+
+        return $form;
+    }
+    
     public function aimerAction(Request $request, $id) {
         // if ($request->isXmlHttpRequest()) {
         $em = $this->getDoctrine()->getManager();

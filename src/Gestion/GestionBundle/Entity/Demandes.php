@@ -60,28 +60,28 @@ class Demandes {
     /**
      * @var string
      *
-     * @ORM\Column(name="autres", type="string", length=255)
+     * @ORM\Column(name="autres", type="string", length=255, nullable=true)
      */
     private $autres;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionOne", type="string", length=255)
+     * @ORM\Column(name="detailsMissionOne", type="string", length=255, nullable=true)
      */
     private $detailsMissionOne;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionTwo", type="string", length=255)
+     * @ORM\Column(name="detailsMissionTwo", type="string", length=255, nullable=true)
      */
     private $detailsMissionTwo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionThree", type="string", length=255)
+     * @ORM\Column(name="detailsMissionThree", type="string", length=255, nullable=true)
      */
     private $detailsMissionThree;
 
@@ -137,21 +137,21 @@ class Demandes {
     /**
      * @var string
      *
-     * @ORM\Column(name="docGdl", type="string", length=255)
+     * @ORM\Column(name="docGdl", type="string", length=255, nullable=true)
      */
     private $docGdl;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="envoiePrevuLe", type="datetime")
+     * @ORM\Column(name="envoiePrevuLe", type="datetime", nullable=true)
      */
     private $envoiePrevuLe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mettreEnCopie", type="string", length=255)
+     * @ORM\Column(name="mettreEnCopie", type="string", length=255, nullable=true)
      */
     private $mettreEnCopie;
 
@@ -592,10 +592,10 @@ class Demandes {
     /**
      * Set sites
      *
-     * @param \Utilisateurs\UtilisateursBundle\Entity\Sites $sites
+     * @param \Gestion\GestionBundle\Entity\Sites $sites
      * @return Demandes
      */
-    public function setSites(\Utilisateurs\UtilisateursBundle\Entity\Sites $sites)
+    public function setSites(\Gestion\GestionBundle\Entity\Sites $sites)
     {
         $this->sites = $sites;
     
@@ -605,7 +605,7 @@ class Demandes {
     /**
      * Get sites
      *
-     * @return \Utilisateurs\UtilisateursBundle\Entity\Sites 
+     * @return \Gestion\GestionBundle\Entity\Sites 
      */
     public function getSites()
     {
