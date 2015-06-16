@@ -2,6 +2,26 @@
 {% block title %}Demandes{% endblock %}
 {% block body -%}
     <div class="container">
+        <div class="modal fade" id="effacerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Effacer cette demande ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle">
+                            {{ form_start(delete_form, {'attr': {'class': 'form-horizontal'}}) }}
+                            {{ form_errors(delete_form) }}
+                            <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <button type="Effacer" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</button>
+                            {{ form_end(delete_form) }}
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
         <h1>Demandes</h1>
 
         <table class="table table-striped">
@@ -72,7 +92,7 @@
                    
                    {% endfor %}</td>
                 </tr> #}
-               
+
                 <tr>
                     <th>Lien</th>
                     <td>{{ entity.lien }}</td>
@@ -123,34 +143,34 @@
                 </tr>
             </tbody>
         </table>
-                <div class="row">
-                                <div class="col-md-12" align="right">
-                                    <a href="javascript:aimerscript('{{entity.id}}',document.getElementById('siaime{{entity.id}}'),document.getElementById('pasaime{{entity.id}}'));">j'aime</a> .
-                                    <a href="javascript:neaimerscript('{{entity.id}}',document.getElementById('pasaime{{entity.id}}'),document.getElementById('siaime{{entity.id}}'));">je n'aime pas</a>
-                                    <span id="loader{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
-                                </div>
-                                
-                            </div>
+        <div class="row">
+            <div class="col-md-12" align="right">
+                <a href="javascript:aimerscript('{{entity.id}}',document.getElementById('siaime{{entity.id}}'),document.getElementById('pasaime{{entity.id}}'));">j'aime</a> .
+                <a href="javascript:neaimerscript('{{entity.id}}',document.getElementById('pasaime{{entity.id}}'),document.getElementById('siaime{{entity.id}}'));">je n'aime pas</a>
+                <span id="loader{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
+            </div>
+
+        </div>
         <br/>
 
-                                <ul class="list-group">
+        <ul class="list-group">
             {% for comment in comments|reverse %}
 
                 <li class="list-group-item">
                     <div>  <strong> {{comment.utilisateur}}</strong></div> <p> {{ comment.contenu}}<p>
-                   
-                   {% if comment.fichier|length %}
-                       
-                       les fichiers associés : 
-                   {% for image in comment.fichier %}
-                      <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->
-                       <a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>
-                   
-                   {% endfor %}
-                   {% endif %}
-                   <div align="right">
-                       {{comment.dateCommentaire|date}}
-                   </div>
+
+                        {% if comment.fichier|length %}
+
+                            les fichiers associés : 
+                            {% for image in comment.fichier %}
+                               <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->
+                                <a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>
+
+                            {% endfor %}
+                        {% endif %}
+                    <div align="right">
+                        {{comment.dateCommentaire|date}}
+                    </div>
                 </li>
             {% endfor %}
         </ul>
@@ -162,16 +182,16 @@
                 <td>
                     {{ form_errors(form.contenu) }}
                     <div class="col-lg-12 col-sm-4">
-                    <div class="input-group">
+                        <div class="input-group">
                             {{ form_widget(form.contenu, {'attr': {'class': 'form-control','placeholder' : 'Ecrire un commentaire...'}}) }}
                             <span class="input-group-btn">
-                                <input type="submit" value="commenter" class="btn btn-default">
+                                <input type="submit" value="commenter" class="btn btn-primary">
                             </span>
 
                         </div>
                     </div>
                 </td>
-                
+
             <tr>
             <ul id="fichiers-fields-list" class="fichiers list-group" data-prototype="{{ form_widget(form.fichier.vars.prototype)|e }}">
                 {# itère sur chaque tag existant et affiche son unique champ : name #}
@@ -184,24 +204,25 @@
         </table>
         {{ form_end(form) }}
         <br/><br/><br/><br/><br/>
-        <div>
-                <a href="{{ path('demandes') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste
-                </a><br/><br/>
-                    
-                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}" class="btn btn-default">
-                    Modifier
-                </a><br/><br/>
-                    {{ form_start(delete_form, {'attr': {'class': 'form-horizontal'}}) }}
-                        {{ form_errors(delete_form) }}
-                        {{ form_widget(delete_form.submit)}}
-                        {{ form_end(delete_form) }}
-           
-                </div>
+        <div align="middle">
+
+
+            <a href="{{ path('demandes') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
+            </a>
+
+            <a href="{{ path('demandes_edit', { 'id': entity.id }) }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-pencil"></span> Edit
+            </a>
+            <a href="#" data-toggle="modal" data-target="#effacerModal" class="btn btn-danger">
+                <span class="glyphicon glyphicon-trash"></span> Effacer
+            </a>
+            {#{{ form(delete_form) }}#}
+        </div>
     </div>
 {% endblock %}
 {% block javascripts %}
-     {{ parent() }}
+    {{ parent() }}
     <script type="text/javascript">
         var collectionHolder = $('ul.fichiers');
 

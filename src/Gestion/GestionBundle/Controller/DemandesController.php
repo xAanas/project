@@ -318,7 +318,7 @@ class DemandesController extends Controller {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('demandes_delete', array('id' => $id)))
                         ->setMethod('DELETE')
-                        ->add('submit', 'submit', array('label' => 'Effacer','attr' =>array('class' => 'btn btn-danger')))
+                        //->add('submit', 'submit', array('label' => 'Effacer','attr' =>array('class' => 'btn btn-danger')))
                         ->getForm()
         ;
     }

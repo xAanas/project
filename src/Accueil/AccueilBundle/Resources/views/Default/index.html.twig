@@ -259,7 +259,7 @@
         <div class="row">
 
 
-            <div class="col-md-9 col-xs-12">
+            <div class="col-md-9 col-xs-8">
                {# {% for key,nott in app.session.get('notificationsBag') %}
                     <p>  {{ nott.contenu }} </p>
                 {% endfor %}
@@ -270,17 +270,17 @@
                         <!-- Default panel contents -->
                         <div class="panel-heading">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-xs-3">
                                     <div style="font-size:20px ;"><a href="{{ path('demandes_show_comments', { 'id': demande.id }) }}" style="color:white">Demande : 00{{demande.id}}</a></div><br/>
                                     {% if demande.niveauUrgence == 'urgente'%}
                                         <div style="font-size:25px ;">{#{{demande.type}}#} <img src="{{ asset('img/glyphicons-505-alert.png') }}" alt="loading" /></div>
                                         {% endif %}
 
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-xs-3">
                                     <div style="font-size:20px ;">Client : {{demande.sites.clients}}</div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-3 col-xs-3">
                                     <div style="font-size:18px ;">
                                         <a href="#" data-toggle="modal" data-target="#avancementModal{{ demande.id }}" style="color:white"><pan id="avancementchamp{{ demande.id }}">Etat : {{demande.etat}} </pan> </a>
                                     </div>
@@ -306,10 +306,10 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-2 col-xs-2">
                                     <div style="font-size:18px ;">Deadline:</br>{{demande.dateLimite|date("d/m/Y")}}  </div>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1 col-xs-1">
                                     <div style="font-size:15px ;">
                                         <span class="glyphicon glyphicon-music"></span>
                                     </div>
@@ -468,7 +468,7 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="col-md-3 col-xs-12">
+            <div class="col-md-3 col-xs-4">
                 <div id="containerchart" style="min-width: 310px; height: 400px; margin: 0 auto; position: fixed"></div>
             </div>
         </div>

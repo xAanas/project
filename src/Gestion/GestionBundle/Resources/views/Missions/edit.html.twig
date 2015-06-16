@@ -2,6 +2,26 @@
 {% block title %}Missions{% endblock %}
 {% block body -%}
     <div class="container">
+        <div class="modal fade" id="effacerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Effacer cette mission ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle">
+                            {{ form_start(delete_form, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_errors(delete_form) }}
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="Effacer" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</button>
+                        {{ form_end(delete_form) }}
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
         <h1>Modifier la mission {{entity.id}}</h1>
 
         <div class="well">
@@ -43,9 +63,9 @@
                     <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
                 </a>
 
-                <a href="{{ path('missions_delete', { 'id': entity.id }) }}" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span> Effacer
-                        </a>
+                <a href="#" data-toggle="modal" data-target="#effacerModal" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Effacer
+                    </a>
             {#{{ form(delete_form) }}#}
         </div>
 

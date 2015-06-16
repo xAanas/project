@@ -2,181 +2,201 @@
 {% block title %}Demandes{% endblock %}
 {% block body -%}
     <div class="container">
-        <h1>Modifier la demande</h1>
+        <div class="modal fade" id="effacerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Effacer cette demande ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle"> 
+                            {{ form_start(delete_form, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_errors(delete_form) }}
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="Effacer" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</button>
+                        {{ form_end(delete_form) }}
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        <h1>Modifier la demande {{ entity.id}}</h1>
         <br/>
 
         {#{{ form(edit_form) }}#}
         <div class="well">
-        {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
+            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-                        {# Les erreurs générales du formulaire. #}
-                        {{ form_errors(form) }}
+            {# Les erreurs générales du formulaire. #}
+            {{ form_errors(form) }}
 
-                        
-                        <div class="form-group">
-                            {{ form_label(form.sites, "Site : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.sites) }}
+            <div class="form-group">
+                {{ form_label(form.sites, "Site : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.sites, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                            
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.missionOne, "Mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                {{ form_errors(form.sites) }}
 
-                            {{ form_errors(form.missionOne) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.sites, {'attr': {'class': 'form-control'}}) }}
+                </div>
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.missionOne, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.missionTwo, "Mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            </div>
+            <div class="form-group">
+                {{ form_label(form.missionOne, "Mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.missionTwo) }}
+                {{ form_errors(form.missionOne) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.missionTwo, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.missionThree, "Mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.missionOne, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.missionTwo, "Mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.missionThree) }}
+                {{ form_errors(form.missionTwo) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.missionThree, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.autres, "Autres : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.missionTwo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.missionThree, "Mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.autres) }}
+                {{ form_errors(form.missionThree) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.autres, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.detailsMissionOne, "Détails mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.missionThree, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.autres, "Autres : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.detailsMissionOne) }}
+                {{ form_errors(form.autres) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.detailsMissionOne, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.detailsMissionTwo, "Détails mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.autres, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.detailsMissionOne, "Détails mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.detailsMissionTwo) }}
+                {{ form_errors(form.detailsMissionOne) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.detailsMissionTwo, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.detailsMissionThree, "Détails mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.detailsMissionOne, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.detailsMissionTwo, "Détails mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.detailsMissionThree) }}
+                {{ form_errors(form.detailsMissionTwo) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.detailsMissionThree, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.dateLimite, "Date limite : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.detailsMissionTwo, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.detailsMissionThree, "Détails mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.dateLimite) }}
+                {{ form_errors(form.detailsMissionThree) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.dateLimite, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.lien, "Liens : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.detailsMissionThree, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.dateLimite, "Date limite : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.lien) }}
+                {{ form_errors(form.dateLimite) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.lien, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.niveauUrgence, "Niveau d\'urgence : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.dateLimite, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.lien, "Liens : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.niveauUrgence) }}
+                {{ form_errors(form.lien) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.niveauUrgence, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.etat, "Etat : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.lien, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.niveauUrgence, "Niveau d\'urgence : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.etat) }}
+                {{ form_errors(form.niveauUrgence) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.confidentialite, "Confidentialité : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.niveauUrgence, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.etat, "Etat : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.confidentialite) }}
+                {{ form_errors(form.etat) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.confidentialite, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.docGdl, "DocGDL : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.etat, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.confidentialite, "Confidentialité : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.docGdl) }}
+                {{ form_errors(form.confidentialite) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.docGdl, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.envoiePrevuLe, "Envoie prévu le : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.confidentialite, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.docGdl, "DocGDL : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.envoiePrevuLe) }}
+                {{ form_errors(form.docGdl) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.envoiePrevuLe, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {{ form_label(form.mettreEnCopie, "Mettre en copie : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.docGdl, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.envoiePrevuLe, "Envoie prévu le : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                            {{ form_errors(form.mettreEnCopie) }}
+                {{ form_errors(form.envoiePrevuLe) }}
 
-                            <div class="col-sm-4">
-                                {{ form_widget(form.mettreEnCopie, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                            <div class="form-group" align="middle">
-                                <input type="reset" value="Annuler" class="btn btn-default">
-                                <input type="submit" value="Update" class="btn btn-default">
-                        </div>
-                        {{ form_rest(form) }}
+                <div class="col-sm-4">
+                    {{ form_widget(form.envoiePrevuLe, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_label(form.mettreEnCopie, "Mettre en copie : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
-                        {# Fermeture de la balise <form> du formulaire HTML #}
-                        {{ form_end(form) }}
-                    
+                {{ form_errors(form.mettreEnCopie) }}
+
+                <div class="col-sm-4">
+                    {{ form_widget(form.mettreEnCopie, {'attr': {'class': 'form-control'}}) }}
+                </div>
+            </div>
+            <div class="form-group" align="middle">
+                <input type="reset" value="Annuler" class="btn btn-default">
+                <input type="submit" value="Update" class="btn btn-default">
+            </div>
+            {{ form_rest(form) }}
+
+            {# Fermeture de la balise <form> du formulaire HTML #}
+            {{ form_end(form) }}
+
         </div>
         <div align="middle">
 
 
-            <form action="{{ path('demandes_delete', { 'id': entity.id }) }}" method="POST">
-                <a href="{{ path('demandes') }}" class="btn btn-default">
-                    <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
-                </a>
-                <input type="submit" value="effacer" class="btn btn-danger">
-            </form>
+            <a href="{{ path('demandes') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
+            </a>
+            <a href="#" data-toggle="modal" data-target="#effacerModal" class="btn btn-danger">
+                <span class="glyphicon glyphicon-trash"></span> Effacer
+            </a>
             {#{{ form(delete_form) }}#}
         </div>
     </div>

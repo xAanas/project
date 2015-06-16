@@ -27,7 +27,7 @@ class DefaultController extends Controller {
         return $this->render('AccueilBundle:Default:index.html.twig', array('demandes' => $demandes));
     }
 
-    public function DemandeAction(Request $request) {
+    public function AccueilAction(Request $request) {
 
         $demande = new Demandes();
         $em = $this->getDoctrine()->getManager();
@@ -45,7 +45,7 @@ class DefaultController extends Controller {
         $form = $this->createForm(new DemandesType(), $demande);
         $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
             'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
-            'empty_data' => '1'));
+            'empty_data' => NULL));
         $form->handleRequest($request);
         
         

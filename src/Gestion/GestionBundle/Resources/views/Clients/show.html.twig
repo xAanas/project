@@ -2,6 +2,24 @@
 {% block title %}Clients{% endblock %}
 {% block body -%}
     <div class="container">
+        <div class="modal fade" id="effacerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Effacer ce client ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle"> <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                            <a href="{{ path('clients_delete', { 'id': entity.id }) }}" class="btn btn-danger">
+                                <span class="glyphicon glyphicon-trash"></span> Effacer
+                            </a>
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
         <h1>Client</h1>
 
         <table class="table table-bordered">
@@ -27,17 +45,17 @@
                 <div align="middle">
 
 
-                   
-                        <a href="{{ path('clients') }}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste
-                        </a>
 
-                        <a href="{{ path('clients_edit', { 'id': entity.id }) }}" class="btn btn-default">
-                            <span class="glyphicon glyphicon-pencil"></span> Modifier
-                        </a>
-                        <a href="{{ path('clients_delete', { 'id': entity.id }) }}" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span> Effacer
-                        </a>
+                    <a href="{{ path('clients') }}" class="btn btn-default">
+                        <span class="glyphicon glyphicon-circle-arrow-left"></span> Retour à la liste
+                    </a>
+
+                    <a href="{{ path('clients_edit', { 'id': entity.id }) }}" class="btn btn-default">
+                        <span class="glyphicon glyphicon-pencil"></span> Modifier
+                    </a>
+                    <a href="#" data-toggle="modal" data-target="#effacerModal" class="btn btn-danger">
+                        <span class="glyphicon glyphicon-trash"></span> Effacer
+                    </a>
                     {#{{ form(delete_form) }}#}
                 </div>
 
