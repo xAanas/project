@@ -128,8 +128,8 @@
 
                     <!--<li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li>-->
                     {% block modalplus %} {% endblock%}
-                    <li class="active"><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-home"></span> </div></a></li>
-                    <li class="dropdown">
+                   {% block homeactif %} <li><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-home"></span> </div></a></li>{% endblock%}
+                    <li class="dropdown" >
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"  id="notification" onclick="effaceNotif();"><div style="font-size:15px ; color : white;"><span class="glyphicon glyphicon-globe"></span></div></a>
                         <!--  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Notifications <span class="badge">3</span></a>-->
                         <ul class="dropdown-menu" id="dropdown-menu-notification">

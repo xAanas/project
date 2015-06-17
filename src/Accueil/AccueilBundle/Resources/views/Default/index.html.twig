@@ -4,7 +4,8 @@
     <link rel="stylesheet" href="{{asset('css/style.css')}}" />
 {% endblock %}
 {% block modalplus %} <li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li> {% endblock %}
-    {% block body %}
+{% block homeactif %} <li class="active"><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-home"></span> </div></a></li>{% endblock%}
+{% block body %}
     <div class="container" style="background-color: white;">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -256,6 +257,7 @@
                 </div>
             </div>
         </div>
+                        
         <div class="row">
 
 
@@ -272,9 +274,7 @@
                             <div class="row">
                                 <div class="col-md-3 col-xs-3">
                                     <div style="font-size:20px ;"><a href="{{ path('demandes_show_comments', { 'id': demande.id }) }}" style="color:white">Demande : 00{{demande.id}}</a></div><br/>
-                                    {% if demande.niveauUrgence == 'urgente'%}
-                                        <div style="font-size:25px ;">{#{{demande.type}}#} <img src="{{ asset('img/glyphicons-505-alert.png') }}" alt="loading" /></div>
-                                        {% endif %}
+                                    
 
                                 </div>
                                 <div class="col-md-3 col-xs-3">
@@ -311,7 +311,18 @@
                                 </div>
                                 <div class="col-md-1 col-xs-1">
                                     <div style="font-size:15px ;">
-                                        <span class="glyphicon glyphicon-music"></span>
+                                        
+                                        {% if demande.niveauUrgence == 'urgente'%}
+                                                <div style="font-size:20px ;"><span class="glyphicon glyphicon-exclamation-sign"></span></div>   
+                                        {% endif %}
+                                    </div>
+                                    <br/>
+                                    <div style="font-size:15px ;">
+                                        {% if demande.confidentialite == 'Haute'%}
+                                        <div style="font-size:15px ;">{#{{demande.type}} <img src="{{ asset('img/glyphicons-505-alert.png') }}" alt="loading" />#} 
+                                            <span class="glyphicon glyphicon-lock"></span>
+                                        </div>
+                                        {% endif %}
                                     </div>
                                 </div>
 
@@ -370,18 +381,19 @@
                             </div>
                                                
                             <div class="row">
-                                 <hr>
+                                <hr>
                                 <div class="col-md-6">
                                     <a href="javascript:aimerscript('{{demande.id}}',document.getElementById('siaime{{demande.id}}'),document.getElementById('pasaime{{demande.id}}'));">j'aime</a> .
                                     <a href="javascript:neaimerscript('{{demande.id}}',document.getElementById('pasaime{{demande.id}}'),document.getElementById('siaime{{demande.id}}'));">je n'aime pas</a> .
                                     <span id="siaime{{demande.id}}"> {{demande.jaime}} </span> <span class="glyphicon glyphicon-thumbs-up"></span>
                                     <span id="pasaime{{demande.id}}"> {{demande.jeNaimePas}} </span> <span class="glyphicon glyphicon-thumbs-down"></span> 
+                                    <a href="#" onclick="javascript:afficherCommentaires(document.getElementById('lescommentaires{{ demande.id}}'));">
                                     {% for key,comm in nombrecomment %}
                                         {% if key == demande.id %}
                                             {{ comm }} <span class="glyphicon glyphicon-comment"></span>
                                         {% endif %}
                                     {% endfor %}
-
+                                    </a>
                                     <span id="loader{{demande.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
                                 </div>
                                 <div class="col-md-6">
@@ -390,31 +402,65 @@
                             </div>
                         </div>
                                 
-                           <ul class="list-group" id="commentaires{{ demande.id}}">
+                               {# <div align="middle"><a href="#" ><span class="glyphicon glyphicon-comment"></span>&nbsp; afficher les commentaires...</a>   </div>#}
+                               
+                           <ul class="list-group" id="commentaires{{ demande.id}}" style="padding-left: 20px; padding-right: 20px;">
                         <li class="list-group-item" style="display : none" id="ajoutcomm{{ demande.id}}">
 
                         </li>
+                        <div  id="lescommentaires{{ demande.id}}" style="display: none;">
+                            
                         {% for comment in comments|reverse|slice(0,2) %}
                             {% if comment.demande.id == demande.id %}
+                                
                                 <li class="list-group-item">
-                                    <div> <strong>{{comment.utilisateur}}</strong> </div><p> {{ comment.contenu}}</p>
+                                    <div class="row">
+                                    <div class="col-md-1"> <strong>{{comment.utilisateur}}</strong></div>
+                                    <div class="col-md-11"> {{ comment.contenu}}<br/><br/>
+                                    
                                     {% for image in comment.fichier %}
-                                       <!-- <img src="{{asset('uploads/'~image.lien)}}" width="350" height="350"> -->
-                                        <a href="{{asset('uploads/'~image.lien)}}">Fichier !</a>
-
+                                        {% if image.lien %}
+                                            <a href="#" data-toggle="modal" data-target="imageModal{{ demande.id}}{{ loop.index}}"><img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="200" height="200">{{ demande.id}}{{ loop.index}}</a> &nbsp;&nbsp;
+                                
+                                        <!-- ***********************************   Image Modal    **********************************************  -->
+                                    <div class="modal fade" id="imageModal{{ demande.id}}{{ loop.index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                         <div class="modal-dialog modal-wide">
+                                                     <div class="modal-content">
+                                                   <!-- <div class="modal-header">
+                                                           <button type="button" class="close" data-dismiss="modal">x</button>
+                                                          </div>-->
+                                                   
+                                          <div class="modal-body">
+                                                      <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="200" height="200">
+                                                 </div>
+                                                 
+                                            <!--<div class="modal-footer">
+                                   
+                                            </div>-->
+                                            </div>
+                                     </div>
+                                  </div>
+                                            {#<a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>#}
+                                         {% endif %}
                                     {% endfor %}
-                                    <div align="right">
+                                     <div align="right">
                                         {{comment.dateCommentaire|date}}
                                     </div>
+                                    </div>
+                                     </div>
                                 </li>
+                              
                             {% endif %}
                         {% endfor %}
+                            
+                        </div>
                     </ul>
                     <br/>
                     <form method="post" enctype="multipart/form-data">
-                        <div class="input-group" >
+                        <div class="input-group" style="padding-left: 5px; padding-right: 5px;">
                             <input type="textarea" class="form-control" width="90%" id="commentaire{{demande.id}}" placeholder="Ecrire un commentaire...">
-                            <span class="input-group-btn">
+                            
+                            <span class="input-group-btn" style="padding-left: 5px;">
                                 <a href="javascript:commenterscript('{{demande.id}}', document.getElementById('commentaire{{demande.id}}'));" class="btn btn-default">commenter</a>
                                 <span id="loaderCom{{demande.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span>
                             </span>
@@ -444,6 +490,8 @@
                             </div>
                         </div>
                     </div>
+                      
+                                <!-- ***********************************   Etat Modal    **********************************************  -->
                     <div class="modal fade" id="avancementModal{{ demande.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog ">
                             <div class="modal-content">
@@ -487,7 +535,7 @@
     {{ parent() }}
 
     <script type="text/javascript">
-
+                        
                                             $(function () {
                                                 $.ajax({
                                                     type: 'post',

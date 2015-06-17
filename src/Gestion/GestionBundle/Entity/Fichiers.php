@@ -26,7 +26,7 @@ class Fichiers {
     /**
      * @var string
      *
-     * @ORM\Column(name="lien", type="string", length=255)
+     * @ORM\Column(name="lien", type="string", length=255, nullable=true)
      */
     private $lien;
 

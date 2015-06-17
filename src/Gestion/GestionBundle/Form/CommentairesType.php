@@ -18,7 +18,7 @@ class CommentairesType extends AbstractType{
 
         $builder
                 ->add('contenu','text')
-                ->add('fichier','collection',array('type' => new FichiersType(),'allow_add' => true,'by_reference' => false,))
+                ->add('fichier','collection',array('required' => false,'type' => new FichiersType(),'allow_add' => true,'by_reference' => false,))
         ;
     }
     

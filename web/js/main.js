@@ -119,3 +119,7 @@ function effacerDemande(id) {
         }
     });
 }
+
+function afficherCommentaires(lescommentaires){
+    lescommentaires.style.display = "block";
+}

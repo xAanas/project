@@ -190,7 +190,7 @@ class DemandesController extends Controller {
                 $notification->setPublication($entity);
                 $notification->setEnable('1');
                 $notification->setDateNotification(new \DateTime());
-                $contenu = $utilisateur->getUsername() . ' a commenté la demande numero ' . $entity->getId() . ' de ' . $entity->getClient();
+                $contenu = $utilisateur->getUsername() . ' a commenté la demande numero ' . $entity->getId() . ' de ' . $entity->getSites()->getClients();
                 $notification->setContenu($contenu);
                 $notification->setUtilisateur($utilisateurNotifie->getId());
 

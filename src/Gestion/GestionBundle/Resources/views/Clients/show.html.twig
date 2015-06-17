@@ -10,10 +10,12 @@
                         <h4 class="modal-title">Effacer ce client ?</h4>
                     </div>
                     <div class="modal-body">
-                        <div align="middle"> <button class="btn btn-default" data-dismiss="modal">Annuler</button>
-                            <a href="{{ path('clients_delete', { 'id': entity.id }) }}" class="btn btn-danger">
-                                <span class="glyphicon glyphicon-trash"></span> Effacer
-                            </a>
+                        <div align="middle">
+                            {{ form_start(delete_form, {'attr': {'class': 'form-horizontal'}}) }}
+                        {{ form_errors(delete_form) }}
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <button type="Effacer" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</button>
+                        {{ form_end(delete_form) }}
                             <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
                     </div>
                    

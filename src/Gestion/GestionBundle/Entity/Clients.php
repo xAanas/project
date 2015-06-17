@@ -36,7 +36,7 @@ class Clients
     private $description;
     
     /**
-     * @ORM\OneToMany(targetEntity="Gestion\GestionBundle\Entity\Sites",mappedBy="clients",cascade={"persist"}) 
+     * @ORM\OneToMany(targetEntity="Gestion\GestionBundle\Entity\Sites",mappedBy="clients",cascade={"persist","remove"}) 
      * @ORM\JoinColumn(nullable=true)
      */
     private $sites;

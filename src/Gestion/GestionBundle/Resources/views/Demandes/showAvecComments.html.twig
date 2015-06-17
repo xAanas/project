@@ -157,15 +157,17 @@
             {% for comment in comments|reverse %}
 
                 <li class="list-group-item">
-                    <div>  <strong> {{comment.utilisateur}}</strong></div> <p> {{ comment.contenu}}<p>
-
+                    <div>  <strong> {{comment.utilisateur}}</strong> . {{ comment.contenu}}</div> 
+                   
                         {% if comment.fichier|length %}
-
-                            les fichiers associés : 
+                            <br/>
+                            
                             {% for image in comment.fichier %}
-                               <!-- <img src="{{asset('uploads/'~image.lien)}}" width="500" height="500">-->
-                                <a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>
-
+                               {% if image.lien %}
+                                    
+                                   <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="500" height="500">&nbsp;&nbsp;
+                                {#<a href="{{asset('uploads/'~image.lien)}}" target="_blank">Fichier {{ loop.index}}</a>#}
+                                {% endif %}
                             {% endfor %}
                         {% endif %}
                     <div align="right">
