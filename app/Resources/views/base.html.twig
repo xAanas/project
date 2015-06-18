@@ -186,6 +186,8 @@
     <script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
+    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+    <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     {% block javascripts %}
         <script type="text/javascript">
@@ -193,7 +195,7 @@
                             // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
 
                             function centerModals() {
-                                $('.modalImage').each(function (i) {
+                                $('.modalMid').each(function (i) {
                                     var $clone = $(this).clone().css('display', 'block').appendTo('body');
                                     var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
                                     top = top > 0 ? top : 0;
@@ -275,7 +277,7 @@
                             
     $.ajax({
         type: 'post',
-        url: '{{ path('aimer', { 'id': demandeid }) }}', 
+        url: Routing.generate('aimer', { 'id': demandeid }), 
         beforeSend: function () {
             document.getElementById("loader" + demandeid).style.display = "inline";
             console.log('ça chargee aimer');
@@ -293,7 +295,7 @@
 function neaimerscript(demandeid, pasaimer, siaimer) {
     $.ajax({
         type: 'post',
-        url: '{{ path('ne_pas_aimer', { 'id': 'demandeid' }) }}',
+        url: Routing.generate('ne_pas_aimer', { 'id': demandeid }),
         beforeSend: function () {
             document.getElementById("loader" + demandeid).style.display = "inline";
             console.log('ça chargee ne pas aimer');
@@ -310,7 +312,7 @@ function neaimerscript(demandeid, pasaimer, siaimer) {
 function modifetat(demandeid, etat, champ) {
     $.ajax({
         type: 'post',
-        url: '{{ path('modifetat', { 'id' : 'demandeid','etat' : 'etat' }) }}',
+        url: Routing.generate('modifetat', { 'id': demandeid,'etat' : etat }),
         beforeSend: function () {
             document.getElementById("loaderetat" + demandeid).style.display = "inline";
             console.log('ça chargee changement de etat');
@@ -361,7 +363,7 @@ function commenterscript(id, contenu) {
         
     $.ajax({
         type: 'post',
-        url: '{{ path('commentersansfichier', { 'id' : 'id','contenu' : 'lecommentaire' }) }}',
+        url: Routing.generate('aimer', { 'id': id,'contenu' : lecommentaire }),
         beforeSend: function () {
             document.getElementById("loaderCom" + id).style.display = "inline";
             console.log('ça chargee encore commentaire ' + id + '/' + contenu.value); 
@@ -382,7 +384,7 @@ function commenterscript(id, contenu) {
 function effacerDemande(id) {
     $.ajax({
         type: 'post',
-        url: '{{ path('demandes_effacer_accueil', { 'id' : 'id' }) }}',
+        url: Routing.generate('aimer', { 'id': id}),
         beforeSend: function () {
             document.getElementById("loadereffacdem" + id).style.display = "inline";
             console.log('ça chargee effacement demande ' + id);

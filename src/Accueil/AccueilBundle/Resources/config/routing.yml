@@ -4,6 +4,11 @@ accueil_homepage:
 aimer:
     path:     /accueil/aimer/{id}
     defaults: { _controller: AccueilBundle:Default:aimer }
+    options:
+        expose: true
+
 ne_pas_aimer:
     path:     /accueil/nepasaimer/{id}
     defaults: { _controller: AccueilBundle:Default:nepasaimer }
+    options:
+        expose: true

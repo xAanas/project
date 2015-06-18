@@ -29,15 +29,25 @@ demande_ajout:
 notifications:
     path :    /notifier
     defaults: { _controller: GestionBundle:Default:notifier }
+    
 modifetat:
     path :    accueil/modifetat/{id}/{etat}
     defaults: { _controller: GestionBundle:Default:modifetat }
+    options:
+        expose: true
+
 commentersansfichier:
     path :    accueil/commenter/{id}/{contenu}
     defaults: { _controller: GestionBundle:Default:commentersansfichier }
+    options:
+        expose: true
+
 demandes_reporting:
     path :    accueil/chiffres
     defaults: { _controller: GestionBundle:Default:demandeschiffres }
 demandes_effacer_accueil:
     path :    accueil/effacerdemande/{id}
     defaults: { _controller: GestionBundle:Default:effacerdemandeaccueil }
+    options:
+        expose: true
+
