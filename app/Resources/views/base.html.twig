@@ -128,7 +128,7 @@
 
                     <!--<li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li>-->
                     {% block modalplus %} {% endblock%}
-                   {% block homeactif %} <li><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-home"></span> </div></a></li>{% endblock%}
+                    {% block homeactif %} <li><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-home"></span> </div></a></li>{% endblock%}
                     <li class="dropdown" >
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"  id="notification" onclick="effaceNotif();"><div style="font-size:15px ; color : white;"><span class="glyphicon glyphicon-globe"></span></div></a>
                         <!--  <a class="dropdown-toggle" data-toggle="dropdown" href="#">Notifications <span class="badge">3</span></a>-->
@@ -174,26 +174,7 @@
     <hr/>
     <footer id="footer" class="vspace20">
         <div class="container">
-            <!-- <div class="row">
-                 <div class="col-lg-4">
-                     <h4>Informations</h4>
-                     <ul class="nav nav-stacked">
-                         <li><a href="#">A propos</a>
-                         <li><a href="#">Mentions légales</a>
-                     </ul>
-                 </div> 
- 
-                 <div class="col-lg-4">
-                     <h4>Nos locaux</h4>
-                     <p><i class="icon-map-marker"></i>&nbsp;Centre urbain nord 3074 -  A5.2 Yasmine Tower</p>
-                 </div>
- 
-                 <div class="col-lg-2">
-                     <h4>Nous contacter</h4>
-                     <p><i class="icon-phone"></i>&nbsp;Tel 1: +216 71 82 24 34</p>
-                     <p><i class="icon-phone"></i>&nbsp;Tel 2: +331 85 09 03 45</p>
-                 </div>
-             </div>-->
+           
 
             <div class="row">
                 <div class="col-lg-4">
@@ -208,14 +189,26 @@
     <script src="{{ asset('js/main.js') }}"></script>
     {% block javascripts %}
         <script type="text/javascript">
-                           // $('.dropdown-submenu > a').submenupicker();
+                            // $('.dropdown-submenu > a').submenupicker();
                             // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
 
-                            $(".modal-wide").on("show.bs.modal", function () {
-                                var height = $(window).height() - 200;
-                                $(this).find(".modal-body").css("max-height", height);
-                            });
+                            function centerModals() {
+                                $('.modalImage').each(function (i) {
+                                    var $clone = $(this).clone().css('display', 'block').appendTo('body');
+                                    var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+                                    top = top > 0 ? top : 0;
+                                    $clone.remove();
+                                    $(this).find('.modal-content').css("margin-top", top);
 
+                                });
+                            }
+                            
+                            $(".modal").on("show.bs.modal", function () {
+                                centerModals();
+                                //var height = $(window).height() - 200;
+                                //$(this).find(".modal-body").css("max-height", height);
+                            });
+                            
                             setInterval(notifier, 1000);
 
                             function notifier() {
@@ -278,6 +271,129 @@
                                     }
                                 };
                             })();
+                            function aimerscript(demandeid, siaimer, pasaimer) {
+                            
+    $.ajax({
+        type: 'post',
+        url: '{{ path('aimer', { 'id': demandeid }) }}', 
+        beforeSend: function () {
+            document.getElementById("loader" + demandeid).style.display = "inline";
+            console.log('ça chargee aimer');
+        },
+        success: function (data) {
+            siaimer.innerHTML = data.demandeJaime;
+            pasaimer.innerHTML = data.demandeJaimepas;
+            document.getElementById("loader" + demandeid).style.display = "none";
+            console.log("okkk ne pas aimer : " + data.demandeJaimepas + " et aimer : " + data.demandeJaime);
+        }
+    });
+}
+
+
+function neaimerscript(demandeid, pasaimer, siaimer) {
+    $.ajax({
+        type: 'post',
+        url: '{{ path('ne_pas_aimer', { 'id': 'demandeid' }) }}',
+        beforeSend: function () {
+            document.getElementById("loader" + demandeid).style.display = "inline";
+            console.log('ça chargee ne pas aimer');
+        },
+        success: function (data) {
+            pasaimer.innerHTML = data.demandeJaimepas;
+            siaimer.innerHTML = data.demandeJaime;
+            document.getElementById("loader" + demandeid).style.display = "none";
+            console.log("okkk ne pas aimer : " + data.demandeJaimepas + " et aimer : " + data.demandeJaime);
+        }
+    });
+}
+
+function modifetat(demandeid, etat, champ) {
+    $.ajax({
+        type: 'post',
+        url: '{{ path('modifetat', { 'id' : 'demandeid','etat' : 'etat' }) }}',
+        beforeSend: function () {
+            document.getElementById("loaderetat" + demandeid).style.display = "inline";
+            console.log('ça chargee changement de etat');
+        },
+        success: function (data) {
+
+            champ.innerHTML = data.etat;
+            if (data.etat === 'Emise') {
+                $('#progresscouleur' + demandeid).attr("class", "progress-bar progress-bar-warning");
+                $('#progresscouleur' + demandeid).attr("style", "width: 100%");
+                $('#progressmot' + demandeid).remove();
+                $('#progresscouleur' + demandeid).append('<span class="sr-only-focusable" id="progressmot' + demandeid + '">Emise</span>');
+            } else if (data.etat === 'En cour') {
+                $('#progresscouleur' + demandeid).attr("class", "progress-bar progress-bar-success");
+                $('#progresscouleur' + demandeid).attr("style", "width: 60%");
+                $('#progressmot' + demandeid).remove();
+                $('#progresscouleur' + demandeid).append('<span class="sr-only-focusable" id="progressmot' + demandeid + '">En cour</span>');
+            } else if (data.etat === 'Annulée') {
+                $('#progresscouleur' + demandeid).attr("class", "progress-bar progress-bar-danger");
+                $('#progresscouleur' + demandeid).attr("style", "width: 100%");
+                $('#progressmot' + demandeid).remove();
+                $('#progresscouleur' + demandeid).append('<span class="sr-only-focusable" id="progressmot' + demandeid + '">Annulée</span>');
+            } else {
+                $('#progresscouleur' + demandeid).attr("class", "progress-bar progress-bar-info");
+                $('#progresscouleur' + demandeid).attr("style", "width: 100%");
+                $('#progressmot' + demandeid).remove();
+                $('#progresscouleur' + demandeid).append('<span class="sr-only-focusable" id="progressmot' + demandeid + '">Livée</span>');
+            }
+            document.getElementById("loaderetat" + demandeid).style.display = "none";
+            console.log('etat changé');
+        }
+    });
+}
+
+
+function commenterscript(id, contenu) {
+        var lecommentaire = contenu.value;
+        
+    while (lecommentaire.indexOf('\\') !== -1) {
+          lecommentaire = lecommentaire.replace('\\', 'antislach');
+    }
+    while (lecommentaire.indexOf('/') !== -1) {
+        lecommentaire = lecommentaire.replace('/', 'slach');
+    }
+    while (lecommentaire.indexOf('?') !== -1) {
+        lecommentaire = lecommentaire.replace('?', 'istefhem');
+    }
+        
+    $.ajax({
+        type: 'post',
+        url: '{{ path('commentersansfichier', { 'id' : 'id','contenu' : 'lecommentaire' }) }}',
+        beforeSend: function () {
+            document.getElementById("loaderCom" + id).style.display = "inline";
+            console.log('ça chargee encore commentaire ' + id + '/' + contenu.value); 
+            console.log('ça chargee commentaire ' + id + '/' + lecommentaire );
+
+
+        },
+        success: function () {
+            document.getElementById("loaderCom" + id).style.display = "none";
+            $('#ajoutcomm' + id).append('<li class="list-group-item"> Anas : ' + contenu.value + '<br/> <div align="right"> ' + Date() + ' </div> </li>');
+            //$('#ajoutcomm'+id).removeAttr("style").append('Anas : '+ contenu.value +'<br/><div align="right"> '+ Date() +'</div>');
+            contenu.value = ' ';
+            console.log("okkk commentaire");
+        }
+    });
+}
+
+function effacerDemande(id) {
+    $.ajax({
+        type: 'post',
+        url: '{{ path('demandes_effacer_accueil', { 'id' : 'id' }) }}',
+        beforeSend: function () {
+            document.getElementById("loadereffacdem" + id).style.display = "inline";
+            console.log('ça chargee effacement demande ' + id);
+        },
+        success: function (data) {
+            document.getElementById("loadereffacdem" + id).style.display = "none";
+            console.log("demande " + data.etat);
+        }
+    });
+}
+
         </script>
 
     {% endblock %}

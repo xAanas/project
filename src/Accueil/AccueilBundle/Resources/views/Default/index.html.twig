@@ -257,7 +257,7 @@
                 </div>
             </div>
         </div>
-                        
+            
         <div class="row">
 
 
@@ -416,22 +416,24 @@
                                 <li class="list-group-item">
                                     <div class="row">
                                     <div class="col-md-1"> <strong>{{comment.utilisateur}}</strong></div>
-                                    <div class="col-md-11"> {{ comment.contenu}}<br/><br/>
+                                    <div class="col-md-11"> <div style="font-size:14.2px ; line-height:1.3 "> {{ comment.contenu}}</div><br/>
                                     
                                     {% for image in comment.fichier %}
                                         {% if image.lien %}
-                                            <a href="#" data-toggle="modal" data-target="imageModal{{ demande.id}}{{ loop.index}}"><img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="200" height="200">{{ demande.id}}{{ loop.index}}</a> &nbsp;&nbsp;
+                                            <a href="#" data-toggle="modal" data-target="#imageModal{{ demande.id}}{{ loop.index}}">
+                                                <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="200" height="200">
+                                            </a> &nbsp;&nbsp;
                                 
                                         <!-- ***********************************   Image Modal    **********************************************  -->
-                                    <div class="modal fade" id="imageModal{{ demande.id}}{{ loop.index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    <div class="modal modalImage" id="imageModal{{ demande.id}}{{ loop.index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                          <div class="modal-dialog modal-wide">
                                                      <div class="modal-content">
                                                    <!-- <div class="modal-header">
                                                            <button type="button" class="close" data-dismiss="modal">x</button>
                                                           </div>-->
                                                    
-                                          <div class="modal-body">
-                                                      <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="200" height="200">
+                                            <div class="modal-body">
+                                                      <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="600" height="600">
                                                  </div>
                                                  
                                             <!--<div class="modal-footer">
