@@ -263,6 +263,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Expéditeur</th>
                     <th>Au nom de</th>
                     <th>Client</th>
                     <th>Site</th>
@@ -279,6 +280,7 @@
                 {% for entity in entities|reverse %}
                     <tr>
                         <td><a href="{{ path('demandes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                        <td>{{ entity.utilisateur }}</td>
                         <td>{{ entity.auNomDe }}</td>
                         <td>{{ entity.sites.clients }}</td>
                         <td>{{ entity.sites }}</td>

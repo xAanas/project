@@ -34,7 +34,7 @@ class Demandes {
     private $auNomDe;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Sites") 
+     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Sites") 
      * @ORM\JoinColumn(nullable=false)
      */
     private $sites;
@@ -60,28 +60,28 @@ class Demandes {
     /**
      * @var string
      *
-     * @ORM\Column(name="autres", type="string", length=255)
+     * @ORM\Column(name="autres", type="string", length=255, nullable=true)
      */
     private $autres;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionOne", type="string", length=255)
+     * @ORM\Column(name="detailsMissionOne", type="string", length=255, nullable=true)
      */
     private $detailsMissionOne;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionTwo", type="string", length=255)
+     * @ORM\Column(name="detailsMissionTwo", type="string", length=255, nullable=true)
      */
     private $detailsMissionTwo;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="detailsMissionThree", type="string", length=255)
+     * @ORM\Column(name="detailsMissionThree", type="string", length=255, nullable=true)
      */
     private $detailsMissionThree;
 
@@ -137,21 +137,21 @@ class Demandes {
     /**
      * @var string
      *
-     * @ORM\Column(name="docGdl", type="string", length=255)
+     * @ORM\Column(name="docGdl", type="string", length=255, nullable=true)
      */
     private $docGdl;
 
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="envoiePrevuLe", type="datetime")
+     * @ORM\Column(name="envoiePrevuLe", type="datetime", nullable=true)
      */
     private $envoiePrevuLe;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="mettreEnCopie", type="string", length=255)
+     * @ORM\Column(name="mettreEnCopie", type="string", length=255, nullable=true)
      */
     private $mettreEnCopie;
 
@@ -169,6 +169,13 @@ class Demandes {
      */
     private $dateDernierMiseAJour;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateLivraison", type="datetime", nullable=true)
+     */
+    private $dateLivraison;
+    
     /**
      * @var integer
      *
@@ -540,6 +547,148 @@ class Demandes {
      */
     public function getAccueil() {
         return $this->accueil;
+    }
+
+
+    /**
+     * Set utilisateur
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur
+     * @return Demandes
+     */
+    public function setUtilisateur(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $utilisateur)
+    {
+        $this->utilisateur = $utilisateur;
+    
+        return $this;
+    }
+
+    /**
+     * Get utilisateur
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs 
+     */
+    public function getUtilisateur()
+    {
+        return $this->utilisateur;
+    }
+
+    /**
+     * Set auNomDe
+     *
+     * @param \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $auNomDe
+     * @return Demandes
+     */
+    public function setAuNomDe(\Utilisateurs\UtilisateursBundle\Entity\Utilisateurs $auNomDe = null)
+    {
+        $this->auNomDe = $auNomDe;
+    
+        return $this;
+    }
+
+    /**
+     * Get auNomDe
+     *
+     * @return \Utilisateurs\UtilisateursBundle\Entity\Utilisateurs 
+     */
+    public function getAuNomDe()
+    {
+        return $this->auNomDe;
+    }
+
+    /**
+     * Set sites
+     *
+     * @param \Gestion\GestionBundle\Entity\Sites $sites
+     * @return Demandes
+     */
+    public function setSites(\Gestion\GestionBundle\Entity\Sites $sites)
+    {
+        $this->sites = $sites;
+    
+        return $this;
+    }
+
+    /**
+     * Get sites
+     *
+     * @return \Gestion\GestionBundle\Entity\Sites 
+     */
+    public function getSites()
+    {
+        return $this->sites;
+    }
+
+    /**
+     * Set missionOne
+     *
+     * @param \Gestion\GestionBundle\Entity\Missions $missionOne
+     * @return Demandes
+     */
+    public function setMissionOne(\Gestion\GestionBundle\Entity\Missions $missionOne = null)
+    {
+        $this->missionOne = $missionOne;
+    
+        return $this;
+    }
+
+    /**
+     * Get missionOne
+     *
+     * @return \Gestion\GestionBundle\Entity\Missions 
+     */
+    public function getMissionOne()
+    {
+        return $this->missionOne;
+    }
+
+    /**
+     * Set missionTwo
+     *
+     * @param \Gestion\GestionBundle\Entity\Missions $missionTwo
+     * @return Demandes
+     */
+    public function setMissionTwo(\Gestion\GestionBundle\Entity\Missions $missionTwo = null)
+    {
+        $this->missionTwo = $missionTwo;
+    
+        return $this;
+    }
+
+    /**
+     * Get missionTwo
+     *
+     * @return \Gestion\GestionBundle\Entity\Missions 
+     */
+    public function getMissionTwo()
+    {
+        return $this->missionTwo;
+    }
+
+    /**
+     * Set missionThree
+     *
+     * @param \Gestion\GestionBundle\Entity\Missions $missionThree
+     * @return Demandes
+     */
+    public function setMissionThree(\Gestion\GestionBundle\Entity\Missions $missionThree = null)
+    {
+        $this->missionThree = $missionThree;
+    
+        return $this;
+    }
+
+    /**
+     * Get missionThree
+     *
+     * @return \Gestion\GestionBundle\Entity\Missions 
+     */
+    public function getMissionThree()
+    {
+        return $this->missionThree;
+    }
+    public function __toString() {
+        return $this->getSites()." : ".$this->getId();
     }
 
 }

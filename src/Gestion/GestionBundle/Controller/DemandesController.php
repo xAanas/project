@@ -175,10 +175,13 @@ class DemandesController extends Controller {
 
             $commentaire->setDateCommentaire(new \DateTime());
             $em->persist($commentaire);
-
-
-
             $em->flush();
+            
+            if($entity->getEtat() == 'Emise'){
+            $entity->setEtat('En cour');
+            $em->persist($entity);
+            $em->flush();
+        }
 
 
 

@@ -247,11 +247,6 @@ class DefaultController extends Controller {
             return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
         }
 
-
-
-
-
-
         $response = new JsonResponse();
         return $response->setData(array('demandeJaime' => $demande->getJaime(), 'demandeJaimepas' => $demande->getJeNaimePas()));
         /*  } else {

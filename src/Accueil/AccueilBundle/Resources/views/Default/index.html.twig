@@ -261,7 +261,7 @@
         <div class="row">
 
 
-            <div class="col-md-9 col-xs-8">
+            <div class="col-md-9 col-xs-12">
                {# {% for key,nott in app.session.get('notificationsBag') %}
                     <p>  {{ nott.contenu }} </p>
                 {% endfor %}
@@ -278,7 +278,7 @@
 
                                 </div>
                                 <div class="col-md-3 col-xs-3">
-                                    <div style="font-size:20px ;">Client : {{demande.sites.clients}}</div>
+                                    <a href="{{ path('clients_show',{'id' : demande.sites.clients.id})}}" style="color: white;"> <div style="font-size:20px ;">Client :  {{demande.sites.clients}}</div></a>
                                 </div>
                                 <div class="col-md-3 col-xs-3">
                                     <div style="font-size:18px ;">
@@ -412,7 +412,7 @@
                             
                         {% for comment in comments|reverse|slice(0,2) %}
                             {% if comment.demande.id == demande.id %}
-                                
+                                {% set numComment = loop.index %}
                                 <li class="list-group-item">
                                     <div class="row">
                                     <div class="col-md-1"> <strong>{{comment.utilisateur}}</strong></div>
@@ -420,20 +420,21 @@
                                     
                                     {% for image in comment.fichier %}
                                         {% if image.lien %}
-                                            <a href="#" data-toggle="modal" data-target="#imageModal{{ demande.id}}{{ loop.index}}">
+                                            <a href="#" data-toggle="modal" data-target="#imageModal{{ demande.id}}{{ loop.index}}{{numComment}}">
                                                 <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="200" height="200">
                                             </a> &nbsp;&nbsp;
                                 
                                         <!-- ***********************************   Image Modal    **********************************************  -->
-                                    <div class="modal modalMid" id="imageModal{{ demande.id}}{{ loop.index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                         <div class="modal-dialog modal-wide">
+                                    <div class="modal modalMid" id="imageModal{{ demande.id}}{{ loop.index}}{{numComment}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                         <div class="modal-dialog modal-lg">
                                                      <div class="modal-content">
                                                    <!-- <div class="modal-header">
                                                            <button type="button" class="close" data-dismiss="modal">x</button>
                                                           </div>-->
                                                    
                                             <div class="modal-body">
-                                                      <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="600" height="600">
+                                                
+                                                      <img src="{{asset('uploads/'~image.lien)}}" class="img-thumbnail" width="1000" height="1000">
                                                  </div>
                                                  
                                             <!--<div class="modal-footer">
@@ -518,7 +519,7 @@
                     </div>
                 {% endfor %}
             </div>
-            <div class="col-md-3 col-xs-4">
+            <div class="col-md-3 col-xs-12">
                 <div id="containerchart" style="min-width: 310px; height: 400px; margin: 0 auto; position: fixed"></div>
             </div>
         </div>

@@ -170,6 +170,13 @@ class Demandes {
     private $dateDernierMiseAJour;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateLivraison", type="datetime", nullable=true)
+     */
+    private $dateLivraison;
+    
+    /**
      * @var integer
      *
      * @ORM\Column(name="accueil", type="integer")
@@ -684,4 +691,27 @@ class Demandes {
         return $this->getSites()." : ".$this->getId();
     }
 
+
+    /**
+     * Set dateLivraison
+     *
+     * @param \DateTime $dateLivraison
+     * @return Demandes
+     */
+    public function setDateLivraison($dateLivraison)
+    {
+        $this->dateLivraison = $dateLivraison;
+    
+        return $this;
+    }
+
+    /**
+     * Get dateLivraison
+     *
+     * @return \DateTime 
+     */
+    public function getDateLivraison()
+    {
+        return $this->dateLivraison;
+    }
 }

@@ -1,0 +1,107 @@
+{% extends '::base.html.twig' %}
+{% block title %}Accueil{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/style.css')}}" />
+{% endblock %}
+{% block body %}
+    <div id="containerchart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+    Hello {{ name }}!
+{% endblock %}
+
+{% block javascripts %}
+     
+    <script src="{{asset('js/highcharts.js')}}"></script>
+    <script src="{{asset('js/drilldown.js')}}"></script>
+    {{ parent() }}
+    
+    <script type="text/javascript">
+        
+        $(function () {
+
+          $('#containerchart').highcharts({
+                    chart: {
+                        type: 'column'
+                    },
+                    title: {
+                        text: 'Browser market shares. November, 2013'
+                    },
+                    subtitle: {
+                        text: 'Click the columns to view versions. Source: netmarketshare.com.'
+                    },
+                    xAxis: {
+                        type: 'category'
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Total percent market share'
+                        }
+                    },
+                    legend: {
+                        enabled: false
+                    },
+                    plotOptions: {
+                        series: {
+                            borderWidth: 0,
+                            dataLabels: {
+                                enabled: true,
+                                format: '{point.y:.1f}%'
+                            }
+                        }
+                    },
+
+                    tooltip: {
+                        headerFormat: '<span style="font-size:11px">{series.name}</span><br>',
+                        pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:.2f}%</b> of total<br/>'
+                    },
+
+                    series: [{
+                        name: 'Brands',
+                        colorByPoint: true,
+                        data: [{
+                            name: 'Animals',
+                            y: 5,
+                            drilldown: 'animals'
+                        }, {
+                            name: 'Fruits',
+                            y: 2,
+                            drilldown: 'fruits'
+                        }, {
+                            name: 'Cars',
+                            y: 4,
+                            drilldown: 'cars'
+                        }]
+                    }],
+                    drilldown: {
+                        series: [{
+                            id: 'animals',
+                            data: [
+                                ['Cats', 4],
+                                ['Dogs', 2],
+                                ['Cows', 1],
+                                ['Sheep', 2],
+                                ['Pigs', 1]
+                            ]
+                        }, {
+                            id: 'fruits',
+                            data: [
+                                ['Apples', 4],
+                                ['Oranges', 2]
+                            ]
+                        }, {
+                            id: 'cars',
+                            data: [
+                                ['Toyota', 4],
+                                ['Opel', 2],
+                                ['Volkswagen', 2]
+                            ]
+                        }]
+                    }
+                });
+        });
+
+        
+       
+    </script>
+
+
+{% endblock %}

@@ -30,11 +30,7 @@ class Fichiers {
      */
     private $lien;
 
-    /**
-     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Demandes",inversedBy="fichiers") 
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $publication;
+  
 
     /**
      * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Commentaires",inversedBy="fichier") 
@@ -85,26 +81,7 @@ class Fichiers {
         return $this->lien;
     }
 
-    /**
-     * Set publication
-     *
-     * @param string $publication
-     * @return Fichiers
-     */
-    public function setPublication($publication) {
-        $this->publication = $publication;
 
-        return $this;
-    }
-
-    /**
-     * Get publication
-     *
-     * @return string 
-     */
-    public function getPublication() {
-        return $this->publication;
-    }
 
     /**
      * Set commentaire

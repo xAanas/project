@@ -1,13 +1,13 @@
-accueil_homepage:
+accueil_homepageNO:
     path:     /
     defaults: { _controller: AccueilBundle:Default:Accueil }
-aimer:
+aimerNO:
     path:     /accueil/aimer/{id}
     defaults: { _controller: AccueilBundle:Default:aimer }
     options:
         expose: true
 
-ne_pas_aimer:
+ne_pas_aimerNO:
     path:     /accueil/nepasaimer/{id}
     defaults: { _controller: AccueilBundle:Default:nepasaimer }
     options:
