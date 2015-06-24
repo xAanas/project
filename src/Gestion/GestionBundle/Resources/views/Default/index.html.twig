@@ -407,19 +407,22 @@
                                 
                                {# <div align="middle"><a href="#" ><span class="glyphicon glyphicon-comment"></span>&nbsp; afficher les commentaires...</a>   </div>#}
                                
-                           <ul class="list-group" id="commentaires{{ demande.id}}" style="padding-left: 30px; padding-right: 30px;">
+                           <ul class="listes" id="commentaires{{ demande.id}}" style="padding-left: 50px; padding-right: 50px;">
                         <li class="list-group-item" style="display : none" id="ajoutcomm{{ demande.id}}">
 
                         </li>
                         <div  id="lescommentaires{{ demande.id}}" style="display: none;">
                             
-                        {% for comment in comments|reverse %}
+                        {% for comment in comments %}
                             {% if comment.demande.id == demande.id %}
                                 {% set numComment = loop.index %}
                                 <li class="list-group-item">
                                     <div class="row">
-                                    <div class="col-md-1"> <strong>{{comment.utilisateur}}.</strong></div>
-                                    <div class="col-md-11"> <div style="font-size:14.2px ; line-height:1.3 "> {{ comment.contenu}}</div><br/>
+                                       
+                                    <div class="col-md-1">
+                                        <img src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xfp1/v/t1.0-9/10006936_10203866037277053_1105347978090786590_n.jpg?oh=079bb22e6ba5fa45f84a76a0ab6b35cd&oe=5621DCDC&__gda__=1444979385_e2a3d3d7ee03394952295dbb0b95d4d1" height="45" width="45">
+                                    </div>
+                                    <div class="col-md-11"> <div style="font-size:14.2px ; line-height:1.3 "><strong>{{comment.utilisateur}}.</strong> {{ comment.contenu}}</div><br/>
                                     
                                     {% for image in comment.fichier %}
                                         {% if image.lien %}
@@ -463,7 +466,7 @@
                     </ul>
                     <br/>
                     <form method="post" enctype="multipart/form-data">
-                        <div class="input-group" style="padding-left: 5px; padding-right: 5px;">
+                        <div class="input-group" style="padding-left: 50px; padding-right: 50px;">
                             <input type="textarea" class="form-control" width="90%" id="commentaire{{demande.id}}" placeholder="Ecrire un commentaire...">
                             
                             <span class="input-group-btn" style="padding-left: 5px;">

@@ -5,7 +5,6 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
         <link rel="stylesheet" href="{{asset('css/bootstrap-theme.css')}}" />
-
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <style>
@@ -376,8 +375,9 @@ function commenterscript(id, contenu) {
         },
         success: function () {
             document.getElementById("loaderCom" + id).style.display = "none";
-            $('#ajoutcomm' + id).append('<li class="list-group-item"> Anas : ' + contenu.value + '<br/> <div align="right"> ' + Date() + ' </div> </li>');
-            //$('#ajoutcomm'+id).removeAttr("style").append('Anas : '+ contenu.value +'<br/><div align="right"> '+ Date() +'</div>');
+            $('#commentaires' + id).append('<li class="list-group-item"> Anas : ' + contenu.value + '<br/> <div align="right"> ' + Date() + ' </div> </li>');
+            //$('#ajoutcomm'+id).removeAttr("style");
+        //$('#ajoutcomm'+id).removeAttr("style").append('Anas : '+ contenu.value +'<br/><div align="right"> '+ Date() +'</div>');
             contenu.value = ' ';
             console.log("okkk commentaire");
         }
@@ -398,6 +398,11 @@ function effacerDemande(id) {
         }
     });
 }
+    function exporterDemande(demande){
+        window.location.href = Routing.generate('exporterDemande', { 'id': demande});
+    }
+
+
 
         </script>
 

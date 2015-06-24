@@ -295,9 +295,11 @@
                     <td>{{ entity.accueil }}</td>
                     <td>
                         
-                                <a href="{{ path('demandes_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file"></span></a>
-                           <br/>
-                                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil"></span></a>
+                                <a href="{{ path('demandes_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file" title="voir la demande"></span></a>
+                           
+                                <a href="{{ path('demandes_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la demande"></span></a>
+                                
+                                <a id="exportDemande{{ entity.id}}" onclick="exporterDemande('{{ entity.id}}')"> <span class="glyphicon glyphicon-download-alt" title="télécharger la demande"></span></a>
                           
                     </td>
                 </tr>

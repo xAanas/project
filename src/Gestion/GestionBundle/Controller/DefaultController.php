@@ -5,6 +5,7 @@ namespace Gestion\GestionBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Config\Definition\Exception\Exception;
 use Gestion\GestionBundle\Entity\Fichiers;
 use Gestion\GestionBundle\Form\FichiersType;
@@ -21,6 +22,8 @@ use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
+use PHPExcel;
+use PHPExcel_IOFactory;
 
 class DefaultController extends Controller {
 
@@ -301,6 +304,8 @@ class DefaultController extends Controller {
             $demande->setEtat('En cour');
             $em->persist($demande);
             $em->flush();
+            
+            
         }
         $response = new JsonResponse();
         return $response->setData(array('contenu' => $commentaire->getContenu()));
@@ -531,5 +536,74 @@ class DefaultController extends Controller {
           throw new Exception("Erreur");
           } */
     }
+    
+    public function exporterdemandeAction(Request $request,$id) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
+        
+         $inputFileName = 'E://excel_demande/layoutdemande.xlsx';
+        
+        $objPHPExcel = new PHPExcel();
+        /** Load $inputFileName to a PHPExcel Object **/
+        $objPHPExcel = PHPExcel_IOFactory::load($inputFileName);
+        
+        $response = new Response();
+        
+        
+        
+        
+        $objPHPExcel->getProperties()->setCreator("Cantara")
+                   ->setLastModifiedBy("Someone")
+                   ->setTitle("Demande numero "+$id)
+                   ->setSubject("Demande");
+        
+      
+        $objPHPExcel->getActiveSheet()->setCellValue('D8', $demande->getSites()->getClients());
+        $objPHPExcel->getActiveSheet()->setCellValue('D9', $demande->getSites()->getNom());
+        $objPHPExcel->getActiveSheet()->setCellValue('D10', $demande->getAuNomDe());
+        $objPHPExcel->getActiveSheet()->setCellValue('D11', $demande->getUtilisateur());
+        $objPHPExcel->getActiveSheet()->setCellValue('F15', $demande->getMissionOne());
+        $objPHPExcel->getActiveSheet()->setCellValue('F16', $demande->getMissionTwo());
+        $objPHPExcel->getActiveSheet()->setCellValue('F17', $demande->getMissionThree());
+        $objPHPExcel->getActiveSheet()->setCellValue('G21', $demande->getAutres());
+        $objPHPExcel->getActiveSheet()->setCellValue('F24', $demande->getDetailsMissionOne());
+        $objPHPExcel->getActiveSheet()->setCellValue('F25', $demande->getDetailsMissionTwo());
+        $objPHPExcel->getActiveSheet()->setCellValue('F26', $demande->getDetailsMissionThree());
+        $objPHPExcel->getActiveSheet()->setCellValue('D30', $demande->getDateLimite());
+        $objPHPExcel->getActiveSheet()->setCellValue('D33', $demande->getLien());
+        $objPHPExcel->getActiveSheet()->setCellValue('D35', $demande->getDocGdl());
+        $objPHPExcel->getActiveSheet()->setCellValue('D37', $demande->getEnvoiePrevuLe());
+        
+        
+       // Redirect output to a client’s web browser (Excel5)
+       $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+       
+           
+       $Date = new \DateTime();
+       
+       $response->headers->set('Content-Disposition', 'attachment;filename="Demande'.$demande->getSites()->getClients().$demande->getId().'.xlsx"');
+       
+       $response->headers->set('Cache-Control', 'max-age=0');
+       $response->prepare($request);
+       $response->sendHeaders();
+       $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+       $objWriter->save('php://output');
+       exit();  
+       $deleteForm = $this->createDeleteForm($id);
+       return $this->render('GestionBundle:demandes:show.html.twig',array(
+                    'entity' => $demande,
+                    'delete_form' => $deleteForm->createView(),
+        ));
+    }
+     private function createDeleteForm($id) {
+        return $this->createFormBuilder()
+                        ->setAction($this->generateUrl('demandes_delete', array('id' => $id)))
+                        ->setMethod('DELETE')
+                        //->add('submit', 'submit', array('label' => 'Effacer','attr' =>array('class' => 'btn btn-danger')))
+                        ->getForm()
+        ;
+    }
+    
     
 }

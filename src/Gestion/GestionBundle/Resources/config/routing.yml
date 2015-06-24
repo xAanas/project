@@ -65,3 +65,9 @@ ne_pas_aimer:
     defaults: { _controller: GestionBundle:Default:nepasaimer }
     options:
         expose: true
+
+exporterDemande:
+    path:     /export/{id}
+    defaults: { _controller: GestionBundle:Default:exporterdemande }
+    options:
+        expose: true

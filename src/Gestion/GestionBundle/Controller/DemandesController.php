@@ -13,6 +13,7 @@ use Gestion\GestionBundle\Form\FichiersType;
 use Gestion\GestionBundle\Entity\Sites;
 use Gestion\GestionBundle\Form\SitesType;
 use Gestion\GestionBundle\Entity\Notifications;
+use Gestion\GestionBundle\Implementation\Fonctions;
 
 
 /**
@@ -177,12 +178,15 @@ class DemandesController extends Controller {
             $em->persist($commentaire);
             $em->flush();
             
-            if($entity->getEtat() == 'Emise'){
-            $entity->setEtat('En cour');
-            $em->persist($entity);
-            $em->flush();
-        }
-
+            if($entity->getEtat() == 'Emise')
+                {
+                        $entity->setEtat('En cour');
+                        $em->persist($entity);
+                        $em->flush();
+                }
+                
+            //$fonction = new Fonctions();
+            //$fonction->write_log($utilisateur->getUsername() . ' a commenté la demande numero ' . $entity->getId() . ' de ' . $entity->getSites()->getClients());
 
 
             // *************   Notification ********************

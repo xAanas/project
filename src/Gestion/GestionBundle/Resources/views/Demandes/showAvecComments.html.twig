@@ -162,8 +162,10 @@
                                 
                                 <li class="list-group-item">
                                     <div class="row">
-                                    <div class="col-md-1"> <strong>{{comment.utilisateur}}</strong></div>
-                                    <div class="col-md-11"> <div style="font-size:14.2px ; line-height:1.3 "> {{ comment.contenu}}</div><br/>
+                                        
+                                        <div class="col-md-1"> <img src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xfp1/v/t1.0-9/10006936_10203866037277053_1105347978090786590_n.jpg?oh=079bb22e6ba5fa45f84a76a0ab6b35cd&oe=5621DCDC&__gda__=1444979385_e2a3d3d7ee03394952295dbb0b95d4d1" height="45" width="45"></div>
+                                    <div class="col-md-11"> <strong>{{comment.utilisateur}}.</strong>
+                                        <div style="font-size:14.2px ; line-height:1.3 "> {{ comment.contenu}}</div><br/>
                                     {% set numComment = loop.index %}
                                     {% for image in comment.fichier %}
                                         {% if image.lien %}
