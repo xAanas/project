@@ -272,7 +272,7 @@ class DefaultController extends Controller {
         $lecommentaire = str_replace('istefhem', '?', $lecommentaire);
         //}
 
-        $commentaire->setContenu($lecommentaire . ' ok');
+        $commentaire->setContenu($lecommentaire);
         $commentaire->setDemande($demande);
         $user = $em->merge($this->container->get('security.context')->getToken()->getUser());
         $commentaire->setUtilisateur($user);
@@ -582,7 +582,7 @@ class DefaultController extends Controller {
            
        $Date = new \DateTime();
        
-       $response->headers->set('Content-Disposition', 'attachment;filename="Demande'.$demande->getSites()->getClients().$demande->getId().'.xlsx"');
+       $response->headers->set('Content-Disposition', 'attachment;filename="Demande'.$demande->getSites()->getClients().$demande->getId().'.xls"');
        
        $response->headers->set('Cache-Control', 'max-age=0');
        $response->prepare($request);

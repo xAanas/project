@@ -275,7 +275,8 @@
                                     }
                                 };
                             })();
-                            function aimerscript(demandeid, siaimer, pasaimer) {
+       
+    function aimerscript(demandeid, siaimer, pasaimer) {
                             
     $.ajax({
         type: 'post',
@@ -365,7 +366,7 @@ function commenterscript(id, contenu) {
         
     $.ajax({
         type: 'post',
-        url: Routing.generate('aimer', { 'id': id,'contenu' : lecommentaire }),
+        url: Routing.generate('commentersansfichier', { 'id': id,'contenu' : lecommentaire }),
         beforeSend: function () {
             document.getElementById("loaderCom" + id).style.display = "inline";
             console.log('ça chargee encore commentaire ' + id + '/' + contenu.value); 
@@ -375,7 +376,7 @@ function commenterscript(id, contenu) {
         },
         success: function () {
             document.getElementById("loaderCom" + id).style.display = "none";
-            $('#commentaires' + id).append('<li class="list-group-item"> Anas : ' + contenu.value + '<br/> <div align="right"> ' + Date() + ' </div> </li>');
+            $('#commentaires' + id).append('<li class="list-group-item"><div class="row"><div class="col-md-1"><img src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xfp1/v/t1.0-9/10006936_10203866037277053_1105347978090786590_n.jpg?oh=079bb22e6ba5fa45f84a76a0ab6b35cd&oe=5621DCDC&__gda__=1444979385_e2a3d3d7ee03394952295dbb0b95d4d1" height="45" width="45"></div><div class="col-md-11"> <div style="font-size:14.2px ; line-height:1.3 "><strong>{{ app.security.getToken().getUser() }}.</strong> ' + contenu.value + '</div><br/> <div align="right"> ' + Date() + ' </div></div> </div></li>');
             //$('#ajoutcomm'+id).removeAttr("style");
         //$('#ajoutcomm'+id).removeAttr("style").append('Anas : '+ contenu.value +'<br/><div align="right"> '+ Date() +'</div>');
             contenu.value = ' ';
@@ -387,7 +388,7 @@ function commenterscript(id, contenu) {
 function effacerDemande(id) {
     $.ajax({
         type: 'post',
-        url: Routing.generate('aimer', { 'id': id}),
+        url: Routing.generate('demandes_effacer_accueil', { 'id': id}),
         beforeSend: function () {
             document.getElementById("loadereffacdem" + id).style.display = "inline";
             console.log('ça chargee effacement demande ' + id);

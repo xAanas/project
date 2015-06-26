@@ -152,6 +152,9 @@
             <a href="{{ path('demandes_edit', { 'id': entity.id }) }}" class="btn btn-default">
                 <span class="glyphicon glyphicon-pencil"></span> Edit
             </a>
+                <a id="exportDemande{{ entity.id}}"  class="btn btn-default" onclick="exporterDemande('{{ entity.id}}')">
+                    <span class="glyphicon glyphicon-download-alt" title="télécharger la demande"></span> télécharger
+                </a>
             <a href="#" data-toggle="modal" data-target="#effacerModal" class="btn btn-danger">
                 <span class="glyphicon glyphicon-trash"></span> Effacer
             </a>

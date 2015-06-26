@@ -161,7 +161,7 @@ class DemandesController extends Controller {
         $comments = $em->getRepository('GestionBundle:Commentaires')->findBy(array('demande' => $entity));
         $fichier = new Fichiers();
         $commentaire = new Commentaires();
-        $commentaire->getFichier()->add($fichier);
+        //$commentaire->getFichier()->add($fichier);
         $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
         $commentaire->setUtilisateur($utilisateur);
         $commentaire->setDemande($entity);
