@@ -596,6 +596,101 @@ class DefaultController extends Controller {
                     'delete_form' => $deleteForm->createView(),
         ));
     }
+    
+    public function exporterTousDemandesAction(Request $request) {
+        
+        $em = $this->getDoctrine()->getManager();
+        $demandes = $em->getRepository('GestionBundle:Demandes')->findAll();
+        
+         
+        
+        $objPHPExcel = new PHPExcel();
+        
+        $response = new Response();
+        
+        
+        
+        
+        $objPHPExcel->getProperties()->setCreator("Cantara")
+                   ->setLastModifiedBy("Someone")
+                   ->setTitle("Demandes")
+                   ->setSubject("Demande");
+        
+        $objPHPExcel->getActiveSheet()->setCellValue('A1', 'ID');
+        $objPHPExcel->getActiveSheet()->setCellValue('B1', 'Client');
+        $objPHPExcel->getActiveSheet()->setCellValue('C1', 'Site');
+        $objPHPExcel->getActiveSheet()->setCellValue('D1', 'Expéditeur');
+        $objPHPExcel->getActiveSheet()->setCellValue('E1', 'mission 1');
+        $objPHPExcel->getActiveSheet()->setCellValue('F1', 'mission 2');
+        $objPHPExcel->getActiveSheet()->setCellValue('G1', 'mission 3');
+        $objPHPExcel->getActiveSheet()->setCellValue('H1', 'Autres');
+        $objPHPExcel->getActiveSheet()->setCellValue('I1', 'Date limite');
+        $objPHPExcel->getActiveSheet()->setCellValue('J1', 'Lien');
+        $objPHPExcel->getActiveSheet()->setCellValue('K1', 'Date livraison');
+        
+        $i = 2 ; 
+        foreach ($demandes as $demande){
+        $objPHPExcel->getActiveSheet()->setCellValue('A'.$i, $demande->getId());
+        $objPHPExcel->getActiveSheet()->setCellValue('B'.$i, $demande->getSites()->getClients());
+        $objPHPExcel->getActiveSheet()->setCellValue('C'.$i, $demande->getSites()->getNom());
+        $objPHPExcel->getActiveSheet()->setCellValue('D'.$i, $demande->getUtilisateur());
+        $objPHPExcel->getActiveSheet()->setCellValue('E'.$i, $demande->getMissionOne());
+        $objPHPExcel->getActiveSheet()->setCellValue('F'.$i, $demande->getMissionTwo());
+        $objPHPExcel->getActiveSheet()->setCellValue('G'.$i, $demande->getMissionThree());
+        $objPHPExcel->getActiveSheet()->setCellValue('H'.$i, $demande->getAutres());
+        $objPHPExcel->getActiveSheet()->setCellValue('I'.$i, $demande->getDateLimite());
+        if(!$demande->getLien()){
+            $objPHPExcel->getActiveSheet()->setCellValue('J'.$i, 'pas de lien');
+        }else{
+        $objPHPExcel->getActiveSheet()->setCellValue('J'.$i, $demande->getLien());
+        }
+        if(!$demande->getDateLivraison()){
+            $objPHPExcel->getActiveSheet()->setCellValue('K'.$i,'elle n\'est pas encore livrée');
+        }else{
+        $objPHPExcel->getActiveSheet()->setCellValue('K'.$i, $demande->getDateLivraison()); 
+        }
+            $i ++ ;
+        }
+        
+        $objPHPExcel->getActiveSheet()->setTitle('Demandes');
+       // Set active sheet index to the first sheet
+        $objPHPExcel->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('J')->setAutoSize(true);
+        $objPHPExcel->getActiveSheet()->getColumnDimension('K')->setAutoSize(true);
+
+      
+        
+        
+        
+       // Redirect output to a client’s web browser (Excel5)
+       $response->headers->set('Content-Type', 'application/vnd.ms-excel');
+       
+           
+       $Date = new \DateTime();
+       
+       $response->headers->set('Content-Disposition', 'attachment;filename="Demandes.xls"');
+       
+       $response->headers->set('Cache-Control', 'max-age=0');
+       $response->prepare($request);
+       $response->sendHeaders();
+       $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+       $objWriter->save('php://output');
+       exit();  
+       $deleteForm = $this->createDeleteForm($id);
+       return $this->render('GestionBundle:demandes:show.html.twig',array(
+                    'entity' => $demande,
+                    'delete_form' => $deleteForm->createView(),
+        ));
+    }
+    
      private function createDeleteForm($id) {
         return $this->createFormBuilder()
                         ->setAction($this->generateUrl('demandes_delete', array('id' => $id)))

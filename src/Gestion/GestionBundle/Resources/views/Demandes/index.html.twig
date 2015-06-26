@@ -255,7 +255,12 @@
             </div>
         </div>
         <div align="right">
-            <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-default"><span class="glyphicon glyphicon-plus-sign"></span> Créer une nouvelle demande</a>
+            <a href="{{path('exporterTousDemande')}}" id="exportTousDemande"  class="btn btn-default" title="télécharger la liste des demandes">
+                    <span class="glyphicon glyphicon-download-alt" ></span> télécharger tous
+                </a>
+            <a href="#" data-toggle="modal" data-target="#myModal" class="btn btn-default">
+                <span class="glyphicon glyphicon-plus-sign"></span> Créer une nouvelle demande
+            </a>
         </div>
         <br/>
 
