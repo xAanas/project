@@ -1,0 +1,55 @@
+services:
+    sonata.admin.missions:
+        class: Admin\AdminBundle\Admin\GestionAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Missions" }
+        arguments:
+            - ~
+            - Gestion\GestionBundle\Entity\Missions
+            - ~
+        calls:
+            - [ setTranslationDomain, [AdminAdminBundle]]
+     
+    sonata.admin.clients:
+        class: Admin\AdminBundle\Admin\ClientsAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Clients" }
+        arguments:
+            - ~
+            - Gestion\GestionBundle\Entity\Clients
+            - ~
+        calls:
+            - [ setTranslationDomain, [AdminAdminBundle]]
+            
+    sonata.admin.sites:
+        class: Admin\AdminBundle\Admin\SitesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Sites" }
+        arguments:
+            - ~
+            - Gestion\GestionBundle\Entity\Sites
+            - ~
+        calls:
+            - [ setTranslationDomain, [AdminAdminBundle]]
+            
+    sonata.admin.utilisateurs:
+        class: Admin\AdminBundle\Admin\UtilisateursAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Utilisateurs" }
+        arguments:
+            - ~
+            - Utilisateurs\UtilisateursBundle\Entity\Utilisateurs
+            - ~
+        calls:
+            - [ setTranslationDomain, [AdminAdminBundle]]
+            
+    sonata.admin.demandes:
+        class: Admin\AdminBundle\Admin\DemandesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Demandes" }
+        arguments:
+            - ~
+            - Gestion\GestionBundle\Entity\Demandes
+            - ~
+        calls:
+            - [ setTranslationDomain, [AdminAdminBundle]]

@@ -22,7 +22,9 @@
         "friendsofsymfony/user-bundle": "~2.0@dev",
         "jms/serializer-bundle": "0.13.*",
         "friendsofsymfony/jsrouting-bundle": "^1.5",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpexcel": "^1.8",
+        "sonata-project/admin-bundle": "^2.3",
+        "sonata-project/doctrine-orm-admin-bundle": "^2.3"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

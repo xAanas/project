@@ -146,11 +146,9 @@
                         <ul class="dropdown-menu multi-level">
                             <li><a href="{{ path('demandes') }}"><span class="glyphicon glyphicon-file"></span> Demandes </a></li>
                             <li><a href="{{ path('fos_user_profile_show')}}"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
-                            {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="#"><span class="glyphicon glyphicon-list-alt"></span> Utilisateurs</a></li> {% endif %}
                             <li><a href="#"><span class="glyphicon glyphicon-picture"></span> Equipe</a></li>
                             <li><a href="http://192.168.1.3/Project_1_1_1/web/app.php/platform/calendar"><span class="glyphicon glyphicon-calendar"></span> Calendrier</a></li>
                             <li><a href="{{ path('fichier_ajout')}}"><span class="glyphicon glyphicon-barcode"></span> Stock </a></li>
-                            <li class="divider"></li>
                             <li class="dropdown-submenu">
                                 <a tabindex="-1" href="#"><span class="glyphicon glyphicon-cog"></span> Paramètres  </a>
                                 <ul class="dropdown-menu">
@@ -159,6 +157,8 @@
                                     <li><a tabindex="-1" href="{{ path('sites')}}"><span class="glyphicon glyphicon-wrench"></span> Sites</a></li>
                                 </ul>
                             </li>
+                            <li class="divider"></li>
+                            {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="{{path('sonata_admin_redirect')}}" target="_blank"><span class="glyphicon glyphicon-list-alt"></span> Administration</a></li> {% endif %}
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-off"></span> Déconnexion  </a></li>
                         </ul>

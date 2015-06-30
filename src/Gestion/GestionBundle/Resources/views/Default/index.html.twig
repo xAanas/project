@@ -313,14 +313,14 @@
                                     <div style="font-size:15px ;">
                                         
                                         {% if demande.niveauUrgence == 'urgente'%}
-                                            <div style="font-size:20px ;"><span class="glyphicon glyphicon-exclamation-sign" title="Demande urgente"></span></div>   
+                                            <div style="font-size:20px ;"><span class="glyphicon glyphicon-exclamation-sign" title="Urgent"></span></div>   
                                         {% endif %}
                                     </div>
                                     <br/>
                                     <div style="font-size:15px ;">
                                         {% if demande.confidentialite == 'Haute'%}
                                         <div style="font-size:20px ;">{#{{demande.type}} <img src="{{ asset('img/glyphicons-505-alert.png') }}" alt="loading" />#} 
-                                            <span class="glyphicon glyphicon-lock" title="Demande de la plus haute confidentialité"></span>
+                                            <span class="glyphicon glyphicon-lock" title="Confidentiel"></span>
                                         </div>
                                         {% endif %}
                                     </div>

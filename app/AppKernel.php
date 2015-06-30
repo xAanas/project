@@ -23,6 +23,12 @@ class AppKernel extends Kernel
             new Gestion\GestionBundle\GestionBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\JsRoutingBundle\FOSJsRoutingBundle(),
+            new Sonata\CoreBundle\SonataCoreBundle(),
+            new Sonata\BlockBundle\SonataBlockBundle(),
+            new Knp\Bundle\MenuBundle\KnpMenuBundle(),
+            new Sonata\DoctrineORMAdminBundle\SonataDoctrineORMAdminBundle(),
+            new Sonata\AdminBundle\SonataAdminBundle(),
+            new Admin\AdminBundle\AdminAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
