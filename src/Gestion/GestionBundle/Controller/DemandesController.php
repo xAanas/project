@@ -220,6 +220,78 @@ class DemandesController extends Controller {
         ));
     }
 
+    public function showAvecCommentsNotifAction(Request $request,$id,$idnotif) {
+        $em = $this->getDoctrine()->getManager();
+        
+        $notificationdesactives = $em->getRepository('GestionBundle:Notifications')->findBy(array('publication' => $id));
+        foreach ($notificationdesactives as $notificationdesactive){
+        $notificationdesactive->setEnable('0');
+        $em->persist($notificationdesactive);
+        $em->flush();
+        }
+        $entity = $em->getRepository('GestionBundle:Demandes')->find($id);
+        $comments = $em->getRepository('GestionBundle:Commentaires')->findBy(array('demande' => $entity));
+        $fichier = new Fichiers();
+        $commentaire = new Commentaires();
+        //$commentaire->getFichier()->add($fichier);
+        $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
+        $commentaire->setUtilisateur($utilisateur);
+        $commentaire->setDemande($entity);
+        
+        $form = $this->createForm(new CommentairesType(), $commentaire);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            foreach ($commentaire->getFichier() as $fichier){
+                $fichier->setCommentaire($commentaire);
+            }
+
+            $commentaire->setDateCommentaire(new \DateTime());
+            $em->persist($commentaire);
+            $em->flush();
+            
+            if($entity->getEtat() == 'Emise')
+                {
+                        $entity->setEtat('En cour');
+                        $em->persist($entity);
+                        $em->flush();
+                }
+                
+            //$fonction = new Fonctions();
+            //$fonction->write_log($utilisateur->getUsername() . ' a commenté la demande numero ' . $entity->getId() . ' de ' . $entity->getSites()->getClients());
+
+
+            // *************   Notification ********************
+            $utilisateurs = $em->getRepository('UtilisateursBundle:Utilisateurs')->findAll();
+            foreach ($utilisateurs as $utilisateurNotifie) {
+                $notification = new Notifications();
+                $notification->setActeur($utilisateur);
+                $notification->setPublication($entity);
+                $notification->setEnable('1');
+                $notification->setDateNotification(new \DateTime());
+                $contenu = $utilisateur->getUsername() . ' a commenté la demande numero ' . $entity->getId() . ' de ' . $entity->getSites()->getClients();
+                $notification->setContenu($contenu);
+                $notification->setUtilisateur($utilisateurNotifie->getId());
+
+                $em->persist($notification);
+                $em->flush();
+            }
+        }
+        
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find Demandes entity.');
+        }
+
+        $deleteForm = $this->createDeleteForm($id);
+
+        return $this->render('GestionBundle:Demandes:showAvecComments.html.twig', array(
+                    'entity' => $entity,
+                    'delete_form' => $deleteForm->createView(),
+                    'comments' => $comments,
+                    'form' => $form->createView(),
+        ));
+    }
+    
     /**
      * Displays a form to edit an existing Demandes entity.
      *

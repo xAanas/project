@@ -5,10 +5,19 @@ demandes:
 demandes_show:
     path:     /{id}/show
     defaults: { _controller: "GestionBundle:Demandes:show" }
+    
 demandes_show_comments:
     path:     /{id}/showcom
     defaults: { _controller: "GestionBundle:Demandes:showAvecComments" }    
-
+    options:
+        expose: true
+        
+demandes_show_comments_notif:     
+    path:     /{id}/{idnotif}/showcom
+    defaults: { _controller: "GestionBundle:Demandes:showAvecCommentsNotif" }    
+    options:
+        expose: true  
+        
 demandes_new:
     path:     /new
     defaults: { _controller: "GestionBundle:Demandes:new" }

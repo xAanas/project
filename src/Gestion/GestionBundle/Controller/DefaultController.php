@@ -216,7 +216,7 @@ class DefaultController extends Controller {
                     //$notif[$notification->getPublication()->getId()] = $notification->getContenu();
                     $serializer->serialize($notification->getPublication(), 'json');
                     $notifications[$key] = $serializer->serialize($notification, 'json');
-                    $notification->setEnable('0');
+                    //$notification->setEnable('0');
                     $em->persist($notification);
                     $em->flush();
                     $nombreNotif++;
@@ -234,7 +234,8 @@ class DefaultController extends Controller {
             throw new Exception("Erreur");
         }*/
     }
-
+    
+    
     //****************************** modifier l'etat d'une demande **************************************
 
     public function modifetatAction($id, $etat) {
@@ -253,7 +254,7 @@ class DefaultController extends Controller {
         $response = new JsonResponse();
         return $response->setData(array('etat' => $demande->getEtat()));
     }
-
+    
     public function commentersansfichierAction($id, $contenu) {
         $demande = new Demandes();
         $commentaire = new Commentaires();
@@ -385,6 +386,7 @@ class DefaultController extends Controller {
         return $response->setData(array('reportdemande' => $reportdemande));
     }
 
+    
     public function effacerdemandeaccueilAction(Request $request, $id) {
         if ($request->isXmlHttpRequest()) {
             $em = $this->getDoctrine()->getManager();
@@ -699,6 +701,8 @@ class DefaultController extends Controller {
                         ->getForm()
         ;
     }
+    
+    
     
     
 }

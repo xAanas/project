@@ -157,8 +157,13 @@
                                     <li><a tabindex="-1" href="{{ path('sites')}}"><span class="glyphicon glyphicon-wrench"></span> Sites</a></li>
                                 </ul>
                             </li>
-                            <li class="divider"></li>
-                            {% if is_granted('ROLE_ADMIN') %}<li role="presentation"><a role="menuitem" tabindex="-1" href="{{path('sonata_admin_redirect')}}" target="_blank"><span class="glyphicon glyphicon-list-alt"></span> Administration</a></li> {% endif %}
+                            
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <li class="divider"></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="{{path('sonata_admin_redirect')}}" target="_blank"><span class="glyphicon glyphicon-list-alt"></span> Administration</a>
+                                </li> 
+                            {% endif %}
                             <li class="divider"></li>
                             <li><a href="{{ path('fos_user_security_logout')}}"><span class="glyphicon glyphicon-off"></span> Déconnexion  </a></li>
                         </ul>
@@ -215,6 +220,8 @@
                             
                             setInterval(notifier, 1000);
 
+                            var notificationTab = new Array();
+
                             function notifier() {
 
                                 $.ajax({
@@ -230,17 +237,21 @@
 
 
                                         if (data.nombreNotif > '0') {
-                                            playSound('laser');
-                                            playSound('laser');
-                                            playSound('laser');
+                                           // playSound('laser');
+                                            //playSound('laser');
+                                            //playSound('laser');
                                             console.log('fama notif : ' + data.nombreNotif);
 
 
                                             $.each(data.notifications, function () {
                                                 var notif = JSON.parse(this);
-                                                console.log(notif.publication.id);
-                                                $('#dropdown-menu-notification').append('<li role="presentation"><a role="menuitem" tabindex="-1" href="http://localhost/project/web/app_dev.php/demandes/' + notif.publication.id + '/showcom"><i class="glyphicon glyphicon-file"></i>' + notif.contenu + '</a></li>');
-
+                                                if(nexistepas(notif.id,notificationTab)){
+                                                    notificationTab.push(notif.id);
+                                                console.log("tablou"+notificationTab);
+                                                $('#dropdown-menu-notification').append('<li role="presentation"><a role="menuitem" tabindex="-1" href="' + Routing.generate('demandes_show_comments_notif', { 'id': notif.publication.id,'idnotif' : notif.id }) +  '" target="_blank"><i class="glyphicon glyphicon-file"></i>' + notif.contenu + '</a></li>');
+                                                    
+                                               }
+                                            
                                             });
                                             $("#notification").attr("data-notifications", data.nombreNotif);
                                         } else {
@@ -252,10 +263,26 @@
 
                             }
 
+                            function nexistepas(notificationActuel, notificationTableau){
+                                for(  i = 0 ; i < notificationTableau.length; i++){
+                                    if(notificationActuel === notificationTableau[i]) {
+                                        console.log('notif mawjouda deja' + notificationTableau[i]);
+                                        return false;
+                                    }
+                                }
+                                console.log('notif mouch mawjouda '+notificationActuel );
+                                console.log('haw tableau' +notificationTableau);
+                                return true ;
+                            
+                            }
+
+
                             function effaceNotif() {
                                 $("#notification").removeAttr("data-notifications");
                             }
-
+                            
+                           
+                            
                             var playSound = (function () {
                                 var s,
                                         sounds = {},
