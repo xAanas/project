@@ -309,7 +309,7 @@ class DefaultController extends Controller {
             
         }
         $response = new JsonResponse();
-        return $response->setData(array('contenu' => $commentaire->getContenu()));
+        return $response->setData(array('contenu' => $commentaire->getContenu(),'date' => $commentaire->getDateCommentaire()));
     }
 
     
