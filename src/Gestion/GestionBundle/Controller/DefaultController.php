@@ -46,6 +46,7 @@ class DefaultController extends Controller {
         $demande->setDatePosteDemande(new \DateTime());
         $demande->setDateDernierMiseAJour(new \DateTime());
         $demande->setAccueil('1');
+        $demande->setEtat('Emise');
         $form = $this->createForm(new DemandesType(), $demande);
         $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
             'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
@@ -560,7 +561,7 @@ class DefaultController extends Controller {
                    ->setTitle("Demande numero "+$id)
                    ->setSubject("Demande");
         
-      
+        $objPHPExcel->getActiveSheet()->setCellValue('D6', $demande->getMettreEnCopie());
         $objPHPExcel->getActiveSheet()->setCellValue('D8', $demande->getSites()->getClients());
         $objPHPExcel->getActiveSheet()->setCellValue('D9', $demande->getSites()->getNom());
         $objPHPExcel->getActiveSheet()->setCellValue('D10', $demande->getAuNomDe());

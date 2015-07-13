@@ -33,6 +33,17 @@ class RegistrationFormType extends AbstractType {
                 ->add('nom', 'text', array('label' => 'Nom :', 'translation_domain' => 'FOSUserBundle'))
                 ->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
                 ->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+                ->add('roles','collection',array(
+                                'type'   => 'choice',
+                                'options'  => array(
+                                'choices'  => array(
+                                'ROLE_ADMIN' => 'admin',
+                                'ROLE_USER'     => 'utilisateur',
+                                'ROLE_COLLABTN'    => 'collaborateur tn',
+                                'ROLE_COLLABFR'    => 'collaborateur fr',
+        ),
+    ),
+))
                 ->add('plainPassword', 'repeated', array(
                     'type' => 'password',
                     'options' => array('translation_domain' => 'FOSUserBundle'),

@@ -6,7 +6,6 @@ interface IFonctions {
     
    
     
-    // vérifier si le nombre magique $magicNumber existe ou non dans le fichier $filedrg et retourne un boolean
     public function write_log($lignedelog);
     
     

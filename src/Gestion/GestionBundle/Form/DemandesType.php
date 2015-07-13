@@ -39,14 +39,16 @@ class DemandesType extends AbstractType{
                                                                 'urgente' => 'urgente'),
                                                                 'empty_value' => 'Choisissez un type',
                                                                 'empty_data'  => 'ordinaire'))
-                ->add('etat','choice',array('choices' => array ('Emise' => 'émise',
+                 /*->add('etat','choice',array('choices' => array ('Emise' => 'émise',
                                                                 'En cour' => 'en cour',
                                                                 'Annulée' => 'annulée',
                                                                 'Livrée' => 'livrée'),
                                                                 'empty_value' => 'Choisissez un état',
-                                                                'empty_data'  => 'émise'))
-                ->add('confidentialite','choice',array('choices' => array ('Normale' => 'normale',
-                                                                            'Haute' => 'Haute')))
+                                                                'empty_data'  => 'émise'))*/
+                ->add('confidentialite','choice',array('choices' => array ('Normale' => 'Normale',
+                                                                            'Haute' => 'Haute'),
+                                                                'empty_value' => 'Choisissez un niveau de confidentialité',
+                                                                'empty_data'  => 'Normale'))
                 ->add('docGdl','text',array('required' => false))
                 ->add('envoiePrevuLe','date',array('widget' => 'single_text'),array('required' => false))
                 ->add('mettreEnCopie','textarea',array('required' => false))

@@ -4,10 +4,8 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Resources/config/routing/demandes.yml</file>
-            <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Entity/Notifications.php</file>
             <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Resources/views/Default/index.html.twig</file>
             <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Controller/DemandesController.php</file>
-            <file>file:/C:/wamp/www/project/app/config/parameters.yml</file>
             <file>file:/C:/wamp/www/project/src/Gestion/GestionBundle/Controller/DefaultController.php</file>
             <file>file:/C:/wamp/www/project/app/Resources/views/base.html.twig</file>
         </group>

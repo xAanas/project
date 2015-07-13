@@ -31,6 +31,14 @@ class DemandesController extends Controller {
 
         $entities = $em->getRepository('GestionBundle:Demandes')->findAll();
         $entity = new Demandes();
+        $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
+        $entity->setUtilisateur($utilisateur);
+        $entity->setJaime('0');
+        $entity->setJeNaimePas('0');
+        $entity->setDatePosteDemande(new \DateTime());
+        $entity->setDateDernierMiseAJour(new \DateTime());
+        $entity->setAccueil('1');
+        $entity->setEtat('Emise');
         $form = $this->createCreateForm($entity);
         $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
             'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
@@ -49,6 +57,7 @@ class DemandesController extends Controller {
 
             return $this->redirect($this->generateUrl('demandes_show', array('id' => $entity->getId())));
         }
+        
         $sites = $em->getRepository('GestionBundle:Sites')->findAll();
         $site = new Sites();
         $formSite = $this->createCreateFormSite($site);
@@ -71,15 +80,30 @@ class DemandesController extends Controller {
      *
      */
     public function createAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
         $entity = new Demandes();
+        $entities = $em->getRepository('GestionBundle:Demandes')->findAll();
+        $entity = new Demandes();
+        $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
+        $entity->setUtilisateur($utilisateur);
+        $entity->setJaime('0');
+        $entity->setJeNaimePas('0');
+        $entity->setDatePosteDemande(new \DateTime());
+        $entity->setDateDernierMiseAJour(new \DateTime());
+        $entity->setAccueil('1');
+        $entity->setEtat('Emise');
+        $form = $this->createCreateForm($entity);
+        $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
+            'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
+            'empty_data' => '1'));
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            foreach($entity->getFichiers() as $fichier){
+            /*foreach($entity->getFichiers() as $fichier){
                 $fichier->setPublication($entity);
-            }
+            }*/
             $em->persist($entity);
             $em->flush();
 

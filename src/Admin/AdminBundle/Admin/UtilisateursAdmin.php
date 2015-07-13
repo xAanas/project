@@ -19,7 +19,17 @@ class UtilisateursAdmin extends Admin
             ->add('nom')
             ->add('email')
             ->add('enabled')
-            ->add('roles')
+            ->add('roles','collection',array(
+                                'type'   => 'choice',
+                                'options'  => array(
+                                'choices'  => array(
+                                'ROLE_ADMIN' => 'admin',
+                                'ROLE_USER'     => 'utilisateur',
+                                'ROLE_COLLABTN'    => 'collaborateur tn',
+                                'ROLE_COLLABFR'    => 'collaborateur fr',
+        ),
+    ),
+))
             ;
     }
 
