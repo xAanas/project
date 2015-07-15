@@ -1,6 +1,6 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
-
+<div class="col-lg-6">
     <table class="table table-striped">
             <tbody>
                 <tr>
@@ -12,4 +12,9 @@
                     <td>{{ user.email }}</td>
                 </tr>
             </tbody>
+            
         </table>
+                    <div align="right">
+                        <a href="{{path('fos_user_change_password')}}" align="right">Change password</a>
+                    </div>
+</div>

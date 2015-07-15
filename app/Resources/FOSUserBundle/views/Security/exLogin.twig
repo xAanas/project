@@ -1,0 +1,52 @@
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{asset('css/login.css')}}" />
+
+{% endblock %}
+
+{% block fos_user_content %}
+    
+
+		
+
+<div class="wrapper">
+	<div class="container">
+		<h1>Connectez vous</h1>
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+    <form action="{{ path("fos_user_security_check") }}" class="form" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <!--<label for="username">{{ 'security.login.username'|trans }}</label>-->
+        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Username" title="Insérer votre login ou adresse mail."/>
+
+       <!-- <label for="password">{{ 'security.login.password'|trans }}</label>-->
+        <input type="password" id="password" name="_password" required="required" placeholder="Password" title="Insérer votre mot de passe."/>
+        <!--<a href="#" style="color: white"> mot de passe oublié ?</a>-->
+        <!--<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>-->
+
+        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+    </form>
+        </div>
+
+	<ul class="bg-bubbles">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+{% endblock fos_user_content %}
+{% block javascripts %}
+    <script src="{{ asset('js/jqueryLogin.js') }}"></script> 
+    <script src="{{ asset('js/login.js') }}"></script> 
+{% endblock %}

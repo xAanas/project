@@ -96,7 +96,6 @@ class DemandesController extends Controller {
         $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
             'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
             'empty_data' => '1'));
-        $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -216,6 +215,7 @@ class DemandesController extends Controller {
             // *************   Notification ********************
             $utilisateurs = $em->getRepository('UtilisateursBundle:Utilisateurs')->findAll();
             foreach ($utilisateurs as $utilisateurNotifie) {
+                 if($utilisateurNotifie->getUsername() != $utilisateur->getUsername()){
                 $notification = new Notifications();
                 $notification->setActeur($utilisateur);
                 $notification->setPublication($entity);
@@ -227,6 +227,7 @@ class DemandesController extends Controller {
 
                 $em->persist($notification);
                 $em->flush();
+                 }
             }
         }
         
@@ -288,6 +289,7 @@ class DemandesController extends Controller {
             // *************   Notification ********************
             $utilisateurs = $em->getRepository('UtilisateursBundle:Utilisateurs')->findAll();
             foreach ($utilisateurs as $utilisateurNotifie) {
+                 if($utilisateurNotifie->getUsername() != $utilisateur->getUsername()){
                 $notification = new Notifications();
                 $notification->setActeur($utilisateur);
                 $notification->setPublication($entity);
@@ -299,6 +301,7 @@ class DemandesController extends Controller {
 
                 $em->persist($notification);
                 $em->flush();
+                 }
             }
         }
         

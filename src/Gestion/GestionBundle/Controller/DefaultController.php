@@ -66,6 +66,7 @@ class DefaultController extends Controller {
             $utilisateurs = $em->getRepository('UtilisateursBundle:Utilisateurs')->findAll();
 
             foreach ($utilisateurs as $utilisateurNotifie) {
+                if($utilisateurNotifie->getUsername() != $utilisateur->getUsername()){
                 $notification = new Notifications();
                 $notification->setActeur($utilisateur);
                 $notification->setPublication($demande);
@@ -77,6 +78,7 @@ class DefaultController extends Controller {
 
                 $em->persist($notification);
                 $em->flush();
+                }
             }
             // *************   Email ********************
             $emails = $em->getRepository('UtilisateursBundle:Utilisateurs')->findAll();
@@ -178,6 +180,7 @@ class DefaultController extends Controller {
             // *************   Notification ********************
             $utilisateurs = $em->getRepository('UtilisateursBundle:Utilisateurs')->findAll();
             foreach ($utilisateurs as $utilisateurNotifie) {
+                 if($utilisateurNotifie->getUsername() != $utilisateur->getUsername()){
                 $notification = new Notifications();
                 $notification->setActeur($utilisateur);
                 $notification->setPublication($demande);
@@ -189,6 +192,7 @@ class DefaultController extends Controller {
 
                 $em->persist($notification);
                 $em->flush();
+                 }
             }
         }
 
@@ -282,6 +286,7 @@ class DefaultController extends Controller {
         $utilisateur = $em->merge($this->container->get('security.context')->getToken()->getUser());
         $utilisateurs = $em->getRepository('UtilisateursBundle:Utilisateurs')->findAll();
         foreach ($utilisateurs as $utilisateurNotifie) {
+             if($utilisateurNotifie->getUsername() != $utilisateur->getUsername()){
             $notification = new Notifications();
             $notification->setActeur($utilisateur);
             $notification->setPublication($demande);
@@ -293,7 +298,7 @@ class DefaultController extends Controller {
 
             $em->persist($notification);
             $em->flush();
-            
+             }
             
         }
         

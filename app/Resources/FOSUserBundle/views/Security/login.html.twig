@@ -1,52 +1,133 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{asset('css/login.css')}}" />
 
 {% endblock %}
 
 {% block fos_user_content %}
-    
 
-		
+    <body background="pinstripes.png" leftmargin=0px style="padding-top: 0px; margin-top:0; FONT-SIZE: 12pt; FONT-FAMILY: Verdana;" font="arial" onload="CNXUIMobileManageOrientation(1024, 1024);" onorientationchange="CNXUIMobileManageOrientation(1024,1024);">  
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+        <form action="{{ path("fos_user_security_check") }}" class="form" method="post">
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <table id="CNX_UI_TableContainer-1" CELLSPACING=0  overflow="auto"  border="0" style="font-size: 14; background-color: #000;" align="center" width=1024  cellpadding="0" style="FONT-SIZE: 9pt; FONT-FAMILY: Verdana;">
+                <tr width="100%">
+                    <td height=40 align="center">
+                        <b><FONT COLOR=#FFFFFF>Cantara</FONT></b>
+                    </td>
+                </tr>
+            </table>
 
-<div class="wrapper">
-	<div class="container">
-		<h1>Connectez vous</h1>
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-    <form action="{{ path("fos_user_security_check") }}" class="form" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+            <table id="CNX_UI_TableContainer-2" CELLSPACING=0 cellpadding=5 overflow="auto" border="0" align="center" width=1024   style="FONT-SIZE: 8pt; FONT-FAMILY: Verdana;">
+                <tr height=10 bgcolor=#ffffff>
+                    <td width="100%" align="right" valign="Top" style="border: solid 0 #aeaeae; border-top-width:1px; b">
+                        <FONT COLOR=#FF0000>ConneXia OGSS - Thales TGS<br>Version : V.0.1 - Cantara du : 15.07.2015</FONT>
+                    </td>
+                </tr>
 
-        <!--<label for="username">{{ 'security.login.username'|trans }}</label>-->
-        <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="Username" title="Insérer votre login ou adresse mail."/>
+                <tr height=40 bgcolor=#FFFFFF   style="" value=0>
+                    <td  width="100%" align="center" height=0   style="border: solid 0 #aeaeae; border-Top-width:0px; b">
+                        <table align="center" style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana;">
+                            <tr>
+                                <td width= 120 align = 'right' title='Champ Obligatoire'>Indentifiant :</td> 
+                                <td width= 180 align=left>  
+                                    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" placeholder="{{ 'security.login.username'|trans }}" style="WIDTH:100%; border:1px solid #aeaeae; background-color: #F6D8CE" title="Insérer votre login ou adresse mail."/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width= 120 align = 'right' title='Champ Obligatoire : RQ : Respectez la casse'>Mot de passe :</td> 
+                                <td width= 180 align=left>     
+                                    <input type="password" id="password" name="_password" required="required" placeholder="{{ 'security.login.password'|trans }}" style="WIDTH:100%; border:1px solid #aeaeae; background-color: #F6D8CE" title="Insérer votre mot de passe."/>
+                                </td>
 
-       <!-- <label for="password">{{ 'security.login.password'|trans }}</label>-->
-        <input type="password" id="password" name="_password" required="required" placeholder="Password" title="Insérer votre mot de passe."/>
-        <!--<a href="#" style="color: white"> mot de passe oublié ?</a>-->
-        <!--<input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>-->
+                            </tr>
 
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-    </form>
-        </div>
+                        </table>
+                    </td>
+                </tr>
 
-	<ul class="bg-bubbles">
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-		<li></li>
-	</ul>
-</div>
+                <tr height=40 bgcolor=#ffffff>
+                    <td width="100%" align="center" valign="center" >
+                        <table align="center" style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana;" cellpadding=0 cellspacing = 0>
+                            <tr>
+                                <td width= 280 align = 'center'>
+                                    <input  name="keepLogged" type="checkbox"   value=1   id=cbx> Garder ma session active
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width= 280 align = 'center'>
+                                    &nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width= 280 align = 'center'>
+                                    <input type="submit" id="_submit" name="_submit" style="FONT-SIZE: 10pt; resize: none; WIDTH: 100px; height:25px; FONT-FAMILY: Verdana" value="{{ 'security.login.submit'|trans }}" />
+                                </td>
+                            </tr>
+
+
+                        </table>
+                    </td>
+                </tr>
+
+                <tr  bgcolor=#ffffff>
+                    <td width="100%" align="center" valign="TOP" >
+                        <table align="center"width=90% style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana;">
+                            <tr>
+                                <td>
+                                    <a href="{{path('fos_user_resetting_request')}}">
+                            <u><FONT COLOR=#0000FF>Mot de passe oublié?</FONT></u>
+                                    </a>
+                    </td>
+                    <td height= 40 align = 'left' valign='TOP' >
+
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr  bgcolor=#ffffff>
+        <td width="100%" align="center" valign="TOP" >
+            <table align="center"width=90% style="FONT-SIZE: 10pt; FONT-FAMILY: Verdana;">
+                <tr>
+                    <td height= 40 align = 'left' valign='TOP' onmouseover="this.style.cursor = 'hand';" onmouseout="this.style.cursor = 'pointer';" >
+                        <FONT COLOR=#000000>ATTENTION : Vous tentez d’accéder à une application propriétaire strictement réservée aux utilisateurs expressément autorisés par le propriétaire. Tous les accès et tentatives d’accès à ce site sont détectés. Tout accès ou tentative d’accès non autorisé à cette application constitue conformément à l’article 323-1 du Code pénal, une atteinte à un système de traitement automatisé de données et est passible de 2 ans d’emprisonnement et de 30 000 euros d’amende.</FONT>
+                        <br><br>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table id="CNX_UI_TableContainer-3" CELLSPACING=0 overflow="auto" cellpadding=5 border="0" align="center" width=1024  cellpadding="0" style="FONT-SIZE: 8pt; FONT-FAMILY: Verdana;">
+    <tr height='40' bgcolor=#ffffff>
+        <td width="100%" align="left" style="border: solid 0 #aeaeae; border-top-width:1px; b">
+            &nbsp;Copyright 2012-15 - Génie Systèmes
+        </td>
+    </tr>
+    <tr height='70' bgcolor=#ffffff>
+        <td width="100%" align="center" style="border: solid 0 #aeaeae; border-top-width:1px; b">
+            <img src="{{ asset('img/logoSystem.png') }}" border="0" align="center" width=174 height=96/> 
+        </td>
+    </tr>
+</table>
+</form>
+
+<script language="JavaScript">
+    if (navigator.cookieEnabled == false)
+    {
+        alert('Votre navigateur ne supporte pas les cookies. Veuillez les activer pour le garantir le fonctionnement de Cantara.');
+    }
+</script>
+
+</body>
+
+
+
 {% endblock fos_user_content %}
 {% block javascripts %}
-    <script src="{{ asset('js/jqueryLogin.js') }}"></script> 
-    <script src="{{ asset('js/login.js') }}"></script> 
+
 {% endblock %}
