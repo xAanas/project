@@ -30,16 +30,28 @@
                                     {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                             </div>
+                                <div class="form-group">
+                                {{ form_label(form.client, "Client : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                                {{ form_errors(form.client) }}
+
+                                <div class="col-sm-4">
+                                    {{ form_widget(form.client, {'attr': {'class': 'form-control'}}) }}
+                                </div>
+                                <div class="col-sm-4">
+                                    <a href="#" data-toggle="modal" data-target="#myModalClient"><div style="font-size:15px ; color: black;">autre client</div></a>
+                                </div>
+                            </div>
                             <div class="form-group">
                                 {{ form_label(form.sites, "Site : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                                 {{ form_errors(form.sites) }}
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-4" id="divdessites">
                                     {{ form_widget(form.sites, {'attr': {'class': 'form-control'}}) }}
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="#" data-toggle="modal" data-target="#myModalSite"><div style="font-size:15px ; color: black;">autres site...</div></a>
+                                    <a href="#" data-toggle="modal" data-target="#myModalSite"><div style="font-size:15px ; color: black;">autre site</div></a>
                                 </div>
 
                             </div>
@@ -179,8 +191,8 @@
                                 </div>
                             </div>
                                 <div class="form-group" align="middle">
-                                <input type="reset" value="Annuler" class="btn btn-default">
-                                <input type="submit" value="Créer" class="btn btn-default">
+                                <button class="btn btn-info" data-dismiss="modal">Quitter</button>
+                                <input type="submit" value="Créer" class="btn btn-primary">
                         </div>
                             {{ form_rest(form) }}
 
@@ -188,13 +200,10 @@
                             {{ form_end(form) }}
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-info" data-dismiss="modal">Quitter</button>
-                    </div>
                 </div>
             </div>
         </div>
-                         <div class="modal fade" id="myModalSite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                       {#  <div class="modal fade" id="myModalSite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -248,7 +257,7 @@
                             {{ form_rest(formsite) }}
 
                         {# Fermeture de la balise <form> du formulaire HTML #}
-                        {{ form_end(formsite) }}
+                       {# {{ form_end(formsite) }}
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -257,8 +266,106 @@
                 </div>
             </div>
         </div>
-            
-        <div class="row">
+            #}
+
+            <div class="modal fade" id="myModalSite" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-wide">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Nouveau site :</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="well">
+                           
+                        <div class="form-group">
+                           <div class="col-sm-3">
+                                Nom :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="nomSite" style="width: 200px ;">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group">
+                            <div class="col-sm-3">
+                                Adresse :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="adresseSite" style="width: 200px ;">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group">
+                           <div class="col-sm-3">
+                                Description :
+                            </div> 
+
+                            <div class="col-sm-4">
+                                <input type="text" id="descriptionSite" style="width: 200px ;">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group">
+                            <div class="col-sm-3">
+                                Client :
+                            </div>
+
+                                <div class="col-sm-4" id="divdeclients">
+                                <select type="text" id="clientSite" required="required" style="width: 200px ;">
+                                </select>
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group" align="middle">
+                                <button class="btn btn-info" data-dismiss="modal">Quitter</button>
+                                <button class="btn btn-primary" onclick="javascript:ajoutAutreSite(document.getElementById('nomSite'),document.getElementById('adresseSite'),document.getElementById('descriptionSite'),document.getElementById('clientSite'))">Créer</button>
+                        </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+                        <div class="modal fade" id="myModalClient" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-wide">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">x</button>
+                        <h4 class="modal-title">Nouveau Client :</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="well">
+                           
+                        <div class="form-group">
+                           <div class="col-sm-3">
+                                Nom :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="nomClient">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group">
+                            <div class="col-sm-3">
+                                Description :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="descriptionClient">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group" align="middle">
+                                <button class="btn btn-info" data-dismiss="modal">Quitter</button>
+                                <button class="btn btn-primary" onclick="javascript:ajoutAutreClient(document.getElementById('nomClient'),document.getElementById('descriptionClient'));">Créer</button>
+                        </div>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            <div class="row">
 
 
             <div class="col-md-9 col-xs-12">
@@ -420,7 +527,7 @@
                                     <div class="row">
                                        
                                     <div class="col-md-1">
-                                        <img src="https://fbcdn-sphotos-d-a.akamaihd.net/hphotos-ak-xfp1/v/t1.0-9/10006936_10203866037277053_1105347978090786590_n.jpg?oh=079bb22e6ba5fa45f84a76a0ab6b35cd&oe=5621DCDC&__gda__=1444979385_e2a3d3d7ee03394952295dbb0b95d4d1" height="45" width="45">
+                                        <img src="{{asset('img/anas.jpg')}}" height="45" width="45">
                                     </div>
                                     <div class="col-md-11"> <div style="font-size:14.2px ; line-height:1.3 "><strong>{{comment.utilisateur}}.</strong> {{ comment.contenu}}</div><br/>
                                     
@@ -544,8 +651,39 @@
     {{ parent() }}
 
     <script type="text/javascript">
+                       $(document).ready(function (){
+                           
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('chargerClients'),
+                                                    beforeSend: function () {
+
+                                                        console.log('debut chargement client');
+                                                    },
+                                                    success: function (data) {
+                                                        
+                                                        if(data.listeClients.length === 0){
+                                                            $('#clientSite').append('<option value="0">aucun client disponible</option>');
+                                                        }else {
+                                                        $.each(data.listeClients,function (){
+                                                            var client = JSON.parse(this);
+                                                            $('#clientSite').append('<option value="'+ client.id +'">'+ client.nom +'</option>');
+                                                        
+                                                        })
+                                                    }
+                                                     }
+                                            });
+                                    
+                    });
+                        $(function(){
+                            $('#gestion_gestionbundle_Demandes_client').change(function(){
+                                chargerSites($(this).val());
+                            });
+                        });
                         
-                                            $(function () {
+                        
+                        
+                                    $(function () {
                                                 $.ajax({
                                                     type: 'post',
                                                     url: '{{ path('demandes_reporting') }}',
@@ -683,6 +821,66 @@
                                                 var $newFormLi = $('<li class="list-group-item"></li>').append(newForm);
                                                 $newLinkLi.before($newFormLi);
                                             }
+                                            
+                                    function chargerSites(idClient){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('chargerSites',{ 'id' : idClient }),
+                                                    beforeSend: function () {
+
+                                                        console.log('debut chargement sites');
+                                                    },
+                                                    success: function (data) {
+                                                        $('#gestion_gestionbundle_Demandes_sites').each(function (){
+                                                            $(this).remove();
+                                                        })
+                                                        $('#divdessites').append('<select id="gestion_gestionbundle_Demandes_sites" name="gestion_gestionbundle_Demandes[sites]" required="required" class="form-control"></select>')
+                                                        if(data.listeSites.length === 0){
+                                                            $('#gestion_gestionbundle_Demandes_sites').append('<option value="0">aucun site disponible</option>');
+                                                        }else {
+                                                        $.each(data.listeSites,function (){
+                                                            var site = JSON.parse(this);
+                                                            $('#gestion_gestionbundle_Demandes_sites').append('<option value="'+ site.id +'">'+ site.nom +'</option>');
+                                                        
+                                                        })
+                                                    }
+                                                     }
+                                            });
+                                    }
+                                    function ajoutAutreClient(nom,description){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('ajoutAutreClient',{ 'nom' : nom.value , 'description' : description.value }),
+                                                    beforeSend: function () {
+
+                                                        console.log('ajout nouveau client'+nom.value);
+                                                    },
+                                                    success: function (data) {
+                                                        nom.value = "";
+                                                        description.value = "";
+                                                        $('#gestion_gestionbundle_Demandes_client').append('<option value="'+data.id+'">'+data.nom+'</option>')
+                                                        $('#clientSite').append('<option value="'+data.id+'">'+data.nom+'</option>')
+                                                        
+                                                    }
+                                            });
+                                    }
+                                    function ajoutAutreSite(nom,adresse,description,client){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('ajoutAutreSite',{ 'nom' : nom.value ,'adresse' : adresse.value, 'description' : description.value, 'client' : $(client).val() }),
+                                                    beforeSend: function () {
+
+                                                        console.log('ajout nouveau site'+nom.value);
+                                                    },
+                                                    success: function (data) {
+                                                        nom.value = "";
+                                                        adresse.value  = "";
+                                                        description.value = "";
+                                                            $('#gestion_gestionbundle_Demandes_sites').append('<option value="'+data.id+'">'+data.nom+'</option>')
+                                                        console.log('chargement sites reussi '+data.id);
+                                                    }
+                                            });
+                                    }
     </script>
 
 

@@ -35,11 +35,7 @@ class Clients
      */
     private $description;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Gestion\GestionBundle\Entity\Sites",mappedBy="clients",cascade={"persist","remove"}) 
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $sites;
+  
 
     /**
      * Get id
@@ -105,40 +101,8 @@ class Clients
      */
     public function __construct()
     {
-        $this->sites = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
-    /**
-     * Add sites
-     *
-     * @param \Gestion\GestionBundle\Entity\Sites $sites
-     * @return Clients
-     */
-    public function addSite(\Gestion\GestionBundle\Entity\Sites $sites)
-    {
-        $this->sites[] = $sites;
-    
-        return $this;
-    }
-
-    /**
-     * Remove sites
-     *
-     * @param \Gestion\GestionBundle\Entity\Sites $sites
-     */
-    public function removeSite(\Gestion\GestionBundle\Entity\Sites $sites)
-    {
-        $this->sites->removeElement($sites);
-    }
-
-    /**
-     * Get sites
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getSites()
-    {
-        return $this->sites;
-    }
+   
     
 }

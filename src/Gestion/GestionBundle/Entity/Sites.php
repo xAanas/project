@@ -43,7 +43,7 @@ class Sites {
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Clients",inversedBy="sites") 
+     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Clients") 
      * @ORM\JoinColumn(nullable=false)
      */
     private $clients;
@@ -144,7 +144,7 @@ class Sites {
         return $this->clients;
     }
     public function __toString() {
-        return $this->getClients()." : ".$this->getNom();
+        return $this->getNom();
     }
 
 }

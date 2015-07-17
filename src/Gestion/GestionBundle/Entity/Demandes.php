@@ -32,7 +32,12 @@ class Demandes {
      * @ORM\JoinColumn(nullable=true)
      */
     private $auNomDe;
-
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="client", type="string", length=255, nullable=true)
+     */
+    private $client;
     /**
      * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Sites") 
      * @ORM\JoinColumn(nullable=false)
@@ -713,5 +718,28 @@ class Demandes {
     public function getDateLivraison()
     {
         return $this->dateLivraison;
+    }
+
+    /**
+     * Set client
+     *
+     * @param string $client
+     * @return Demandes
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    
+        return $this;
+    }
+
+    /**
+     * Get client
+     *
+     * @return string 
+     */
+    public function getClient()
+    {
+        return $this->client;
     }
 }

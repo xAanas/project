@@ -77,10 +77,29 @@ exporterTousDemande:
     defaults: { _controller: GestionBundle:Default:exporterTousDemandes }
     options:
         expose: true
-    
 
+chargerClients:
+    path:     /charger/clients
+    defaults: { _controller: GestionBundle:Default:listeClients }
+    options:
+        expose: true
+
+chargerSites:
+    path:     /charger/sites/{id}
+    defaults: { _controller: GestionBundle:Default:listeSites }
+    options:
+        expose: true
         
-        
-        
+ajoutAutreClient:
+    path:     /autre/client/{nom}/{description}
+    defaults: { _controller: GestionBundle:Default:ajoutAutreClient }
+    options:
+        expose: true        
+
+ajoutAutreSite:
+    path:     /autre/site/{nom}/{adresse}/{description}/{client}
+    defaults: { _controller: GestionBundle:Default:ajoutAutreSite }
+    options:
+        expose: true 
         
         

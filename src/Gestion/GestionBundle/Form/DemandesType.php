@@ -17,18 +17,22 @@ class DemandesType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $builder
+                ->add('client','entity',array('class' => 'Gestion\GestionBundle\Entity\Clients'))
                 ->add('sites','entity',array('class' => 'Gestion\GestionBundle\Entity\Sites',
                                                                 'empty_value' => 'Choisir un site',
                                                                 'empty_data'  => null))              
                 ->add('missionOne','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
                                                                 'empty_value' => 'Choisir une mission',
-                                                                'empty_data'  => null))
+                                                                'empty_data'  => null,
+                                                                'required' => false))
                 ->add('missionTwo','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
                                                                 'empty_value' => 'Choisir une mission',
-                                                                'empty_data'  => null))
+                                                                'empty_data'  => null,
+                                                                'required' => false))
                 ->add('missionThree','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
                                                                 'empty_value' => 'Choisir une mission',
-                                                                'empty_data'  => null))
+                                                                'empty_data'  => null,
+                                                                'required' => false))
                  ->add('autres','textarea',array('required' => false))
                 ->add('detailsMissionOne','text',array('required' => false))
                 ->add('detailsMissionTwo','text',array('required' => false))

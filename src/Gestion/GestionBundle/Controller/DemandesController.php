@@ -40,9 +40,11 @@ class DemandesController extends Controller {
         $entity->setAccueil('1');
         $entity->setEtat('Emise');
         $form = $this->createCreateForm($entity);
+        $nomUtilisateur = $this->container->get('security.context')->getToken()->getUser()->__toString();
         $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
-            'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
-            'empty_data' => '1'));
+            'empty_value' => $nomUtilisateur,
+            'empty_data' => NUll,
+            'required' => false));
         $form->handleRequest($request);
 
         if ($form->isValid()) {

@@ -48,9 +48,11 @@ class DefaultController extends Controller {
         $demande->setAccueil('1');
         $demande->setEtat('Emise');
         $form = $this->createForm(new DemandesType(), $demande);
+        $nomUtilisateur = $this->container->get('security.context')->getToken()->getUser()->__toString();
         $form->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
-            'empty_value' => $this->container->get('security.context')->getToken()->getUser()->__toString(),
-            'empty_data' => NULL));
+            'empty_value' => $nomUtilisateur,
+            'empty_data' => NULL,
+            'required' => false));
         $form->handleRequest($request);
         
         
@@ -414,7 +416,89 @@ class DefaultController extends Controller {
             throw new Exception("Erreur");
         }
     }
+    public function listeClientsAction(Request $request) {
+        
+            $em = $this->getDoctrine()->getManager();
+            
+            $listeClients = $em->getRepository('GestionBundle:Clients')->findAll();
+            $serializer = $this->container->get('jms_serializer');
+            if ($listeClients !== NULL) {
+                foreach ($listeClients as $key => $client) {
+             //       $serializer->serialize($site->getClients(), 'json');
+                    $listeClients[$key] = $serializer->serialize($client, 'json');
+                    
+                }
+            }
 
+            $serializer->serialize($listeClients, 'json');
+            $response = new JsonResponse();
+
+            return $response->setData(array('listeClients' => $listeClients));
+      
+    }
+    
+    public function listeSitesAction(Request $request, $id) {
+        
+            $em = $this->getDoctrine()->getManager();
+           
+            $listeSites = $em->getRepository('GestionBundle:Sites')->findBy(array('clients' => $id));
+           
+            $serializer = $this->container->get('jms_serializer');
+            if ($listeSites !== NULL) {
+                foreach ($listeSites as $key => $site) {
+             //       $serializer->serialize($site->getClients(), 'json');
+                    $listeSites[$key] = $serializer->serialize($site, 'json');
+                    
+                }
+            }
+
+            $serializer->serialize($listeSites, 'json');
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('listeSites' => $listeSites));
+        
+    }
+    
+    public function ajoutAutreClientAction(Request $request,$nom,$description) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $nomAutreClient = $nom ;
+           $client = new Clients();
+           $client->setNom($nom);
+           $client->setDescription($description);
+           
+            $em->persist($client);
+            $em->flush();
+            
+            $autreClient = $em->getRepository('GestionBundle:Clients')->findOneBy(array('nom' => $nomAutreClient));
+            $response = new JsonResponse();
+
+            return $response->setData(array('id' => $autreClient->getId(), 'nom' => $nom));
+      
+    }
+    
+     public function ajoutAutreSiteAction(Request $request,$nom,$adresse,$description,$client) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $nomAutreSite = $nom ;
+           $site = new Sites();
+           $site->setNom($nom);
+           $site->setAdresse($adresse);
+           $site->setDescription($description);
+           $client = $em->getRepository('GestionBundle:Clients')->findOneBy(array('id' => $client));
+           $site->setClients($client);
+           
+            $em->persist($site);
+            $em->flush();
+            
+            $autreSite = $em->getRepository('GestionBundle:Sites')->findOneBy(array('nom' => $nomAutreSite));
+            $response = new JsonResponse();
+
+            return $response->setData(array('id' => $autreSite->getId(), 'nom' => $nom));
+      
+    }
+    
     public function aimerAction(Request $request, $id) {
         // if ($request->isXmlHttpRequest()) {
         $em = $this->getDoctrine()->getManager();
@@ -550,7 +634,7 @@ class DefaultController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $demande = $em->getRepository('GestionBundle:Demandes')->find($id);
         
-         $inputFileName = 'E://excel_demande/layoutdemande.xlsx';
+         $inputFileName = 'F://excel_demande/layoutdemande.xlsx';
         
         $objPHPExcel = new PHPExcel();
         /** Load $inputFileName to a PHPExcel Object **/
