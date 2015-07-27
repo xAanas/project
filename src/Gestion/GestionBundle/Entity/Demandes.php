@@ -26,13 +26,30 @@ class Demandes {
      * @ORM\JoinColumn(nullable=false)
      */
     private $utilisateur;
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="typedemande", type="string", length=255, nullable=true)
+     */
+    private $typeDemande;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="potentielfacturation", type="string", length=255, nullable=true)
+     */
+    private $potentielFacturation;
     /**
      * @ORM\ManyToOne(targetEntity="Utilisateurs\UtilisateursBundle\Entity\Utilisateurs") 
      * @ORM\JoinColumn(nullable=true)
      */
     private $auNomDe;
      /**
+     * @var string
+     *
+     * @ORM\Column(name="chefdeproject", type="string", length=255, nullable=true)
+     */
+    private $chefDeProjet;
+    /**
      * @var string
      *
      * @ORM\Column(name="client", type="string", length=255, nullable=true)
@@ -741,5 +758,74 @@ class Demandes {
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set chefDeProjet
+     *
+     * @param string $chefDeProjet
+     * @return Demandes
+     */
+    public function setChefDeProjet($chefDeProjet)
+    {
+        $this->chefDeProjet = $chefDeProjet;
+    
+        return $this;
+    }
+
+    /**
+     * Get chefDeProjet
+     *
+     * @return string 
+     */
+    public function getChefDeProjet()
+    {
+        return $this->chefDeProjet;
+    }
+
+    /**
+     * Set typeDemande
+     *
+     * @param string $typeDemande
+     * @return Demandes
+     */
+    public function setTypeDemande($typeDemande)
+    {
+        $this->typeDemande = $typeDemande;
+    
+        return $this;
+    }
+
+    /**
+     * Get typeDemande
+     *
+     * @return string 
+     */
+    public function getTypeDemande()
+    {
+        return $this->typeDemande;
+    }
+
+    /**
+     * Set potentielFacturation
+     *
+     * @param string $potentielFacturation
+     * @return Demandes
+     */
+    public function setPotentielFacturation($potentielFacturation)
+    {
+        $this->potentielFacturation = $potentielFacturation;
+    
+        return $this;
+    }
+
+    /**
+     * Get potentielFacturation
+     *
+     * @return string 
+     */
+    public function getPotentielFacturation()
+    {
+        return $this->potentielFacturation;
     }
 }

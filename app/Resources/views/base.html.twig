@@ -10,8 +10,12 @@
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <style>
-        
-
+        .margin-bottom-demande {
+            margin-bottom:4px;
+        }
+        .form-control-court{
+            height: 30px; 
+        }
         .modal-backdrop.in {
             opacity: 0.82 !important ;
         }
@@ -85,7 +89,7 @@
             padding-top: 3px; 
         }
         body{
-            padding-top: 60px; 
+            padding-top: 56px; 
         }
         [data-notifications] {
             position: relative;
@@ -95,12 +99,14 @@
             content: attr(data-notifications);
             position: absolute;
             background: red;
-            border-radius: 100%;
+            border-radius: 20%;
             display: inline-block;
             padding: 0.2em;
             color: #f2f2f2;
-            right: 2px;
-            top: 0px;
+            right: 4px;
+            top: 5px;
+            bottom: 25px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -120,8 +126,7 @@
             </div>
             <div class="navbar-nav">
 
-            </div>
-                
+            </div>  
             <div class="collapse navbar-collapse" id="myNavbar">
                 <form class="navbar-form navbar-left" role="search">
                     <div class="input-group">
@@ -131,10 +136,11 @@
                         </span>
                     </div>
                 </form>
+                
                 <ul class="nav navbar-nav navbar-right">
 
                     <!--<li><a href="#" data-toggle="modal" data-target="#myModal"><div style="font-size:23px ; color:white;">+</div></a></li>-->
-                    {% block modalplus %} {% endblock%}
+                    
                     {% block homeactif %} <li><a href="{{ path('accueil_homepage') }}"><div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-home"></span> </div></a></li>{% endblock%}
                     <li class="dropdown" >
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#"  id="notification" onclick="effaceNotif();"><div style="font-size:15px ; color : white;"><span class="glyphicon glyphicon-globe"></span></div></a>
@@ -146,13 +152,12 @@
                     </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-th-list"></span> </div>
+                            <div style="font-size:12px ; color : white;"><span class="glyphicon glyphicon-chevron-down"></span> </div>
                         </a>
                         <ul class="dropdown-menu multi-level">
                             <li><a href="{{ path('demandes') }}"><span class="glyphicon glyphicon-file"></span> Demandes </a></li>
                             <li><a href="{{ path('fos_user_profile_show')}}"><span class="glyphicon glyphicon-user"></span> Profil</a></li>
-                            <li><a href="#"><span class="glyphicon glyphicon-picture"></span> Equipe</a></li>
-                            <li><a href="http://192.168.1.3/Project_1_1_1/web/app.php/platform/calendar"><span class="glyphicon glyphicon-calendar"></span> Calendrier</a></li>
+                            <li><a href="#"><span class="glyphicon glyphicon-calendar"></span> Calendrier</a></li>
                             <li><a href="{{ path('fichier_ajout')}}"><span class="glyphicon glyphicon-barcode"></span> Stock </a></li>
                             <li class="dropdown-submenu">
                                 <a tabindex="-1" href="#"><span class="glyphicon glyphicon-cog"></span> Paramètres  </a>
@@ -175,6 +180,10 @@
                     </li>
 
                 </ul>
+                     
+              <ul class="nav navbar-nav navbar-right">
+                    <li>{% block modalplus %} {% endblock%}</li>
+                </ul>   
             </div>
         </div>
     </nav>
@@ -222,7 +231,7 @@
                                 //$(this).find(".modal-body").css("max-height", height);
                             });
                             
-                            setInterval(notifier, 1000);
+                            setInterval(notifier, 3000);
 
                             var notificationTab = new Array();
 
@@ -245,13 +254,12 @@
                                             //playSound('laser');
                                             //playSound('laser');
                                             console.log('fama notif : ' + data.nombreNotif);
-
-
+                                            $('#aucuneNotification').replaceWith('<li id="aucuneNotification"></li>')
                                             $.each(data.notifications, function () {
                                                 var notif = JSON.parse(this);
                                                 if(nexistepas(notif.id,notificationTab)){
                                                     notificationTab.push(notif.id);
-                                                console.log("tablou"+notificationTab);
+                                                //console.log("tablou"+notificationTab);
                                                 $('#dropdown-menu-notification').append('<li role="presentation"><a role="menuitem" tabindex="-1" href="' + Routing.generate('demandes_show_comments_notif', { 'id': notif.publication.id,'idnotif' : notif.id }) +  '" target="_blank"><i class="glyphicon glyphicon-file"></i>' + notif.contenu + '</a></li>');
                                                     
                                                }
@@ -259,9 +267,12 @@
                                             });
                                             $("#notification").attr("data-notifications", data.nombreNotif);
                                         } else {
-                                            console.log('no notif');
+                                            //console.log('no notif');
+                                            if(document.getElementById('aucuneNotification').value != 0){
+                                                $('#aucuneNotification').replaceWith('<li id="aucuneNotification" value="0"> &nbsp;&nbsp; Aucune notification</li>')
+                                              }
                                         }
-                                        console.log('fin notif');
+                                       // console.log('fin notif');
                                     }
                                 });
 
@@ -270,12 +281,12 @@
                             function nexistepas(notificationActuel, notificationTableau){
                                 for(  i = 0 ; i < notificationTableau.length; i++){
                                     if(notificationActuel === notificationTableau[i]) {
-                                        console.log('notif mawjouda deja' + notificationTableau[i]);
+                                       // console.log('notif mawjouda deja' + notificationTableau[i]);
                                         return false;
                                     }
                                 }
-                                console.log('notif mouch mawjouda '+notificationActuel );
-                                console.log('haw tableau' +notificationTableau);
+                               // console.log('notif mouch mawjouda '+notificationActuel );
+                               // console.log('haw tableau' +notificationTableau);
                                 return true ;
                             
                             }

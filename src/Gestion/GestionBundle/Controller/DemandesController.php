@@ -70,10 +70,27 @@ class DemandesController extends Controller {
             $em->flush();
 
         }
+        $notifications = $em->getRepository('GestionBundle:Notifications')->findBy(array('utilisateur' => $this->container->get('security.context')->getToken()->getUser()->getId(), 'enable' => '1'));
+        if ($entities == NULL) {
+            $nombrecomment[0] = 0;
+        } else {
+            foreach ($entities as $demande) {
+                $nombrecomment[$demande->getId()] = 0;
+            }
+         foreach ($entities as $demande) {
+                foreach ($notifications as $notif) {
+                    if ($notif->getPublication()->getId() == $demande->getId()) {
+                        $nombrecomment[$demande->getId()] ++;
+                    }
+                }
+            }
+        }
+
         return $this->render('GestionBundle:Demandes:index.html.twig', array(
                     'entities' => $entities,
                     'form' => $form->createView(),
                     'formsite' => $formSite->createView(),
+                    'nombrecomment' => $nombrecomment,
         ));
     }
 
@@ -238,12 +255,29 @@ class DemandesController extends Controller {
         }
 
         $deleteForm = $this->createDeleteForm($id);
-
+        
+        $entities = $em->getRepository('GestionBundle:Demandes')->findAll();
+        $notifications = $em->getRepository('GestionBundle:Notifications')->findBy(array('utilisateur' => $this->container->get('security.context')->getToken()->getUser()->getId(), 'enable' => '1'));
+        if ($entities == NULL) {
+            $nombrecomment[0] = 0;
+        } else {
+            foreach ($entities as $demande) {
+                $nombrecomment[$demande->getId()] = 0;
+            }
+         foreach ($entities as $demande) {
+                foreach ($comments as $comment) {
+                    if ($comment->getDemande()->getId() == $demande->getId()) {
+                        $nombrecomment[$demande->getId()] ++;
+                    }
+                }
+            }
+        }
         return $this->render('GestionBundle:Demandes:showAvecComments.html.twig', array(
                     'entity' => $entity,
                     'delete_form' => $deleteForm->createView(),
                     'comments' => $comments,
                     'form' => $form->createView(),
+                    'nombrecomment' => $nombrecomment,
         ));
     }
 
