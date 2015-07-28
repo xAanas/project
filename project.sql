@@ -2,10 +2,10 @@
 -- version 4.1.14
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Lun 13 Juillet 2015 à 12:56
--- Version du serveur :  5.6.17
--- Version de PHP :  5.5.12
+-- Host: 127.0.0.1
+-- Generation Time: Jul 28, 2015 at 05:59 PM
+-- Server version: 5.6.17
+-- PHP Version: 5.5.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,40 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Base de données :  `project`
+-- Database: `project`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `clients`
+-- Table structure for table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `titre` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=10 ;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `titre`) VALUES
+(1, 'ARCH'),
+(2, 'FORM'),
+(3, 'GDL'),
+(4, 'GS'),
+(5, 'IT'),
+(6, 'MSYS'),
+(7, 'R&D'),
+(8, 'SUPP'),
+(9, 'TCN');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `clients`
 --
 
 CREATE TABLE IF NOT EXISTS `clients` (
@@ -31,20 +58,33 @@ CREATE TABLE IF NOT EXISTS `clients` (
   `nom` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
--- Contenu de la table `clients`
+-- Dumping data for table `clients`
 --
 
 INSERT INTO `clients` (`id`, `nom`, `description`) VALUES
 (1, 'Thalès', 'situé à paris'),
-(2, 'Orange', NULL);
+(2, 'Orange', NULL),
+(3, 'Ooredoo', 'un nouveau operateur'),
+(4, 'Talent', 'directeur adjoint Adel'),
+(5, 'Vermeg', 'headquarter Lac'),
+(6, 'Poulina', 'client temporaire'),
+(7, 'urbaprod', 'en intra'),
+(8, 'SOTUCOM', 'magic'),
+(9, 'Sabrine', 'nouvelle '),
+(10, 'TUCOGRA', 'en relation'),
+(11, 'SVPVIDEIO', 'audioV'),
+(12, 'Maestro', 'agro'),
+(13, 'Gaucho', 'agro'),
+(15, 'Delice', 'ex Danone'),
+(16, 'GOSS site', 'nouveau');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `commentaires`
+-- Table structure for table `commentaires`
 --
 
 CREATE TABLE IF NOT EXISTS `commentaires` (
@@ -57,10 +97,10 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
   PRIMARY KEY (`id`),
   KEY `IDX_C18F1B3CFB88E14F` (`utilisateur_id`),
   KEY `IDX_C18F1B3C80E95E18` (`demande_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=34 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=40 ;
 
 --
--- Contenu de la table `commentaires`
+-- Dumping data for table `commentaires`
 --
 
 INSERT INTO `commentaires` (`id`, `utilisateur_id`, `demande_id`, `contenu`, `dateCommentaire`, `dateSuppression`) VALUES
@@ -91,15 +131,21 @@ INSERT INTO `commentaires` (`id`, `utilisateur_id`, `demande_id`, `contenu`, `da
 (27, 1, 1, 'ffff', '2015-07-06 12:09:09', NULL),
 (28, 1, 1, 'hhhh', '2015-07-06 12:09:48', NULL),
 (29, 1, 1, 'iiii', '2015-07-06 12:13:47', NULL),
-(30, 1, 3, '<div style="font-size:18px ; color : white;"><span class="glyphicon glyphicon-th-list"></span> ok mannn </div>', '2015-07-13 10:57:01', NULL),
-(31, 1, 3, '<script> alert(''hahaa3'');</script>', '2015-07-13 10:58:27', NULL),
-(32, 1, 3, ' <script>alert(document.cookie);</script>', '2015-07-13 11:00:12', NULL),
-(33, 1, 3, ' <script>alert(document.cookie);</script>', '2015-07-13 12:01:25', NULL);
+(30, 1, 3, 'How to position the popover - top | bottom | left | right | auto.\nWhen "auto" is specified', '2015-07-13 10:57:01', NULL),
+(31, 1, 3, 'it will dynamically reorient the popover. For example, if placement is "auto left"', '2015-07-13 10:58:27', NULL),
+(32, 1, 3, 'If a selector is provided, popover objects will be delegated to the specified targets. In practice, this is used to enable dynamic HTML ', '2015-07-13 11:00:12', NULL),
+(33, 1, 3, 'content to have popovers added. See this and an informative example.', '2015-07-13 12:01:25', NULL),
+(34, 4, 3, 'ok', '2015-07-17 17:32:31', NULL),
+(35, 4, 3, 'bien fait', '2015-07-19 23:18:47', NULL),
+(36, 4, 3, 'How popover is triggered - click | hover | focus | manual. You may pass multiple triggers; separate them with a space', '2015-07-19 23:19:21', NULL),
+(37, 1, 2, 'et pour ça ?', '2015-07-27 17:21:46', NULL),
+(38, 4, 1, 'alors ?', '2015-07-28 11:29:09', NULL),
+(39, 4, 2, 'bienn', '2015-07-28 11:29:14', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `demandes`
+-- Table structure for table `demandes`
 --
 
 CREATE TABLE IF NOT EXISTS `demandes` (
@@ -128,28 +174,33 @@ CREATE TABLE IF NOT EXISTS `demandes` (
   `missionTwo_id` int(11) DEFAULT NULL,
   `missionThree_id` int(11) DEFAULT NULL,
   `dateLivraison` datetime DEFAULT NULL,
+  `client` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `chefdeproject` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `potentielfacturation` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `categorie_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_44E26EEDFB88E14F` (`utilisateur_id`),
   KEY `IDX_44E26EEDAA93946F` (`auNomDe_id`),
   KEY `IDX_44E26EED7838E496` (`sites_id`),
   KEY `IDX_44E26EEDE6987884` (`missionOne_id`),
   KEY `IDX_44E26EED8DC49F4B` (`missionTwo_id`),
-  KEY `IDX_44E26EED6BA31A03` (`missionThree_id`)
+  KEY `IDX_44E26EED6BA31A03` (`missionThree_id`),
+  KEY `IDX_44E26EEDBCF5E72D` (`categorie_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
 
 --
--- Contenu de la table `demandes`
+-- Dumping data for table `demandes`
 --
 
-INSERT INTO `demandes` (`id`, `utilisateur_id`, `sites_id`, `autres`, `detailsMissionOne`, `detailsMissionTwo`, `detailsMissionThree`, `dateLimite`, `lien`, `jaime`, `jeNaimePas`, `niveauUrgence`, `etat`, `confidentialite`, `docGdl`, `envoiePrevuLe`, `mettreEnCopie`, `datePosteDemande`, `dateDernierMiseAJour`, `accueil`, `auNomDe_id`, `missionOne_id`, `missionTwo_id`, `missionThree_id`, `dateLivraison`) VALUES
-(1, 1, 5, 'bachtorann', 'vray et exterieur', 'spacio en entier', 'capacitaire générale et vitre', '2015-06-24 00:00:00', NULL, 2, 0, 'urgente', 'Livrée', 'Haute', NULL, '2015-06-25 00:00:00', NULL, '2015-06-15 17:00:08', '2015-06-29 10:30:26', 1, 2, 3, 2, 4, '2015-06-29 10:30:26'),
-(2, 1, 5, 'rien a ajouter', 'vray et exterieur', 'spacio en entier', 'capacitaire générale et vitre', '2015-06-24 00:00:00', NULL, 2, 0, 'urgente', 'En cour', 'Normale', NULL, '2015-06-25 00:00:00', NULL, '2015-06-15 17:01:22', '2015-06-19 13:06:26', 1, 2, 3, 2, 4, NULL),
-(3, 1, 6, 'c''est comme d''habitude', 'Une image est une représentation visuelle,', 'Une des plus anciennes définitions de l''image est celle donnée par Platon', 'Le mot image en français vient du latin imago', '2015-08-20 00:00:00', 'https://fr.wikipedia.org/wiki/Image', 0, 0, 'ordinaire', 'En cour', 'Normale', 'DWG', '2015-07-31 00:00:00', 'aymen@gmail.com', '2015-07-08 10:37:56', '2015-07-08 10:37:56', 1, 2, 1, 3, 4, NULL);
+INSERT INTO `demandes` (`id`, `utilisateur_id`, `sites_id`, `autres`, `detailsMissionOne`, `detailsMissionTwo`, `detailsMissionThree`, `dateLimite`, `lien`, `jaime`, `jeNaimePas`, `niveauUrgence`, `etat`, `confidentialite`, `docGdl`, `envoiePrevuLe`, `mettreEnCopie`, `datePosteDemande`, `dateDernierMiseAJour`, `accueil`, `auNomDe_id`, `missionOne_id`, `missionTwo_id`, `missionThree_id`, `dateLivraison`, `client`, `chefdeproject`, `potentielfacturation`, `categorie_id`) VALUES
+(1, 1, 5, 'bachtorann', 'vray et exterieur', 'spacio en entier', 'capacitaire générale et vitre', '2015-06-24 00:00:00', NULL, 1, 1, 'urgente', 'Livrée', 'Haute', NULL, '2015-06-25 00:00:00', NULL, '2015-06-15 17:00:08', '2015-06-29 10:30:26', 1, 2, 3, 2, 4, '2015-06-29 10:30:26', NULL, NULL, NULL, NULL),
+(2, 1, 5, 'rien a ajouter', 'vray et exterieur', 'spacio en entier', 'capacitaire générale et vitre', '2015-06-24 00:00:00', NULL, 2, 1, 'urgente', 'En cour', 'Normale', NULL, '2015-06-25 00:00:00', NULL, '2015-06-15 17:01:22', '2015-07-27 18:31:29', 1, 2, 3, 2, 4, NULL, NULL, NULL, NULL, NULL),
+(3, 1, 6, 'c''est comme d''habitude', 'Une image est une représentation visuelle,', 'Une des plus anciennes définitions de l''image est celle donnée par Platon', 'Le mot image en français vient du latin imago', '2015-08-20 00:00:00', 'https://fr.wikipedia.org/wiki/Image', 1, 0, 'ordinaire', 'Annulée', 'Normale', 'DWG', '2015-07-31 00:00:00', 'aymen@gmail.com', '2015-07-08 10:37:56', '2015-07-17 17:37:31', 1, 2, 1, 3, 4, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fichiers`
+-- Table structure for table `fichiers`
 --
 
 CREATE TABLE IF NOT EXISTS `fichiers` (
@@ -158,10 +209,10 @@ CREATE TABLE IF NOT EXISTS `fichiers` (
   `lien` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_6FEBD6FDBA9CD190` (`commentaire_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=17 ;
 
 --
--- Contenu de la table `fichiers`
+-- Dumping data for table `fichiers`
 --
 
 INSERT INTO `fichiers` (`id`, `commentaire_id`, `lien`) VALUES
@@ -179,12 +230,13 @@ INSERT INTO `fichiers` (`id`, `commentaire_id`, `lien`) VALUES
 (12, 12, NULL),
 (13, 13, NULL),
 (14, 14, NULL),
-(15, 15, NULL);
+(15, 15, NULL),
+(16, 37, '5a3da80b7b04283261a1feff7edfc8fd34047193.jpeg');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fos_user`
+-- Table structure for table `fos_user`
 --
 
 CREATE TABLE IF NOT EXISTS `fos_user` (
@@ -213,19 +265,19 @@ CREATE TABLE IF NOT EXISTS `fos_user` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
 
 --
--- Contenu de la table `fos_user`
+-- Dumping data for table `fos_user`
 --
 
 INSERT INTO `fos_user` (`id`, `username`, `username_canonical`, `email`, `email_canonical`, `enabled`, `salt`, `password`, `last_login`, `locked`, `expired`, `expires_at`, `confirmation_token`, `password_requested_at`, `roles`, `credentials_expired`, `credentials_expire_at`, `prenom`, `nom`) VALUES
-(1, 'Anas', 'anas', 'anasbena07@gmail.com', 'anasbena07@gmail.com', 1, 's4rbvi1ob6og44gg80ww440scsc0ow0', 'wOnCJP83u6zVzHANqJCtPkEsfvyVQ94FfFdnWT5hd0Xyf9rg0hO9bCN3YRpUc42T2qhzj6F7CP3KVHJaqriT4A==', '2015-07-13 12:00:47', 0, 0, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', 0, NULL, 'anas', 'ben haj ali'),
-(2, 'Hamza', 'hamza', 'hamza.beyni@gmail.com', 'hamza.beyni@gmail.com', 1, '9s4rzvn19zk8kgg4kocgc4ksowkc0wo', 'IHe8m4vYvnyf52pav90d5tMEkMW7PiBcZ5smECLDeH5DQQEAbDf87ktHyYcVN/SAJAoE71U7veFaEWb4S+0Xcg==', '2015-06-30 10:16:06', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Hamza', 'Beyni'),
-(3, 'Aymen', 'aymen', 'aymen@gmail.com', 'aymen@gmail.com', 1, 'eerltgvvwfcok84g8kcsgk8cgc4cggo', 'Bd9b2xczGD/ePrlwB7Q3Un52JuEJ4NqYqgbpzbXKkZFgbce5TIExaFMZ5C2WEzGRFtHtXWhso/ArRQqe7nzRaQ==', '2015-07-13 10:19:54', 0, 0, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', 0, NULL, 'Ayme', 'ELLOUZE'),
-(4, 'mariem', 'mariem', 'mariem@gmail.com', 'mariem@gmail.com', 1, 'g1xe4h5bp5w08owcg8gc0cg8skwcksk', '4U0IGNW64ARYa4YNLj7Q76wr7yKRlwlp/HYAb3hK+trrsiPr3nY1a4ENyNcmDIZ6ytbdmwRqOCzSObSxG9pyaA==', '2015-07-02 12:17:35', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Mariem', 'Nfaiedh');
+(1, 'Anas', 'anas', 'anasbena07@gmail.com', 'anasbena07@gmail.com', 1, 's4rbvi1ob6og44gg80ww440scsc0ow0', 'wOnCJP83u6zVzHANqJCtPkEsfvyVQ94FfFdnWT5hd0Xyf9rg0hO9bCN3YRpUc42T2qhzj6F7CP3KVHJaqriT4A==', '2015-07-28 11:29:25', 0, 0, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', 0, NULL, 'anas', 'ben haj ali'),
+(2, 'Hamza', 'hamza', 'hamza.beyni@gmail.com', 'hamza.beyni@gmail.com', 1, '9s4rzvn19zk8kgg4kocgc4ksowkc0wo', 'IHe8m4vYvnyf52pav90d5tMEkMW7PiBcZ5smECLDeH5DQQEAbDf87ktHyYcVN/SAJAoE71U7veFaEWb4S+0Xcg==', '2015-07-27 17:26:33', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Hamza', 'Beyni'),
+(3, 'Aymen', 'aymen', 'aymen@gmail.com', 'aymen@gmail.com', 1, 'eerltgvvwfcok84g8kcsgk8cgc4cggo', 'Bd9b2xczGD/ePrlwB7Q3Un52JuEJ4NqYqgbpzbXKkZFgbce5TIExaFMZ5C2WEzGRFtHtXWhso/ArRQqe7nzRaQ==', '2015-07-17 17:46:31', 0, 0, NULL, NULL, NULL, 'a:1:{i:0;s:10:"ROLE_ADMIN";}', 0, NULL, 'Ayme', 'ELLOUZE'),
+(4, 'mariem', 'mariem', 'mariem@gmail.com', 'mariem@gmail.com', 1, 'g1xe4h5bp5w08owcg8gc0cg8skwcksk', '4U0IGNW64ARYa4YNLj7Q76wr7yKRlwlp/HYAb3hK+trrsiPr3nY1a4ENyNcmDIZ6ytbdmwRqOCzSObSxG9pyaA==', '2015-07-28 11:29:00', 0, 0, NULL, NULL, NULL, 'a:0:{}', 0, NULL, 'Mariem', 'Nfaiedh');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `jaime`
+-- Table structure for table `jaime`
 --
 
 CREATE TABLE IF NOT EXISTS `jaime` (
@@ -235,22 +287,24 @@ CREATE TABLE IF NOT EXISTS `jaime` (
   `jaime` int(11) NOT NULL,
   `jaimepas` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
 
 --
--- Contenu de la table `jaime`
+-- Dumping data for table `jaime`
 --
 
 INSERT INTO `jaime` (`id`, `utilisateur`, `demande`, `jaime`, `jaimepas`) VALUES
-(1, 1, 1, 1, 0),
+(1, 1, 1, 0, 1),
 (2, 1, 2, 1, 0),
 (3, 4, 2, 1, 0),
-(4, 3, 1, 1, 0);
+(4, 3, 1, 1, 0),
+(5, 3, 2, 0, 1),
+(6, 1, 3, 1, 0);
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `missions`
+-- Table structure for table `missions`
 --
 
 CREATE TABLE IF NOT EXISTS `missions` (
@@ -261,7 +315,7 @@ CREATE TABLE IF NOT EXISTS `missions` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=9 ;
 
 --
--- Contenu de la table `missions`
+-- Dumping data for table `missions`
 --
 
 INSERT INTO `missions` (`id`, `titre`, `description`) VALUES
@@ -276,7 +330,7 @@ INSERT INTO `missions` (`id`, `titre`, `description`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `notifications`
+-- Table structure for table `notifications`
 --
 
 CREATE TABLE IF NOT EXISTS `notifications` (
@@ -290,10 +344,10 @@ CREATE TABLE IF NOT EXISTS `notifications` (
   PRIMARY KEY (`id`),
   KEY `IDX_D37EFB26DA6F574A` (`acteur_id`),
   KEY `IDX_D37EFB2638B217A7` (`publication_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=115 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=133 ;
 
 --
--- Contenu de la table `notifications`
+-- Dumping data for table `notifications`
 --
 
 INSERT INTO `notifications` (`id`, `acteur_id`, `publication_id`, `contenu`, `enable`, `utilisateur`, `dateNotification`) VALUES
@@ -410,12 +464,30 @@ INSERT INTO `notifications` (`id`, `acteur_id`, `publication_id`, `contenu`, `en
 (111, 1, 3, 'Anas a commenté la demande numero 3 de Thalès', 0, 1, '2015-07-13 12:01:25'),
 (112, 1, 3, 'Anas a commenté la demande numero 3 de Thalès', 0, 2, '2015-07-13 12:01:25'),
 (113, 1, 3, 'Anas a commenté la demande numero 3 de Thalès', 0, 3, '2015-07-13 12:01:25'),
-(114, 1, 3, 'Anas a commenté la demande numero 3 de Thalès', 0, 4, '2015-07-13 12:01:25');
+(114, 1, 3, 'Anas a commenté la demande numero 3 de Thalès', 0, 4, '2015-07-13 12:01:25'),
+(115, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 1, '2015-07-17 17:32:31'),
+(116, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 2, '2015-07-17 17:32:31'),
+(117, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 3, '2015-07-17 17:32:31'),
+(118, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 1, '2015-07-19 23:18:47'),
+(119, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 2, '2015-07-19 23:18:47'),
+(120, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 3, '2015-07-19 23:18:47'),
+(121, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 1, '2015-07-19 23:19:21'),
+(122, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 2, '2015-07-19 23:19:21'),
+(123, 4, 3, 'mariem a commenté la demande numero 3 de Thalès', 0, 3, '2015-07-19 23:19:21'),
+(124, 1, 2, 'Anas a commenté la demande numero 2 de Orange', 1, 2, '2015-07-27 17:21:47'),
+(125, 1, 2, 'Anas a commenté la demande numero 2 de Orange', 1, 3, '2015-07-27 17:21:47'),
+(126, 1, 2, 'Anas a commenté la demande numero 2 de Orange', 1, 4, '2015-07-27 17:21:48'),
+(127, 4, 1, 'mariem a commenté la demande numero 1 de Orange', 1, 1, '2015-07-28 11:29:09'),
+(128, 4, 1, 'mariem a commenté la demande numero 1 de Orange', 1, 2, '2015-07-28 11:29:09'),
+(129, 4, 1, 'mariem a commenté la demande numero 1 de Orange', 1, 3, '2015-07-28 11:29:09'),
+(130, 4, 2, 'mariem a commenté la demande numero 2 de Orange', 1, 1, '2015-07-28 11:29:14'),
+(131, 4, 2, 'mariem a commenté la demande numero 2 de Orange', 1, 2, '2015-07-28 11:29:14'),
+(132, 4, 2, 'mariem a commenté la demande numero 2 de Orange', 1, 3, '2015-07-28 11:29:14');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `sites`
+-- Table structure for table `sites`
 --
 
 CREATE TABLE IF NOT EXISTS `sites` (
@@ -426,33 +498,35 @@ CREATE TABLE IF NOT EXISTS `sites` (
   `description` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `IDX_7DC18567AB014612` (`clients_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=8 ;
 
 --
--- Contenu de la table `sites`
+-- Dumping data for table `sites`
 --
 
 INSERT INTO `sites` (`id`, `clients_id`, `nom`, `adresse`, `description`) VALUES
 (1, 1, 'site 1', 'paris', NULL),
 (4, 1, 'site 3', 'nice', NULL),
 (5, 2, 'site 51', 'lyon sud west', 'c''est un nouveau site'),
-(6, 1, 'site Alsas', 'Nante, 52 Est', 'c''est un nouveau site');
+(6, 1, 'site Alsas', 'Nante, 52 Est', 'c''est un nouveau site'),
+(7, 11, 'Fatyilss', 'yasmine Palas', 'nooon');
 
 --
--- Contraintes pour les tables exportées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `commentaires`
+-- Constraints for table `commentaires`
 --
 ALTER TABLE `commentaires`
   ADD CONSTRAINT `FK_C18F1B3C80E95E18` FOREIGN KEY (`demande_id`) REFERENCES `demandes` (`id`),
   ADD CONSTRAINT `FK_C18F1B3CFB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `fos_user` (`id`);
 
 --
--- Contraintes pour la table `demandes`
+-- Constraints for table `demandes`
 --
 ALTER TABLE `demandes`
+  ADD CONSTRAINT `FK_44E26EEDBCF5E72D` FOREIGN KEY (`categorie_id`) REFERENCES `categories` (`id`),
   ADD CONSTRAINT `FK_44E26EED6BA31A03` FOREIGN KEY (`missionThree_id`) REFERENCES `missions` (`id`),
   ADD CONSTRAINT `FK_44E26EED7838E496` FOREIGN KEY (`sites_id`) REFERENCES `sites` (`id`),
   ADD CONSTRAINT `FK_44E26EED8DC49F4B` FOREIGN KEY (`missionTwo_id`) REFERENCES `missions` (`id`),
@@ -461,20 +535,20 @@ ALTER TABLE `demandes`
   ADD CONSTRAINT `FK_44E26EEDFB88E14F` FOREIGN KEY (`utilisateur_id`) REFERENCES `fos_user` (`id`);
 
 --
--- Contraintes pour la table `fichiers`
+-- Constraints for table `fichiers`
 --
 ALTER TABLE `fichiers`
   ADD CONSTRAINT `FK_6FEBD6FDBA9CD190` FOREIGN KEY (`commentaire_id`) REFERENCES `commentaires` (`id`);
 
 --
--- Contraintes pour la table `notifications`
+-- Constraints for table `notifications`
 --
 ALTER TABLE `notifications`
   ADD CONSTRAINT `FK_D37EFB2638B217A7` FOREIGN KEY (`publication_id`) REFERENCES `demandes` (`id`),
   ADD CONSTRAINT `FK_D37EFB26DA6F574A` FOREIGN KEY (`acteur_id`) REFERENCES `fos_user` (`id`);
 
 --
--- Contraintes pour la table `sites`
+-- Constraints for table `sites`
 --
 ALTER TABLE `sites`
   ADD CONSTRAINT `FK_7DC18567AB014612` FOREIGN KEY (`clients_id`) REFERENCES `clients` (`id`);

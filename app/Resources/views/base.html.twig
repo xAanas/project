@@ -165,7 +165,10 @@
                                     {% if is_granted('ROLE_ADMIN') %}<li><a tabindex="-1" href="{{ path('missions')}}"><span class="glyphicon glyphicon-wrench"></span> Missions</a></li>{% endif %}
                                     <li><a tabindex="-1" href="{{ path('clients')}}"><span class="glyphicon glyphicon-wrench"></span> Clients</a></li>
                                     <li><a tabindex="-1" href="{{ path('sites')}}"><span class="glyphicon glyphicon-wrench"></span> Sites</a></li>
-                                </ul>
+                                   {% if is_granted('ROLE_ADMIN') %}
+                                    <li><a tabindex="-1" href="{{ path('categories')}}"><span class="glyphicon glyphicon-wrench"></span> Catégories</a></li>
+                            {% endif %}
+                                    </ul>
                             </li>
                             
                             {% if is_granted('ROLE_ADMIN') %}

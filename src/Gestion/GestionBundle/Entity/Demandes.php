@@ -27,11 +27,10 @@ class Demandes {
      */
     private $utilisateur;
     /**
-     * @var string
-     *
-     * @ORM\Column(name="typedemande", type="string", length=255, nullable=true)
+     * @ORM\ManyToOne(targetEntity="Gestion\GestionBundle\Entity\Categories") 
+     * @ORM\JoinColumn(nullable=true)
      */
-    private $typeDemande;
+    private $categorie;
     /**
      * @var string
      *
@@ -782,30 +781,7 @@ class Demandes {
     {
         return $this->chefDeProjet;
     }
-
-    /**
-     * Set typeDemande
-     *
-     * @param string $typeDemande
-     * @return Demandes
-     */
-    public function setTypeDemande($typeDemande)
-    {
-        $this->typeDemande = $typeDemande;
     
-        return $this;
-    }
-
-    /**
-     * Get typeDemande
-     *
-     * @return string 
-     */
-    public function getTypeDemande()
-    {
-        return $this->typeDemande;
-    }
-
     /**
      * Set potentielFacturation
      *
@@ -827,5 +803,28 @@ class Demandes {
     public function getPotentielFacturation()
     {
         return $this->potentielFacturation;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \Gestion\GestionBundle\Entity\Categories $categorie
+     * @return Demandes
+     */
+    public function setCategorie(\Gestion\GestionBundle\Entity\Categories $categorie = null)
+    {
+        $this->categorie = $categorie;
+    
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Gestion\GestionBundle\Entity\Categories 
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }

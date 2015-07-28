@@ -13,6 +13,15 @@
                         <div class="well">
                            {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
                         {{ form_errors(form) }}
+                         <div class="form-group">
+                            {{ form_label(form.clients, "Client : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.clients) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.clients, {'attr': {'class': 'form-control'}}) }}
+                            </div>
+                        </div>
                         <div class="form-group">
                             {{ form_label(form.nom, "Nom : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
@@ -40,17 +49,8 @@
                                 {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
                             </div>
                         </div>
-                            <div class="form-group">
-                            {{ form_label(form.clients, "Client : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
-
-                            {{ form_errors(form.clients) }}
-
-                            <div class="col-sm-4">
-                                {{ form_widget(form.clients, {'attr': {'class': 'form-control'}}) }}
-                            </div>
-                        </div>
-                            <div class="form-group" align="middle">
-                                <input type="reset" value="Annuler" class="btn btn-default">
+                            <div class="form-group" align="right">
+                                <button class="btn btn-default" data-dismiss="modal">Quitter</button>
                                 <input type="submit" value="Créer" class="btn btn-info">
                         </div>
                             {{ form_rest(form) }}
@@ -58,9 +58,6 @@
                         {# Fermeture de la balise <form> du formulaire HTML #}
                         {{ form_end(form) }}
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal">Quitter</button>
                     </div>
                 </div>
             </div>

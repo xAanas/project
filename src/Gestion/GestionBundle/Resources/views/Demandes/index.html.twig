@@ -8,7 +8,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">x</button>
-                        <h4 class="modal-title">Nouvelle demande :</h4>
+                        <h4 class="modal-title"><strong>Nouvelle demande</strong> </h4>
                     </div>
                     <div class="modal-body">
                         <div class="well">
@@ -17,17 +17,18 @@
 
                         {# Les erreurs générales du formulaire. #}
                         {{ form_errors(form) }}
+                        {% if is_granted('ROLE_ADMIN') %}
                         <div class="form-group margin-bottom-demande">
-                            {{ form_label(form.typeDemande, "Type de la demande : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+                            {{ form_label(form.categorie, "Catégorie : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
-                            {{ form_errors(form.typeDemande) }}
+                            {{ form_errors(form.categorie) }}
 
                             <div class="col-sm-4">
-                                {{ form_widget(form.typeDemande, {'attr': {'class': 'form-control form-control-court'}}) }}
+                                {{ form_widget(form.categorie, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
                         <div class="form-group margin-bottom-demande">
-                            {{ form_label(form.potentielFacturation, "Demande au nom de : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+                            {{ form_label(form.potentielFacturation, "Potentiel facturation : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
                             {{ form_errors(form.potentielFacturation) }}
 
@@ -35,15 +36,7 @@
                                 {{ form_widget(form.potentielFacturation, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
-                        <div class="form-group margin-bottom-demande">
-                            {{ form_label(form.auNomDe, "Demande au nom de : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
-
-                            {{ form_errors(form.auNomDe) }}
-
-                            <div class="col-sm-4">
-                                {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control form-control-court'}}) }}
-                            </div>
-                        </div>
+                            {% endif %}
                             <div class="form-group margin-bottom-demande">
                                 {{ form_label(form.chefDeProjet, "Chef de projet : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
@@ -54,6 +47,15 @@
                                 </div>
                             </div>
                                 <div class="form-group margin-bottom-demande">
+                            {{ form_label(form.auNomDe, "Demande au nom de : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.auNomDe) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control form-control-court'}}) }}
+                            </div>
+                        </div>
+                                <div class="form-group margin-bottom-demande">
                                 {{ form_label(form.client, "Client : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
                                 {{ form_errors(form.client) }}
@@ -62,7 +64,11 @@
                                     {{ form_widget(form.client, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="#" data-toggle="modal" data-target="#myModalClient"><div style="font-size:15px ; color: black;">autre client</div></a>
+                                    <a href="#" data-toggle="modal" data-target="#myModalClient" title="Ajouter un nouveau client">
+                                        <div style="font-size:15px ; color: black;">
+                                            <span class="glyphicon glyphicon-plus-sign"></span> N.V Client
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                         <div class="form-group margin-bottom-demande">
@@ -74,7 +80,11 @@
                                 {{ form_widget(form.sites, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                             <div class="col-sm-4">
-                                    <a href="#" data-toggle="modal" data-target="#myModalSite"><div style="font-size:15px ; color: black;">autres site...</div></a>
+                                <a href="#" data-toggle="modal" data-target="#myModalSite" title="Ajouter un nouveau site">
+                                        <div style="font-size:15px ; color: black;">
+                                            <span class="glyphicon glyphicon-plus-sign"></span> N.V Site
+                                        </div>
+                                    </a>
                                 </div>
                         </div>
                         <div class="form-group margin-bottom-demande">
@@ -186,7 +196,7 @@
                             </div>
                         </div>
                         <div class="form-group margin-bottom-demande">
-                            {{ form_label(form.docGdl, "DocGDL : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_label(form.docGdl, "Documents à envoyer par GDL : : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                             {{ form_errors(form.docGdl) }}
 
@@ -203,7 +213,7 @@
                                 {{ form_widget(form.envoiePrevuLe, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
-                        <div class="form-group margin-bottom-demande">
+                        <div class="form-group">
                             {{ form_label(form.mettreEnCopie, "Mettre en copie : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                             {{ form_errors(form.mettreEnCopie) }}
@@ -212,7 +222,7 @@
                                 {{ form_widget(form.mettreEnCopie, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
-                            <div class="form-group margin-bottom-demande" align="middle">
+                            <div class="form-group margin-bottom-demande" align="right">
                                 <button class="btn btn-info" data-dismiss="modal">Quitter</button>
                                 <input type="submit" value="Créer" class="btn btn-primary">
                         </div>
@@ -232,11 +242,22 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">x</button>
-                        <h4 class="modal-title">Nouveau site :</h4>
+                        <h4 class="modal-title"><strong>Nouveau site</strong> </h4>
                     </div>
                     <div class="modal-body">
                         <div class="well">
-                           
+                           <div class="form-group">
+                            <div class="col-sm-3">
+                                Client :
+                            </div>
+
+                                <div class="col-sm-4" id="divdeclients">
+                                <select type="text" id="clientSite" required="required" style="width: 200px ;">
+                                </select>
+                            </div>
+                        </div>
+                            <br/>
+
                         <div class="form-group">
                            <div class="col-sm-3">
                                 Nom :
@@ -265,18 +286,7 @@
                             </div>
                         </div>
                             <br/>
-                            <div class="form-group">
-                            <div class="col-sm-3">
-                                Client :
-                            </div>
-
-                                <div class="col-sm-4" id="divdeclients">
-                                <select type="text" id="clientSite" required="required" style="width: 200px ;">
-                                </select>
-                            </div>
-                        </div>
-                            <br/>
-                            <div class="form-group" align="middle">
+                                                        <div class="form-group" align="right">
                                 <button class="btn btn-info" data-dismiss="modal">Quitter</button>
                                 <button class="btn btn-primary" onclick="javascript:ajoutAutreSite(document.getElementById('nomSite'),document.getElementById('adresseSite'),document.getElementById('descriptionSite'),document.getElementById('clientSite'))">Créer</button>
                         </div>
@@ -314,7 +324,7 @@
                             </div>
                         </div>
                             <br/>
-                            <div class="form-group" align="middle">
+                            <div align="right">
                                 <button class="btn btn-info" data-dismiss="modal">Quitter</button>
                                 <button class="btn btn-primary" onclick="javascript:ajoutAutreClient(document.getElementById('nomClient'),document.getElementById('descriptionClient'));">Créer</button>
                         </div>
@@ -337,17 +347,15 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th title="numéro de la demande">N &ordm;</th>
                     <th>Expéditeur</th>
                     <th>Au nom de</th>
                     <th>Client</th>
                     <th>Site</th>
                     <th>Date limite</th>
-                    
-                    <th>Niveau d'urgence</th>
+                    <th>Urgence</th>
                     <th>Etat</th>
                     <th>Commentaires</th>
-                    <th>Accueil</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -359,7 +367,7 @@
                         <td>{{ entity.auNomDe }}</td>
                         <td>{{ entity.sites.clients }}</td>
                         <td>{{ entity.sites }}</td>
-                        <td>{% if entity.dateLimite %}{{ entity.dateLimite|date('Y-m-d H:i:s') }}{% endif %}</td>
+                        <td>{% if entity.dateLimite %}{{ entity.dateLimite|date('Y-m-d H:i') }}{% endif %}</td>
                         
                         {#<td>{% for fichier in entity.fichiers %}    
                             {{loop.length}}
@@ -369,10 +377,9 @@
                     {#<td>{% if entity.datePosteDemande %}{{ entity.datePosteDemande|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                     <td>{% for key,comm in nombrecomment %}
                                         {% if key == entity.id %}
-                                            <a href="{{ path('demandes_show_comments', { 'id': entity.id }) }}">   &nbsp;&nbsp; + {{ comm }} <span class="glyphicon glyphicon-comment"></span></a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('demandes_show_comments', { 'id': entity.id }) }}" style="color: black;"> {{ comm }} <span class="glyphicon glyphicon-comment"></span></a>
                                         {% endif %}
                                     {% endfor %} </td>
-                    <td>{{ entity.accueil }}</td>
                     <td>
                         
                                 <a href="{{ path('demandes_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file" title="voir la demande"></span></a>
@@ -390,3 +397,97 @@
             
         </div>
         {% endblock %}
+            {% block javascripts %}
+                 {{ parent() }}
+                 <script type="text/javascript">
+                       $(document).ready(function (){
+                           
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('chargerClients'),
+                                                    beforeSend: function () {
+
+                                                        console.log('debut chargement client');
+                                                    },
+                                                    success: function (data) {
+                                                        
+                                                        if(data.listeClients.length === 0){
+                                                            $('#clientSite').append('<option value="0">aucun client disponible</option>');
+                                                        }else {
+                                                        $.each(data.listeClients,function (){
+                                                            var client = JSON.parse(this);
+                                                            $('#clientSite').append('<option value="'+ client.id +'">'+ client.nom +'</option>');
+                                                        
+                                                        })
+                                                    }
+                                                     }
+                                            });
+                                    
+                    });
+                        $(function(){
+                            $('#gestion_gestionbundle_Demandes_client').change(function(){
+                                chargerSites($(this).val());
+                            });
+                        });
+                       
+                       function chargerSites(idClient){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('chargerSites',{ 'id' : idClient }),
+                                                    beforeSend: function () {
+
+                                                        console.log('debut chargement sites');
+                                                    },
+                                                    success: function (data) {
+                                                        $('#gestion_gestionbundle_Demandes_sites').each(function (){
+                                                            $(this).remove();
+                                                        })
+                                                        $('#divdessites').append('<select id="gestion_gestionbundle_Demandes_sites" name="gestion_gestionbundle_Demandes[sites]" required="required" class="form-control"></select>')
+                                                        if(data.listeSites.length === 0){
+                                                            $('#gestion_gestionbundle_Demandes_sites').append('<option value="0">aucun site disponible</option>');
+                                                        }else {
+                                                        $.each(data.listeSites,function (){
+                                                            var site = JSON.parse(this);
+                                                            $('#gestion_gestionbundle_Demandes_sites').append('<option value="'+ site.id +'">'+ site.nom +'</option>');
+                                                        
+                                                        })
+                                                    }
+                                                     }
+                                            });
+                                    }
+                                    function ajoutAutreClient(nom,description){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('ajoutAutreClient',{ 'nom' : nom.value , 'description' : description.value }),
+                                                    beforeSend: function () {
+
+                                                        console.log('ajout nouveau client'+nom.value);
+                                                    },
+                                                    success: function (data) {
+                                                        nom.value = "";
+                                                        description.value = "";
+                                                        $('#gestion_gestionbundle_Demandes_client').append('<option value="'+data.id+'">'+data.nom+'</option>')
+                                                        $('#clientSite').append('<option value="'+data.id+'">'+data.nom+'</option>')
+                                                        
+                                                    }
+                                            });
+                                    }
+                                    function ajoutAutreSite(nom,adresse,description,client){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('ajoutAutreSite',{ 'nom' : nom.value ,'adresse' : adresse.value, 'description' : description.value, 'client' : $(client).val() }),
+                                                    beforeSend: function () {
+
+                                                        console.log('ajout nouveau site'+nom.value);
+                                                    },
+                                                    success: function (data) {
+                                                        nom.value = "";
+                                                        adresse.value  = "";
+                                                        description.value = "";
+                                                            $('#gestion_gestionbundle_Demandes_sites').append('<option value="'+data.id+'">'+data.nom+'</option>')
+                                                        console.log('chargement sites reussi '+data.id);
+                                                    }
+                                            });
+                                    }
+                                    </script>
+                {% endblock %}

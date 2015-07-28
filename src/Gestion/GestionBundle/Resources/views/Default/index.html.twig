@@ -24,13 +24,14 @@
 
                             {# Les erreurs générales du formulaire. #}
                             {{ form_errors(form) }}
+                            {% if is_granted('ROLE_ADMIN') %}
                             <div class="form-group margin-bottom-demande">
-                            {{ form_label(form.typeDemande, "Type de la demande : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+                            {{ form_label(form.categorie, "Catégorie : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
-                            {{ form_errors(form.typeDemande) }}
+                            {{ form_errors(form.categorie) }}
 
                             <div class="col-sm-4">
-                                {{ form_widget(form.typeDemande, {'attr': {'class': 'form-control form-control-court'}}) }}
+                                {{ form_widget(form.categorie, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
                         <div class="form-group margin-bottom-demande">
@@ -42,6 +43,7 @@
                                 {{ form_widget(form.potentielFacturation, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
+                            {% endif %}
                             <div class="form-group margin-bottom-demande">
                                 {{ form_label(form.auNomDe, "Demande au nom de : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
@@ -69,7 +71,11 @@
                                     {{ form_widget(form.client, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="#" data-toggle="modal" data-target="#myModalClient"><div style="font-size:15px ; color: black;">autre client</div></a>
+                                    <a href="#" data-toggle="modal" data-target="#myModalClient">
+                                        <div style="font-size:15px ; color: black;">
+                                            <span class="glyphicon glyphicon-plus-sign"></span> Autre client
+                                        </div>
+                                    </a>
                                 </div>
                             </div>
                             <div class="form-group margin-bottom-demande">
@@ -81,7 +87,11 @@
                                     {{ form_widget(form.sites, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                                 <div class="col-sm-4">
-                                    <a href="#" data-toggle="modal" data-target="#myModalSite"><div style="font-size:15px ; color: black;">autre site</div></a>
+                                    <a href="#" data-toggle="modal" data-target="#myModalSite">
+                                        <div style="font-size:15px ; color: black;">
+                                            <span class="glyphicon glyphicon-plus-sign"></span> Autre site
+                                        </div>
+                                    </a>
                                 </div>
 
                             </div>
@@ -211,7 +221,7 @@
                                     {{ form_widget(form.envoiePrevuLe, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                             </div>
-                            <div class="form-group margin-bottom-demande">
+                            <div class="form-group">
                                 {{ form_label(form.mettreEnCopie, "Mettre en copie : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                                 {{ form_errors(form.mettreEnCopie) }}
@@ -220,7 +230,7 @@
                                     {{ form_widget(form.mettreEnCopie, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                             </div>
-                                <div class="form-group" align="middle">
+                                <div class="form-group" align="right">
                                 <button class="btn btn-default" data-dismiss="modal">Quitter</button>
                                 <input type="submit" value="Créer" class="btn btn-primary">
                         </div>
@@ -347,7 +357,7 @@
                             </div>
                         </div>
                             <br/>
-                            <div class="form-group" align="middle">
+                            <div class="form-group" align="right">
                                 <button class="btn btn-info" data-dismiss="modal">Quitter</button>
                                 <button class="btn btn-primary" onclick="javascript:ajoutAutreSite(document.getElementById('nomSite'),document.getElementById('adresseSite'),document.getElementById('descriptionSite'),document.getElementById('clientSite'))">Créer</button>
                         </div>
@@ -385,7 +395,7 @@
                             </div>
                         </div>
                             <br/>
-                            <div class="form-group" align="middle">
+                            <div class="form-group" align="right">
                                 <button class="btn btn-info" data-dismiss="modal">Quitter</button>
                                 <button class="btn btn-primary" onclick="javascript:ajoutAutreClient(document.getElementById('nomClient'),document.getElementById('descriptionClient'));">Créer</button>
                         </div>

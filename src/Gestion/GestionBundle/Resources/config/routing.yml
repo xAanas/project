@@ -1,3 +1,7 @@
+gestion_categories:
+    resource: "@GestionBundle/Resources/config/routing/categories.yml"
+    prefix:   /categories
+
 gestion_missions:
     resource: "@GestionBundle/Resources/config/routing/missions.yml"
     prefix:   /missions

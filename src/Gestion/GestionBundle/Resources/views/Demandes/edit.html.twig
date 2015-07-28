@@ -32,8 +32,52 @@
             {# Les erreurs générales du formulaire. #}
             {{ form_errors(form) }}
 
+            <div class="form-group margin-bottom-demande">
+                            {{ form_label(form.typeDemande, "Type de la demande : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
-            <div class="form-group">
+                            {{ form_errors(form.typeDemande) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.typeDemande, {'attr': {'class': 'form-control form-control-court'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group margin-bottom-demande">
+                            {{ form_label(form.potentielFacturation, "Potentiel facturation : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.potentielFacturation) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.potentielFacturation, {'attr': {'class': 'form-control form-control-court'}}) }}
+                            </div>
+                        </div>
+                        <div class="form-group margin-bottom-demande">
+                            {{ form_label(form.auNomDe, "Demande au nom de : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                            {{ form_errors(form.auNomDe) }}
+
+                            <div class="col-sm-4">
+                                {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control form-control-court'}}) }}
+                            </div>
+                        </div>
+                            <div class="form-group margin-bottom-demande">
+                                {{ form_label(form.chefDeProjet, "Chef de projet : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                                {{ form_errors(form.chefDeProjet) }}
+
+                                <div class="col-sm-4">
+                                    {{ form_widget(form.chefDeProjet, {'attr': {'class': 'form-control form-control-court'}}) }}
+                                </div>
+                            </div>
+                                <div class="form-group margin-bottom-demande">
+                                {{ form_label(form.client, "Client : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+
+                                {{ form_errors(form.client) }}
+
+                                <div class="col-sm-4">
+                                    {{ form_widget(form.client, {'attr': {'class': 'form-control form-control-court'}}) }}
+                                </div>
+                            </div>
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.sites, "Site : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.sites) }}
@@ -43,7 +87,7 @@
                 </div>
 
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.missionOne, "Mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.missionOne) }}
@@ -52,7 +96,7 @@
                     {{ form_widget(form.missionOne, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.missionTwo, "Mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.missionTwo) }}
@@ -61,7 +105,7 @@
                     {{ form_widget(form.missionTwo, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.missionThree, "Mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.missionThree) }}
@@ -70,7 +114,7 @@
                     {{ form_widget(form.missionThree, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.autres, "Autres : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.autres) }}
@@ -79,7 +123,7 @@
                     {{ form_widget(form.autres, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.detailsMissionOne, "Détails mission 1 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.detailsMissionOne) }}
@@ -88,7 +132,7 @@
                     {{ form_widget(form.detailsMissionOne, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.detailsMissionTwo, "Détails mission 2 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.detailsMissionTwo) }}
@@ -97,7 +141,7 @@
                     {{ form_widget(form.detailsMissionTwo, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.detailsMissionThree, "Détails mission 3 : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.detailsMissionThree) }}
@@ -106,7 +150,7 @@
                     {{ form_widget(form.detailsMissionThree, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.dateLimite, "Date limite : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.dateLimite) }}
@@ -115,7 +159,7 @@
                     {{ form_widget(form.dateLimite, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.lien, "Liens : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.lien) }}
@@ -124,7 +168,7 @@
                     {{ form_widget(form.lien, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.niveauUrgence, "Niveau d\'urgence : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.niveauUrgence) }}
@@ -133,7 +177,7 @@
                     {{ form_widget(form.niveauUrgence, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.confidentialite, "Confidentialité : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.confidentialite) }}
@@ -142,7 +186,7 @@
                     {{ form_widget(form.confidentialite, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.docGdl, "DocGDL : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.docGdl) }}
@@ -151,7 +195,7 @@
                     {{ form_widget(form.docGdl, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group margin-bottom-demande">
                 {{ form_label(form.envoiePrevuLe, "Envoie prévu le : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                 {{ form_errors(form.envoiePrevuLe) }}
@@ -169,7 +213,16 @@
                     {{ form_widget(form.mettreEnCopie, {'attr': {'class': 'form-control'}}) }}
                 </div>
             </div>
-            <div class="form-group" align="middle">
+            <div class="form-group margin-bottom-demande" align="middle">
+                   <a href="{{ path('demandes') }}" class="btn btn-default">
+                <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
+            </a>
+                <a id="exportDemande{{ entity.id}}"  class="btn btn-default" onclick="exporterDemande('{{ entity.id}}')">
+                    <span class="glyphicon glyphicon-download-alt" title="télécharger la demande"></span> télécharger
+                </a>
+            <a href="#" data-toggle="modal" data-target="#effacerModal" class="btn btn-danger">
+                <span class="glyphicon glyphicon-trash"></span> Effacer
+            </a>
                 <input type="reset" value="Annuler" class="btn btn-default">
                 <input type="submit" value="Update" class="btn btn-default">
             </div>
@@ -179,19 +232,6 @@
             {{ form_end(form) }}
 
         </div>
-        <div align="middle">
-
-
-            <a href="{{ path('demandes') }}" class="btn btn-default">
-                <span class="glyphicon glyphicon-circle-arrow-left"></span> Back to the list
-            </a>
-                <a id="exportDemande{{ entity.id}}"  class="btn btn-default" onclick="exporterDemande('{{ entity.id}}')">
-                    <span class="glyphicon glyphicon-download-alt" title="télécharger la demande"></span> télécharger
-                </a>
-            <a href="#" data-toggle="modal" data-target="#effacerModal" class="btn btn-danger">
-                <span class="glyphicon glyphicon-trash"></span> Effacer
-            </a>
-            {#{{ form(delete_form) }}#}
-        </div>
+        
     </div>
 {% endblock %}

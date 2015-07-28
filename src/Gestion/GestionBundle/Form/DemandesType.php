@@ -17,26 +17,35 @@ class DemandesType extends AbstractType{
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
         $builder
-                ->add('typeDemande','text',array('required' => false))
-                ->add('potentielFacturation','text',array('required' => false))
+                ->add('categorie','entity',array('class' => 'Gestion\GestionBundle\Entity\Categories',
+                                                 'empty_value' => 'Choisir une categorie',
+                                                 'empty_data' => NULL,
+                                                    'required' => false))
+                ->add('potentielFacturation','choice',array('choices' => array ('oui' => 'oui',
+                                                                                'non' => 'non'),
+                                                                'empty_value' => 'Choisir un potentiel',
+                                                                'empty_data'  => 'oui',
+                                                            'required' => false))
                 ->add('chefDeProjet', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
-                                                 'empty_value' => 'choisissez un chef de projet',
+                                                 'empty_value' => 'Choisir un chef de projet',
                                                  'empty_data' => NULL,
                                                  'required' => false))
-                ->add('client','entity',array('class' => 'Gestion\GestionBundle\Entity\Clients'))
+                ->add('client','entity',array('class' => 'Gestion\GestionBundle\Entity\Clients',
+                                                                'empty_value' => 'Choisir un client',
+                                                                'empty_data'  => null))
                 ->add('sites','entity',array('class' => 'Gestion\GestionBundle\Entity\Sites',
                                                                 'empty_value' => 'Choisir un site',
                                                                 'empty_data'  => null))              
                 ->add('missionOne','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
-                                                                'empty_value' => 'Choisir une mission',
+                                                                'empty_value' => 'Choisir une mission type',
                                                                 'empty_data'  => null,
                                                                 'required' => false))
                 ->add('missionTwo','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
-                                                                'empty_value' => 'Choisir une mission',
+                                                                'empty_value' => 'Choisir une mission type',
                                                                 'empty_data'  => null,
                                                                 'required' => false))
                 ->add('missionThree','entity',array('class' => 'Gestion\GestionBundle\Entity\Missions',
-                                                                'empty_value' => 'Choisir une mission',
+                                                                'empty_value' => 'Choisir une mission type',
                                                                 'empty_data'  => null,
                                                                 'required' => false))
                  ->add('autres','textarea',array('required' => false))
@@ -54,7 +63,8 @@ class DemandesType extends AbstractType{
                                                                 'empty_value' => 'Choisissez un état',
                                                                 'empty_data'  => 'émise'))*/
                 ->add('confidentialite','choice',array('choices' => array ('Normale' => 'Normale',
-                                                                            'Haute' => 'Haute')))
+                                                                            'Haute' => 'Haute',
+                                                                             'Critique' => 'Critique')))
                 ->add('docGdl','text',array('required' => false))
                 ->add('envoiePrevuLe','date',array('widget' => 'single_text'),array('required' => false))
                 ->add('mettreEnCopie','textarea',array('required' => false))

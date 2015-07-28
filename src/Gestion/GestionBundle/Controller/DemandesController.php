@@ -369,6 +369,11 @@ class DemandesController extends Controller {
         }
 
         $editForm = $this->createEditForm($entity);
+        $nomUtilisateur = $this->container->get('security.context')->getToken()->getUser()->__toString();
+        $editForm->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
+            'empty_value' => $nomUtilisateur,
+            'empty_data' => NUll,
+            'required' => false));
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('GestionBundle:Demandes:edit.html.twig', array(

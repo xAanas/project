@@ -1,0 +1,30 @@
+categories:
+    path:     /
+    defaults: { _controller: "GestionBundle:Categories:index" }
+
+categories_show:
+    path:     /{id}/show
+    defaults: { _controller: "GestionBundle:Categories:show" }
+
+categories_new:
+    path:     /new
+    defaults: { _controller: "GestionBundle:Categories:new" }
+
+categories_create:
+    path:     /create
+    defaults: { _controller: "GestionBundle:Categories:create" }
+    methods:  POST
+
+categories_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "GestionBundle:Categories:edit" }
+
+categories_update:
+    path:     /{id}/update
+    defaults: { _controller: "GestionBundle:Categories:update" }
+    methods:  [POST, PUT]
+
+categories_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "GestionBundle:Categories:delete" }
+    methods:  [POST, DELETE]
