@@ -205,7 +205,24 @@ class ClientsController extends Controller {
 
         return $this->redirect($this->generateUrl('clients'));
     }
+    
+    public function effacerClientAction(Request $request, $id) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GestionBundle:Clients')->find($id);
 
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Clients entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('info' => 'Client effacée'));
+        }
+        
     /**
      * Creates a form to delete a Clients entity by id.
      *

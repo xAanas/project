@@ -91,13 +91,33 @@
                             </td>
                         <td>{{ entity.clients }}</td>
                         <td>
-                           
-                                    <a href="{{ path('sites_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file" title="voir le site"></span></a>
 
                                     <a href="{{ path('sites_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier le site"></span></a>
                                
+                           <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer le site"></span></a>
+
                         </td>
                     </tr>
+                    
+                    <div class="modal fade" id="effacerModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Effacer le site {{entity.nom}} ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle">
+                            
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <a href="javascript:effacerSite('{{entity.id}}');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</a>
+                       
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+                    
                 {% endfor %}
             </tbody>
         </table>
@@ -105,3 +125,22 @@
         
     </div>
 {% endblock %}
+{% block javascripts %}
+                 {{ parent() }}
+                 <script type="text/javascript">
+                            function effacerSite(idSite){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('effacerSite',{ 'id' : idSite }),
+                                                    beforeSend: function () {
+
+                                                        console.log('effacer site '+ idSite);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        
+                                                    }
+                                            });
+                                    }
+                                    </script>
+                {% endblock %}

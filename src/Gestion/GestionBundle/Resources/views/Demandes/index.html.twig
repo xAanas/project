@@ -347,8 +347,7 @@
             <thead>
                 <tr>
                     <th title="numéro de la demande">N &ordm;</th>
-                    <th>Expéditeur</th>
-                    <th>Au nom de</th>
+                    <th>Demandeur</th>
                     <th>Client</th>
                     <th>Site</th>
                     <th>Date limite</th>
@@ -362,7 +361,6 @@
                 {% for entity in entities|reverse %}
                     <tr>
                         <td><a href="{{ path('demandes_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                        <td>{{ entity.utilisateur }}</td>
                         <td>{{ entity.auNomDe }}</td>
                         <td>{{ entity.sites.clients }}</td>
                         <td>{{ entity.sites }}</td>
@@ -372,11 +370,11 @@
                             {{loop.length}}
                         {% endfor %} fichiers</td>#}
                         <td>{% if entity.niveauUrgence == 'ordinaire' %} 
-                            <div style="color: green;" align="middle"><span class="glyphicon glyphicon-exclamation-sign"></span> </div>
+                            <div align="middle"><img src="{{ asset('img/alertVerte.png') }}" alt="urgence" width="23" height="23" /> </div>
                             {% elseif entity.niveauUrgence == 'urgente' %}
-                                <div style="color: orange;" align="middle"><span class="glyphicon glyphicon-exclamation-sign"></span> </div>
+                                <div align="middle"><img src="{{ asset('img/alertOrange.png') }}" alt="urgence" width="23" height="23" /> </div>
                               {% elseif entity.niveauUrgence == 'critique' %}
-                                  <div style="color: red;" align="middle"><span class="glyphicon glyphicon-exclamation-sign"></span> </div>
+                                  <div align="middle"><img src="{{ asset('img/alertRouge.png') }}" alt="urgence" width="23" height="23" /> </div>
                                   {% endif %}
                                 
                             </td>
@@ -398,14 +396,34 @@
                                     {% endfor %} </td>
                     <td>
                         
-                                <a href="{{ path('demandes_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file" title="voir la demande"></span></a>
-                           
                                 <a href="{{ path('demandes_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la demande"></span></a>
+                                
+                                <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer la demande"></span></a>
                                 
                                 <a id="exportDemande{{ entity.id}}" onclick="exporterDemande('{{ entity.id}}')"> <span class="glyphicon glyphicon-download-alt" title="télécharger la demande"></span></a>
                           
                     </td>
                 </tr>
+                
+                <div class="modal fade" id="effacerModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Effacer la demande de {{entity.client}} ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle">
+                            
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <a href="javascript:effacerDemande('{{entity.id}}');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</a>
+                       
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+                                
                 {% endfor %}
                 </tbody>
             </table>
@@ -503,6 +521,20 @@
                                                         description.value = "";
                                                             $('#gestion_gestionbundle_Demandes_sites').append('<option value="'+data.id+'">'+data.nom+'</option>')
                                                         console.log('chargement sites reussi '+data.id);
+                                                    }
+                                            });
+                                    }
+                                    function effacerDemande(idDemande){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('effacerDemande',{ 'id' : idDemande }),
+                                                    beforeSend: function () {
+
+                                                        console.log('effacer demande '+ idDemande);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        
                                                     }
                                             });
                                     }

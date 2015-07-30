@@ -215,6 +215,23 @@ class MissionsController extends Controller
         return $this->redirect($this->generateUrl('missions'));
     }
 
+    public function effacerMissionAction(Request $request, $id) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GestionBundle:Missions')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Missions entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('info' => 'Mission effacée'));
+        }
+        
     /**
      * Creates a form to delete a Missions entity by id.
      *

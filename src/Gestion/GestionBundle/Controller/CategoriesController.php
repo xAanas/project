@@ -215,6 +215,23 @@ class CategoriesController extends Controller
         return $this->redirect($this->generateUrl('categories'));
     }
 
+    public function effacerCategorieAction(Request $request, $id) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GestionBundle:Categories')->find($id);
+
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Categories entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('info' => 'Catégorie effacée'));
+        }
+        
     /**
      * Creates a form to delete a Categories entity by id.
      *

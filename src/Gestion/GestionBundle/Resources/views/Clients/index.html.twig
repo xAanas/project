@@ -76,12 +76,32 @@
                             </td>
                         <td>
 
-                            <a href="{{ path('clients_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file" title="voir le client"></span></a>
                             
                           <a href="{{ path('clients_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier le client"></span></a>
 
+                           <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer le client"></span></a>
+
                         </td>
                     </tr>
+                    
+                    <div class="modal fade" id="effacerModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Effacer le client {{entity.nom}} ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle">
+                            
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <a href="javascript:effacerClient('{{entity.id}}');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</a>
+                       
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
                 {% endfor %}
             </tbody>
         </table>
@@ -89,3 +109,22 @@
 
     </div>
 {% endblock %}
+{% block javascripts %}
+                 {{ parent() }}
+                 <script type="text/javascript">
+                            function effacerClient(idClient){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('effacerClient',{ 'id' : idClient }),
+                                                    beforeSend: function () {
+
+                                                        console.log('effacer client '+ idClient);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        
+                                                    }
+                                            });
+                                    }
+                                    </script>
+                {% endblock %}

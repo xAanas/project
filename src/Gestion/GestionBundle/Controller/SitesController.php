@@ -205,7 +205,22 @@ class SitesController extends Controller {
 
         return $this->redirect($this->generateUrl('sites'));
     }
+    public function effacerSiteAction(Request $request, $id) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GestionBundle:Sites')->find($id);
 
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Sites entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('info' => 'Client effacée'));
+        }
     /**
      * Creates a form to delete a Sites entity by id.
      *

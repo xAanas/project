@@ -60,16 +60,54 @@
                 <td><a href="{{ path('categories_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.titre }}</td>
                 <td>
-                
-                        <a href="{{ path('categories_show', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-file" title="voir la catégorie"></span></a>
-                    
-                        <a href="{{ path('categories_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la catégorie"></span></a>
-                   
+                 <a href="{{ path('categories_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la catégorie"></span></a>
+
+                 <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer la catégorie"></span></a>
+ 
                 </td>
             </tr>
+            
+            <div class="modal fade" id="effacerModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Effacer la catégorie {{entity.titre}} ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle">
+                            
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <a href="javascript:effacerCategorie('{{entity.id}}');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</a>
+                       
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+        
         {% endfor %}
         </tbody>
     </table>
 
     </div>
     {% endblock %}
+{% block javascripts %}
+                 {{ parent() }}
+                 <script type="text/javascript">
+                            function effacerCategorie(idCategorie){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('effacerCategorie',{ 'id' : idCategorie }),
+                                                    beforeSend: function () {
+
+                                                        console.log('effacer catégorie '+ idCategorie);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        
+                                                    }
+                                            });
+                                    }
+                                    </script>
+                {% endblock %}

@@ -473,7 +473,25 @@ class DemandesController extends Controller {
 
         return $this->redirect($this->generateUrl('demandes'));
     }
+    
+    public function effacerDemandeAction(Request $request, $id) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GestionBundle:Demandes')->find($id);
 
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Demandes entity.');
+            }
+
+            $em->remove($entity);
+            $em->flush();
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('info' => 'demande effacée'));
+        }
+
+    
     /**
      * Creates a form to delete a Demandes entity by id.
      *

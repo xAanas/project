@@ -28,3 +28,9 @@ categories_delete:
     path:     /{id}/delete
     defaults: { _controller: "GestionBundle:Categories:delete" }
     methods:  [POST, DELETE]
+
+effacerCategorie:
+    path:     /{id}/effacerCat
+    defaults: { _controller: "GestionBundle:Categories:effacerCategorie" }
+    options:
+        expose: true

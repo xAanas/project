@@ -28,3 +28,9 @@ missions_delete:
     path:     /{id}/delete
     defaults: { _controller: "GestionBundle:Missions:delete" }
     methods:  [POST, DELETE]
+
+effacerMission:
+    path:     /{id}/effacerM
+    defaults: { _controller: "GestionBundle:Missions:effacerMission" }
+    options:
+        expose: true

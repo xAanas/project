@@ -28,3 +28,9 @@ sites_delete:
     path:     /{id}/delete
     defaults: { _controller: "GestionBundle:Sites:delete" }
     methods:  [POST, DELETE]
+
+effacerSite:
+    path:     /{id}/effacerS
+    defaults: { _controller: "GestionBundle:Sites:effacerSite" }
+    options:
+        expose: true

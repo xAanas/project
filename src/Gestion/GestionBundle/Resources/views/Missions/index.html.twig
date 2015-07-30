@@ -74,13 +74,32 @@
                                     {% endif %}
                                     </td>
                                     <td>
+                                    <a href="{{ path('missions_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la mission"></span></a>
 
-                                        <a href="{{ path('missions_show',{ 'id': entity.id }) }}"><span class="glyphicon glyphicon-file" title="voir la mission"></span></a>
-
-                                        <a href="{{ path('missions_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la mission"></span></a>
+                                    <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer le client"></span></a>
 
                                     </td>
                                 </tr>
+                                
+                                 <div class="modal fade" id="effacerModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Effacer la mission {{entity.titre}} ?</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div align="middle">
+                            
+                        <button class="btn btn-default" data-dismiss="modal">Annuler</button>
+                        <a href="javascript:effacerMission('{{entity.id}}');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</a>
+                       
+                            <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+                            
                                 {% endfor %}
                                 </tbody>
                             </table>
@@ -89,3 +108,22 @@
 
                     </div>
                     {% endblock %}
+{% block javascripts %}
+                 {{ parent() }}
+                 <script type="text/javascript">
+                            function effacerMission(idMission){
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('effacerMission',{ 'id' : idMission }),
+                                                    beforeSend: function () {
+
+                                                        console.log('effacer mission '+ idMission);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        
+                                                    }
+                                            });
+                                    }
+                                    </script>
+                {% endblock %}

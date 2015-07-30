@@ -40,3 +40,9 @@ demandes_delete:
     path:     /{id}/delete
     defaults: { _controller: "GestionBundle:Demandes:delete" }
     methods:  [POST, DELETE]
+effacerDemande:
+    path:     /{id}/effacerD
+    defaults: { _controller: "GestionBundle:Demandes:effacerDemande" }
+    options:
+        expose: true  
+

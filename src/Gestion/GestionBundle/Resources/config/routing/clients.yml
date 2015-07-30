@@ -28,3 +28,9 @@ clients_delete:
     path:     /{id}/delete
     defaults: { _controller: "GestionBundle:Clients:delete" }
     methods:  [POST, DELETE]
+    
+effacerClient:
+    path:     /{id}/effacerC
+    defaults: { _controller: "GestionBundle:Clients:effacerClient" }
+    options:
+        expose: true 
