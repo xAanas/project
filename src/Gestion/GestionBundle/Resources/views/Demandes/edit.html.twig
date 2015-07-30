@@ -33,12 +33,12 @@
             {{ form_errors(form) }}
 
             <div class="form-group margin-bottom-demande">
-                            {{ form_label(form.typeDemande, "Type de la demande : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
+                            {{ form_label(form.categorie, "Catégorie : ", {'label_attr': {'class': 'col-sm-3  control-label'}}) }}
 
-                            {{ form_errors(form.typeDemande) }}
+                            {{ form_errors(form.categorie) }}
 
                             <div class="col-sm-4">
-                                {{ form_widget(form.typeDemande, {'attr': {'class': 'form-control form-control-court'}}) }}
+                                {{ form_widget(form.categorie, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
                         <div class="form-group margin-bottom-demande">

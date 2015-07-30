@@ -109,7 +109,7 @@ class Demandes {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateLimite", type="datetime")
+     * @ORM\Column(name="dateLimite", type="string", length=255, nullable=false)
      */
     private $dateLimite;
 
@@ -165,7 +165,7 @@ class Demandes {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="envoiePrevuLe", type="datetime", nullable=true)
+     * @ORM\Column(name="envoiePrevuLe", type="string", length=255, nullable=true)
      */
     private $envoiePrevuLe;
 
@@ -803,5 +803,28 @@ class Demandes {
     public function getPotentielFacturation()
     {
         return $this->potentielFacturation;
+    }
+
+    /**
+     * Set categorie
+     *
+     * @param \Gestion\GestionBundle\Entity\Categories $categorie
+     * @return Demandes
+     */
+    public function setCategorie(\Gestion\GestionBundle\Entity\Categories $categorie = null)
+    {
+        $this->categorie = $categorie;
+    
+        return $this;
+    }
+
+    /**
+     * Get categorie
+     *
+     * @return \Gestion\GestionBundle\Entity\Categories 
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
     }
 }

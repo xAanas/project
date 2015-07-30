@@ -15,7 +15,9 @@ class DemandesAdmin extends Admin
         $formMapper
             ->add('id')
             ->add('utilisateur')
+            ->add('chefDeProjet')
             ->add('auNomDe')
+            ->add('client')
             ->add('sites')
             ->add('missionOne')
             ->add('missionTwo')
@@ -42,7 +44,9 @@ class DemandesAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('utilisateur')
+            ->add('chefDeProjet')
             ->add('auNomDe')
+            ->add('client')
             ->add('sites')
             ->add('missionOne')
             ->add('missionTwo')
@@ -69,7 +73,9 @@ class DemandesAdmin extends Admin
         $listMapper
             ->addIdentifier('id')
             ->add('utilisateur')
+            ->add('chefDeProjet')
             ->add('auNomDe')
+            ->add('client')
             ->add('sites')
             ->add('missionOne')
             ->add('missionTwo')

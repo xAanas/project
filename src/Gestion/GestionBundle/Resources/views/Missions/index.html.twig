@@ -7,7 +7,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">x</button>
-                        <h4 class="modal-title">Nouvelle mission :</h4>
+                        <h4 class="modal-title"><strong>Nouvelle mission </strong></h4>
                     </div>
                     <div class="modal-body">
                         <div class="well">
@@ -32,18 +32,15 @@
                                 </div>
                             </div>
 
-                            <div class="form-group" align="middle">
-                                <input type="reset" value="Annuler" class="btn btn-default">
-                                <input type="submit" value="Créer" class="btn btn-info">
+                            <div class="form-group" align="right">
+                                <button class="btn btn-default" data-dismiss="modal">Quitter</button>
+                                <input type="submit" value="Créer" class="btn btn-primary">
                             </div>
                             {{ form_rest(form) }}
 
                             {# Fermeture de la balise <form> du formulaire HTML #}
                             {{ form_end(form) }}
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button class="btn btn-default" data-dismiss="modal">Quitter</button>
                     </div>
                 </div>
             </div>

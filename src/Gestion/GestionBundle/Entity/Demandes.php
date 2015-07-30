@@ -109,7 +109,7 @@ class Demandes {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dateLimite", type="datetime")
+     * @ORM\Column(name="dateLimite", type="string", length=255, nullable=false)
      */
     private $dateLimite;
 
@@ -165,7 +165,7 @@ class Demandes {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="envoiePrevuLe", type="datetime", nullable=true)
+     * @ORM\Column(name="envoiePrevuLe", type="string", length=255, nullable=true)
      */
     private $envoiePrevuLe;
 

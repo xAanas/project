@@ -12,7 +12,6 @@
                     </div>
                     <div class="modal-body">
                         <div class="well">
-                            
                         {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
                         {# Les erreurs générales du formulaire. #}
@@ -23,7 +22,7 @@
 
                             {{ form_errors(form.categorie) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.categorie, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -32,7 +31,7 @@
 
                             {{ form_errors(form.potentielFacturation) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.potentielFacturation, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -42,7 +41,7 @@
 
                                 {{ form_errors(form.chefDeProjet) }}
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     {{ form_widget(form.chefDeProjet, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                             </div>
@@ -51,7 +50,7 @@
 
                             {{ form_errors(form.auNomDe) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.auNomDe, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -60,10 +59,10 @@
 
                                 {{ form_errors(form.client) }}
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-6">
                                     {{ form_widget(form.client, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <a href="#" data-toggle="modal" data-target="#myModalClient" title="Ajouter un nouveau client">
                                         <div style="font-size:15px ; color: black;">
                                             <span class="glyphicon glyphicon-plus-sign"></span> N.V Client
@@ -76,10 +75,10 @@
 
                             {{ form_errors(form.sites) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6" id="divdessites">
                                 {{ form_widget(form.sites, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-3">
                                 <a href="#" data-toggle="modal" data-target="#myModalSite" title="Ajouter un nouveau site">
                                         <div style="font-size:15px ; color: black;">
                                             <span class="glyphicon glyphicon-plus-sign"></span> N.V Site
@@ -92,7 +91,7 @@
 
                             {{ form_errors(form.missionOne) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.missionOne, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -101,7 +100,7 @@
 
                             {{ form_errors(form.missionTwo) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.missionTwo, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -110,7 +109,7 @@
 
                             {{ form_errors(form.missionThree) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.missionThree, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -119,7 +118,7 @@
 
                             {{ form_errors(form.autres) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.autres, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -128,7 +127,7 @@
 
                             {{ form_errors(form.detailsMissionOne) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.detailsMissionOne, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -137,7 +136,7 @@
 
                             {{ form_errors(form.detailsMissionTwo) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.detailsMissionTwo, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -146,7 +145,7 @@
 
                             {{ form_errors(form.detailsMissionThree) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.detailsMissionThree, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -155,7 +154,7 @@
 
                             {{ form_errors(form.dateLimite) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.dateLimite, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -164,7 +163,7 @@
 
                             {{ form_errors(form.lien) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.lien, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -173,7 +172,7 @@
 
                             {{ form_errors(form.niveauUrgence) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.niveauUrgence, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -191,16 +190,16 @@
 
                             {{ form_errors(form.confidentialite) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.confidentialite, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
                         <div class="form-group margin-bottom-demande">
-                            {{ form_label(form.docGdl, "Documents à envoyer par GDL : : ", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+                            {{ form_label(form.docGdl, "Documents à envoyer par GDL :", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
 
                             {{ form_errors(form.docGdl) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.docGdl, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -209,7 +208,7 @@
 
                             {{ form_errors(form.envoiePrevuLe) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.envoiePrevuLe, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -218,7 +217,7 @@
 
                             {{ form_errors(form.mettreEnCopie) }}
 
-                            <div class="col-sm-4">
+                            <div class="col-sm-6">
                                 {{ form_widget(form.mettreEnCopie, {'attr': {'class': 'form-control form-control-court'}}) }}
                             </div>
                         </div>
@@ -325,7 +324,7 @@
                         </div>
                             <br/>
                             <div align="right">
-                                <button class="btn btn-info" data-dismiss="modal">Quitter</button>
+                                <button class="btn btn-default" data-dismiss="modal">Quitter</button>
                                 <button class="btn btn-primary" onclick="javascript:ajoutAutreClient(document.getElementById('nomClient'),document.getElementById('descriptionClient'));">Créer</button>
                         </div>
                            
@@ -343,7 +342,7 @@
             </a>
         </div>
         <br/>
-
+        
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -372,12 +371,29 @@
                         {#<td>{% for fichier in entity.fichiers %}    
                             {{loop.length}}
                         {% endfor %} fichiers</td>#}
-                    <td>{{ entity.niveauUrgence }}</td>
+                        <td>{% if entity.niveauUrgence == 'ordinaire' %} 
+                            <div style="color: green;" align="middle"><span class="glyphicon glyphicon-exclamation-sign"></span> </div>
+                            {% elseif entity.niveauUrgence == 'urgente' %}
+                                <div style="color: orange;" align="middle"><span class="glyphicon glyphicon-exclamation-sign"></span> </div>
+                              {% elseif entity.niveauUrgence == 'critique' %}
+                                  <div style="color: red;" align="middle"><span class="glyphicon glyphicon-exclamation-sign"></span> </div>
+                                  {% endif %}
+                                
+                            </td>
                     <td>{{ entity.etat }}</td>
                     {#<td>{% if entity.datePosteDemande %}{{ entity.datePosteDemande|date('Y-m-d H:i:s') }}{% endif %}</td>#}
                     <td>{% for key,comm in nombrecomment %}
                                         {% if key == entity.id %}
-                                            &nbsp;&nbsp;&nbsp;&nbsp;<a href="{{ path('demandes_show_comments', { 'id': entity.id }) }}" style="color: black;"> {{ comm }} <span class="glyphicon glyphicon-comment"></span></a>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;
+                                            {% if comm == 0 %}
+                                            <a href="{{ path('demandes_show_comments', { 'id': entity.id }) }}" style="color: black;" title="Pas de nouveaux commentaires">
+                                                {{ comm }} <span class="glyphicon glyphicon-comment"></span>
+                                            </a>
+                                            {% else %}
+                                                <a href="{{ path('demandes_show_comments', { 'id': entity.id }) }}" style="color: red;" title="Nouveaux commentaires">
+                                                {{ comm }} <span class="glyphicon glyphicon-comment"></span>
+                                            </a>
+                                            {% endif %}
                                         {% endif %}
                                     {% endfor %} </td>
                     <td>
@@ -400,7 +416,8 @@
             {% block javascripts %}
                  {{ parent() }}
                  <script type="text/javascript">
-                       $(document).ready(function (){
+                     
+                         $(document).ready(function (){
                            
                                         $.ajax({
                                                     type: 'post',

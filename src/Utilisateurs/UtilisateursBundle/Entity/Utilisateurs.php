@@ -33,6 +33,12 @@ class Utilisateurs extends BaseUser
     private $nom;
     
     /**
+     * @ORM\OneToOne(targetEntity="Gestion\GestionBundle\Entity\Fichiers")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $photo;
+    
+    /**
      * @ORM\OneToMany(targetEntity="Gestion\GestionBundle\Entity\Demandes",mappedBy="utilisateur")
      * @ORM\JoinColumn(nullable=true)
      */
@@ -132,5 +138,28 @@ class Utilisateurs extends BaseUser
     public function getNom()
     {
         return $this->nom;
+    }
+
+    /**
+     * Set photo
+     *
+     * @param \Gestion\GestionBundle\Entity\Fichiers $photo
+     * @return Utilisateurs
+     */
+    public function setPhoto(\Gestion\GestionBundle\Entity\Fichiers $photo = null)
+    {
+        $this->photo = $photo;
+    
+        return $this;
+    }
+
+    /**
+     * Get photo
+     *
+     * @return \Gestion\GestionBundle\Entity\Fichiers 
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
     }
 }

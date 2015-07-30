@@ -52,10 +52,12 @@ class DemandesType extends AbstractType{
                 ->add('detailsMissionOne','text',array('required' => false))
                 ->add('detailsMissionTwo','text',array('required' => false))
                 ->add('detailsMissionThree','text',array('required' => false))
-                ->add('dateLimite','date',array('widget' => 'single_text'))
+                //->add('dateLimite','datetime',array('widget' => 'single_text','format' => 'yyyy-MM-dd'))
+                ->add('dateLimite', 'text')
                 ->add('lien','textarea',array('required' => false))
                 ->add('niveauUrgence','choice',array('choices' => array ('ordinaire' => 'Ordinaire',
-                                                                'urgente' => 'Urgente')))
+                                                                'urgente' => 'Urgente',
+                                                                             'critique' => 'Critique')))
                  /*->add('etat','choice',array('choices' => array ('Emise' => 'émise',
                                                                 'En cour' => 'en cour',
                                                                 'Annulée' => 'annulée',
@@ -63,10 +65,9 @@ class DemandesType extends AbstractType{
                                                                 'empty_value' => 'Choisissez un état',
                                                                 'empty_data'  => 'émise'))*/
                 ->add('confidentialite','choice',array('choices' => array ('Normale' => 'Normale',
-                                                                            'Haute' => 'Haute',
-                                                                             'Critique' => 'Critique')))
+                                                                            'Haute' => 'Haute')))
                 ->add('docGdl','text',array('required' => false))
-                ->add('envoiePrevuLe','date',array('widget' => 'single_text'),array('required' => false))
+                ->add('envoiePrevuLe','text')
                 ->add('mettreEnCopie','textarea',array('required' => false))
                         
         ;

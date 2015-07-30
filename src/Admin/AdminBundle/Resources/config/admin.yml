@@ -1,4 +1,14 @@
 services:
+    sonata.admin.demandes:
+        class: Admin\AdminBundle\Admin\DemandesAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Demandes" }
+        arguments:
+            - ~
+            - Gestion\GestionBundle\Entity\Demandes
+            - ~
+        calls:
+            - [ setTranslationDomain, [AdminAdminBundle]]
     sonata.admin.missions:
         class: Admin\AdminBundle\Admin\GestionAdmin
         tags:

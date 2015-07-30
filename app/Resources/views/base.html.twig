@@ -7,14 +7,17 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}" />
         <link rel="stylesheet" href="{{asset('css/bootstrap-theme.css')}}" />
+        <link rel="stylesheet" href="{{asset('css/jquery.datetimepicker.css')}}" />
     {% block stylesheets %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <style>
+        
         .margin-bottom-demande {
             margin-bottom:4px;
         }
         .form-control-court{
             height: 30px; 
+            //width : 250px;
         }
         .modal-backdrop.in {
             opacity: 0.82 !important ;
@@ -212,12 +215,14 @@
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', {'callback': 'fos.Router.setData'}) }}"></script>
     <script src="{{ asset('js/main.js') }}"></script>
+    <script src="{{ asset('js/jquery.datetimepicker.js') }}"></script>
     {% block javascripts %}
         <script type="text/javascript">
                             // $('.dropdown-submenu > a').submenupicker();
                             // when .modal-wide opened, set content-body height based on browser height; 200 is appx height of modal padding, modal title and button bar
-
-                            function centerModals() {
+                            jQuery('#gestion_gestionbundle_Demandes_dateLimite').datetimepicker();
+                            jQuery('#gestion_gestionbundle_Demandes_envoiePrevuLe').datetimepicker();
+                         function centerModals() {
                                 $('.modalMid').each(function (i) {
                                     var $clone = $(this).clone().css('display', 'block').appendTo('body');
                                     var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);

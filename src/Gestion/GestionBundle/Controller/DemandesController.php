@@ -344,7 +344,21 @@ class DemandesController extends Controller {
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Demandes entity.');
         }
-
+        $entities = $em->getRepository('GestionBundle:Demandes')->findAll();
+        if ($entities == NULL) {
+            $nombrecomment[0] = 0;
+        } else {
+            foreach ($entities as $demande) {
+                $nombrecomment[$demande->getId()] = 0;
+            }
+         foreach ($entities as $demande) {
+                foreach ($comments as $comment) {
+                    if ($comment->getDemande()->getId() == $demande->getId()) {
+                        $nombrecomment[$demande->getId()] ++;
+                    }
+                }
+            }
+        }
         $deleteForm = $this->createDeleteForm($id);
 
         return $this->render('GestionBundle:Demandes:showAvecComments.html.twig', array(
@@ -352,6 +366,7 @@ class DemandesController extends Controller {
                     'delete_form' => $deleteForm->createView(),
                     'comments' => $comments,
                     'form' => $form->createView(),
+                    'nombrecomment' => $nombrecomment,
         ));
     }
     
@@ -416,6 +431,11 @@ class DemandesController extends Controller {
 
         $deleteForm = $this->createDeleteForm($id);
         $editForm = $this->createEditForm($entity);
+        $nomUtilisateur = $this->container->get('security.context')->getToken()->getUser()->__toString();
+        $editForm->add('auNomDe', 'entity', array('class' => 'Utilisateurs\UtilisateursBundle\Entity\Utilisateurs',
+            'empty_value' => $nomUtilisateur,
+            'empty_data' => NUll,
+            'required' => false));
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
@@ -426,7 +446,7 @@ class DemandesController extends Controller {
 
         return $this->render('GestionBundle:Demandes:edit.html.twig', array(
                     'entity' => $entity,
-                    'edit_form' => $editForm->createView(),
+                    'form' => $editForm->createView(),
                     'delete_form' => $deleteForm->createView(),
         ));
     }

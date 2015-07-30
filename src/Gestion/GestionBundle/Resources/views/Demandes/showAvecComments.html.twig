@@ -392,7 +392,9 @@
             <ul id="fichiers-fields-list" class="fichiers list-group" data-prototype="{{ form_widget(form.fichier.vars.prototype)|e }}">
                 {# itère sur chaque tag existant et affiche son unique champ : name #}
                 {% for fichier in form.fichier %}
-                    <li class="list-group-item"> {{ form_row(fichier.file) }}</li>
+                    <li class="list-group-item">
+                        
+                        {{ form_row(fichier.file) }}</li>
                     {% endfor %}
             </ul>
             </tr>
