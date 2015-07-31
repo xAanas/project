@@ -317,7 +317,17 @@
                     </div>
                     <div class="modal-body">
                         <div class="well">
-                           
+                          <div class="form-group">
+                            <div class="col-sm-3">
+                                Client :
+                            </div>
+
+                                <div class="col-sm-4" id="divdeclients">
+                                <select type="text" id="clientSite" required="required" style="width: 200px ;">
+                                </select>
+                            </div>
+                        </div>
+                            <br/> 
                         <div class="form-group">
                            <div class="col-sm-3">
                                 Nom :
@@ -346,17 +356,7 @@
                             </div>
                         </div>
                             <br/>
-                            <div class="form-group">
-                            <div class="col-sm-3">
-                                Client :
-                            </div>
-
-                                <div class="col-sm-4" id="divdeclients">
-                                <select type="text" id="clientSite" required="required" style="width: 200px ;">
-                                </select>
-                            </div>
-                        </div>
-                            <br/>
+                            
                             <div class="form-group" align="right">
                                 <button class="btn btn-info" data-dismiss="modal">Quitter</button>
                                 <button class="btn btn-primary" onclick="javascript:ajoutAutreSite(document.getElementById('nomSite'),document.getElementById('adresseSite'),document.getElementById('descriptionSite'),document.getElementById('clientSite'))">Créer</button>

@@ -77,7 +77,7 @@
                         <td>
 
                             
-                          <a href="{{ path('clients_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier le client"></span></a>
+                          <a href="#" data-toggle="modal" data-target="#modifierModal{{entity.id}}"><span class="glyphicon glyphicon-pencil" title="modifier le client"></span></a>
 
                            <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer le client"></span></a>
 
@@ -97,6 +97,42 @@
                         <a href="javascript:effacerClient('{{entity.id}}');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</a>
                        
                             <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+                      <div class="modal fade" id="modifierModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-wide">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modifier le client {{entity.nom}} </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="well">
+                            <div class="form-group">
+                           <div class="col-sm-3">
+                                Titre :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="nomClient{{entity.id}}" style="width: 200px ;"  required="required" value="{{entity.nom}}">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group">
+                           <div class="col-sm-3">
+                                Description :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="descriptionClient{{entity.id}}" style="width: 200px ;" value="{{entity.description}}">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group" align="right">
+                                <button class="btn btn-default" data-dismiss="modal">Quitter</button>
+                                <button class="btn btn-primary" onclick="javascript:modifierClient('{{entity.id}}',document.getElementById('nomClient{{entity.id}}'),document.getElementById('descriptionClient{{entity.id}}'),document.getElementById('nomTab{{entity.id}}'),document.getElementById('descriptionTab{{entity.id}}'));"><span class="glyphicon glyphicon-save"></span> Update</button>
+                        </div>
+                        </div>
                     </div>
                    
                 </div>
@@ -126,5 +162,23 @@
                                                     }
                                             });
                                     }
+                                    function modifierClient(idClient,nomClient,descriptionClient,nomTab,descriptionTab){
+                                if(descriptionClient.value == ""){
+                                    descriptionClient.value = "pas de description";
+                                }
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('modifierClient',{ 'id' : idClient,'nom' : nomClient.value, 'description' : descriptionClient.value  }),
+                                                    beforeSend: function () {
+
+                                                        console.log('modifier client '+ idClient);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        nomTab.value = data.nom;
+                                                        descriptionTab.value = data.description ; 
+                                                    }
+                                            });
+                                    }   
                                     </script>
                 {% endblock %}

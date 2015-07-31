@@ -3,6 +3,9 @@
 namespace Gestion\GestionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Gestion\GestionBundle\Entity\Clients;
 use Gestion\GestionBundle\Form\ClientsType;
@@ -222,7 +225,23 @@ class ClientsController extends Controller {
 
             return $response->setData(array('info' => 'Client effacée'));
         }
+         public function modifierClientAction(Request $request, $id,$nom,$description) {
         
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GestionBundle:Clients')->find($id);
+           
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Client entity.');
+            }
+            $entity->setNom($nom);
+            $entity->setDescription($description);
+            $em->persist($entity);
+            $em->flush();
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('info' => 'Client modifié', 'nom' => $nom,'description' => $description));
+        }
     /**
      * Creates a form to delete a Clients entity by id.
      *

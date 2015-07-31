@@ -34,3 +34,9 @@ effacerClient:
     defaults: { _controller: "GestionBundle:Clients:effacerClient" }
     options:
         expose: true 
+        
+modifierClient:
+    path:     /{id}/{nom}/{description}/modifierC
+    defaults: { _controller: "GestionBundle:Clients:modifierClient" }
+    options:
+        expose: true

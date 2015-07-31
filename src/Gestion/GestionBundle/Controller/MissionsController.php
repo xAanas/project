@@ -3,6 +3,9 @@
 namespace Gestion\GestionBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Gestion\GestionBundle\Entity\Missions;
@@ -230,6 +233,24 @@ class MissionsController extends Controller
             $response = new JsonResponse();
 
             return $response->setData(array('info' => 'Mission effacée'));
+        }
+      
+     public function modifierMissionAction(Request $request, $id,$titre,$description) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $entity = $em->getRepository('GestionBundle:Missions')->find($id);
+           
+            if (!$entity) {
+                throw $this->createNotFoundException('Unable to find Missions entity.');
+            }
+            $entity->setTitre($titre);
+            $entity->setDescription($description);
+            $em->persist($entity);
+            $em->flush();
+            
+            $response = new JsonResponse();
+
+            return $response->setData(array('info' => 'Mission modifiée', 'titre' => $titre,'description' => $description));
         }
         
     /**

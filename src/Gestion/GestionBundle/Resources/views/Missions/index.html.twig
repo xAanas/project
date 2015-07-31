@@ -3,7 +3,7 @@
 {% block body -%}
     <div class="container">
         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg">
+            <div class="modal-dialog modal-wide">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">x</button>
@@ -19,7 +19,7 @@
                                 {{ form_errors(form.titre) }}
 
                                 <div class="col-sm-4">
-                                    {{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_widget(form.titre, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                             </div>
                             <div class="form-group">
@@ -28,7 +28,7 @@
                                 {{ form_errors(form.description) }}
 
                                 <div class="col-sm-4">
-                                    {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                                    {{ form_widget(form.description, {'attr': {'class': 'form-control form-control-court'}}) }}
                                 </div>
                             </div>
 
@@ -66,22 +66,30 @@
                         {% for entity in entities %}
                             <tr>
                                 <td><a href="{{ path('missions_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-                                <td>{{ entity.titre }}</td>
-                                <td>{% if entity.description %}
+                                <td>
+                                         <p id="titreTab{{entity.id}}">
+                                        {{ entity.titre }}
+                                         </p>
+                                        </td>
+                                <td>
+                                     <div id="descriptionTab{{entity.id}}">
+                                    {% if entity.description %}
                                     {{ entity.description }}
                                 {% else%}
                                     pas de description
                                     {% endif %}
+                                      </div>
                                     </td>
+                                   
                                     <td>
-                                    <a href="{{ path('missions_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la mission"></span></a>
+                                    <a href="#" data-toggle="modal" data-target="#modifierModal{{entity.id}}"><span class="glyphicon glyphicon-pencil" title="modifier la mission"></span></a>
 
                                     <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer le client"></span></a>
 
                                     </td>
                                 </tr>
                                 
-                                 <div class="modal fade" id="effacerModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+         <div class="modal fade" id="effacerModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -94,6 +102,43 @@
                         <a href="javascript:effacerMission('{{entity.id}}');" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span> Effacer</a>
                        
                             <span id="loadereffacdem{{entity.id}}" style="display: none;"><img src="{{ asset('img/loader.gif') }}" alt="loading" /></span></div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+                  
+            <div class="modal fade" id="modifierModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-wide">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modifier la mission {{entity.titre}} </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="well">
+                            <div class="form-group">
+                           <div class="col-sm-3">
+                                Titre :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="titreMission{{entity.id}}" style="width: 200px ;"  required="required" value="{{entity.titre}}">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group">
+                           <div class="col-sm-3">
+                                Description :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="descriptionMission{{entity.id}}" style="width: 200px ;" value="{{entity.description}}">
+                            </div>
+                        </div>
+                            <br/>
+                            <div class="form-group" align="right">
+                                <button class="btn btn-default" data-dismiss="modal">Quitter</button>
+                                <button class="btn btn-primary" onclick="javascript:modifierMission('{{entity.id}}',document.getElementById('titreMission{{entity.id}}'),document.getElementById('descriptionMission{{entity.id}}'),document.getElementById('titreTab{{entity.id}}'),document.getElementById('descriptionTab{{entity.id}}'));"><span class="glyphicon glyphicon-save"></span> Update</button>
+                        </div>
+                        </div>
                     </div>
                    
                 </div>
@@ -125,5 +170,24 @@
                                                     }
                                             });
                                     }
+                                    
+                            function modifierMission(idMission,titreMission,descriptionMission,titreTab,descriptionTab){
+                                if(descriptionMission.value == ""){
+                                    descriptionMission.value = "pas de description";
+                                }
+                                        $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('modifierMission',{ 'id' : idMission,'titre' : titreMission.value, 'description' : descriptionMission.value  }),
+                                                    beforeSend: function () {
+
+                                                        console.log('modifier mission '+ idMission);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        titreTab.value = data.titre;
+                                                        descriptionTab.value = data.description ; 
+                                                    }
+                                            });
+                                    }   
                                     </script>
                 {% endblock %}

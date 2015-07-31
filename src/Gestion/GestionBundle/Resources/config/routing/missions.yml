@@ -34,3 +34,9 @@ effacerMission:
     defaults: { _controller: "GestionBundle:Missions:effacerMission" }
     options:
         expose: true
+        
+modifierMission:
+    path:     /{id}/{titre}/{description}/modifierM
+    defaults: { _controller: "GestionBundle:Missions:modifierMission" }
+    options:
+        expose: true

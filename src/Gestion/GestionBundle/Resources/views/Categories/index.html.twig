@@ -60,7 +60,7 @@
                 <td><a href="{{ path('categories_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.titre }}</td>
                 <td>
-                 <a href="{{ path('categories_edit', { 'id': entity.id }) }}"><span class="glyphicon glyphicon-pencil" title="modifier la catégorie"></span></a>
+                 <a href="#" data-toggle="modal" data-target="#modifierModal{{entity.id}}"><span class="glyphicon glyphicon-pencil" title="modifier la catégorie    "></span></a>
 
                  <a href="#" data-toggle="modal" data-target="#effacerModal{{entity.id}}"><span class="glyphicon glyphicon-trash" title="effacer la catégorie"></span></a>
  
@@ -85,7 +85,35 @@
                 </div>
             </div>
         </div>
-        
+        <div class="modal fade" id="modifierModal{{entity.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-wide">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Modifier la catégorie {{entity.titre}} </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="well">
+                            <div class="form-group">
+                           <div class="col-sm-3">
+                                Titre :
+                            </div>
+                            <div class="col-sm-4">
+                                <input type="text" id="titreCategorie{{entity.id}}" style="width: 200px ;"  required="required" value="{{entity.titre}}">
+                            </div>
+                        </div>
+                            <br/>
+                            
+                            <div class="form-group" align="right">
+                                <button class="btn btn-default" data-dismiss="modal">Quitter</button>
+                                <button class="btn btn-primary" onclick="javascript:modifierCategorie('{{entity.id}}',document.getElementById('titreCategorie{{entity.id}}'),document.getElementById('titreTab{{entity.id}}'));"><span class="glyphicon glyphicon-save"></span> Update</button>
+                        </div>
+                        </div>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+                            
         {% endfor %}
         </tbody>
     </table>
@@ -109,5 +137,24 @@
                                                     }
                                             });
                                     }
+                                    function modifierCategorie(idCategorie,titreCategorie,titreTab){
+                              /*  if(descriptionMission.value == ""){
+                                    descriptionMission.value = "pas de description";
+                                }
+                                    */
+                                   $.ajax({
+                                                    type: 'post',
+                                                    url: Routing.generate('modifierMission',{ 'id' : idCategorie,'titre' : titreCategorie.value }),
+                                                    beforeSend: function () {
+
+                                                        console.log('modifier mission '+ idCategorie);
+                                                    },
+                                                    success: function (data) {
+                                                        console.log('so : ' + data.info)
+                                                        titreTab.value = data.titre;
+                                                        descriptionTab.value = data.description ; 
+                                                    }
+                                            });
+                                    }   
                                     </script>
                 {% endblock %}
